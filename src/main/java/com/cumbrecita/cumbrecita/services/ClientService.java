@@ -1,5 +1,7 @@
 package com.cumbrecita.cumbrecita.services;
 
+import com.cumbrecita.cumbrecita.entities.Client;
+import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +21,14 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-public class UserService implements UserDetailsService {
+public class ClientService implements UserDetailsService {
 
     @Autowired
-    private UserRepository uR;
+    private ClientRepository uR;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Client client = uR.findbyEmail(email);
+        Client client = uR.searchByEmail(email);
 
         if (client != null) {
 
@@ -35,16 +37,16 @@ public class UserService implements UserDetailsService {
             GrantedAuthority p1 = new SimpleGrantedAuthority("CLIENT");
             permisos.add(p1);
 
-            if (client.getEmail().equals("admin@admin.com")) {
+            if (client.getMail().equals("admin@admin.com")) {
                 GrantedAuthority p2 = new SimpleGrantedAuthority("ADMIN");
-                permisos.add(p1);
+                permisos.add(p2);
             }
 
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attr.getRequest().getSession();
             session.setAttribute("sessionClient", client);
 
-            User user = new User(client.getEmail(), client.getPassword(), permisos);
+            User user = new User(client.getMail(), client.getPass(), permisos);
             return user;
         } else {
             return null;

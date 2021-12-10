@@ -1,5 +1,5 @@
 package com.cumbrecita.cumbrecita;
-import com.cumbrecita.cumbrecita.services.UserService;
+import com.cumbrecita.cumbrecita.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    public UserService userService;
+    public ClientService userService;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

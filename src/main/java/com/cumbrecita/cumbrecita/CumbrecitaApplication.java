@@ -1,6 +1,6 @@
 package com.cumbrecita.cumbrecita;
 
-import com.cumbrecita.cumbrecita.services.UserService;
+import com.cumbrecita.cumbrecita.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class CumbrecitaApplication {
 
     @Autowired
-    private UserService userService;
+    private ClientService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(CumbrecitaApplication.class, args);
