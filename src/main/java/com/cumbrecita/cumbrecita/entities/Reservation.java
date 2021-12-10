@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -15,7 +16,9 @@ public class Reservation {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date start;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date end;
     @OneToOne
     private Client c;

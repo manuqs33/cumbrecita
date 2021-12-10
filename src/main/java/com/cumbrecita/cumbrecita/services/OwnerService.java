@@ -1,11 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.cumbrecita.cumbrecita.services;
 
-import com.cumbrecita.cumbrecita.entities.Client;
-import com.cumbrecita.cumbrecita.repositories.ClientRepository;
+import com.cumbrecita.cumbrecita.entities.Owner;
+import com.cumbrecita.cumbrecita.repositories.OwnerRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -20,32 +24,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class ClientService implements UserDetailsService {
+public class OwnerService implements UserDetailsService {
 
     @Autowired
-    private ClientRepository uR;
+    private OwnerRepository oR;
 
     @Transactional
-    public void registerClient(String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
+    public void registerOwner(String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
         validate(firstname, lastname, email, password, password2, dni);
 
-        Client client = new Client();
+        Owner owner = new Owner();
 
-        client.setFirstname(firstname);
-        client.setLastname(lastname);
-        client.setMail(email);
-        client.setDni(dni);
-        client.setBirthdate(bdate);
+        owner.setFirstname(firstname);
+        owner.setLastname(lastname);
+        owner.setMail(email);
+        owner.setDni(dni);
+        owner.setBirthdate(bdate);
 
         String encriptada = new BCryptPasswordEncoder().encode(password);
-        client.setPass(encriptada);
+        owner.setPass(encriptada);
 
-        client.setIsactive(true);
+        owner.setIsactive(true);
 
-        uR.save(client);
+        oR.save(owner);
     }
 
     @Transactional
@@ -53,51 +56,52 @@ public class ClientService implements UserDetailsService {
 
         validate(firstname, lastname, email, password, password2, dni);
 
-        Optional<Client> ans = uR.findById(id);
+        Optional<Owner> ans = oR.findById(id);
         if (ans.isPresent()) {
-            Client client = ans.get();
+            Owner owner = ans.get();
 
-            client.setFirstname(firstname);
-            client.setLastname(lastname);
-            client.setMail(email);
-            client.setDni(dni);
-            client.setBirthdate(bdate);
+            owner.setFirstname(firstname);
+            owner.setLastname(lastname);
+            owner.setMail(email);
+            owner.setDni(dni);
+            owner.setBirthdate(bdate);
 
             String encriptada = new BCryptPasswordEncoder().encode(password);
-            client.setPass(encriptada);
-            uR.save(client);
+            owner.setPass(encriptada);
+            oR.save(owner);
+
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
     }
 
     @Transactional
-    public void activeClient(String id) throws ErrorService {
+    public void activeOwner(String id) throws ErrorService {
 
-        Optional<Client> ans = uR.findById(id);
+        Optional<Owner> ans = oR.findById(id);
         if (ans.isPresent()) {
-            Client client = ans.get();
-            if (client.getIsactive()) {
+            Owner owner = ans.get();
+            if (owner.getIsactive()) {
                 throw new ErrorService("El usuario ya esta activo");
             }
-            client.setIsactive(true);
-            uR.save(client);
+            owner.setIsactive(true);
+            oR.save(owner);
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
     }
-
+    
     @Transactional
     public void deactivate(String id) throws ErrorService {
 
-        Optional<Client> ans = uR.findById(id);
+        Optional<Owner> ans = oR.findById(id);
         if (ans.isPresent()) {
-            Client client = ans.get();
-            if (!client.getIsactive()) {
+            Owner owner = ans.get();
+            if (!owner.getIsactive()) {
                 throw new ErrorService("El usuario ya esta dado de baja");
             }
-            client.setIsactive(false);
-            uR.save(client);
+            owner.setIsactive(false);
+            oR.save(owner);
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
@@ -126,25 +130,20 @@ public class ClientService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Client client = uR.searchByEmail(email);
+        Owner owner = oR.searchByEmail(email);
 
-        if (client != null) {
+        if (owner != null) {
 
             List<GrantedAuthority> permisos = new ArrayList();
 
-            GrantedAuthority p1 = new SimpleGrantedAuthority("CLIENT");
+            GrantedAuthority p1 = new SimpleGrantedAuthority("OWNER");
             permisos.add(p1);
-
-            if (client.getMail().equals("admin@admin.com")) {
-                GrantedAuthority p2 = new SimpleGrantedAuthority("ADMIN");
-                permisos.add(p2);
-            }
 
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attr.getRequest().getSession();
-            session.setAttribute("sessionClient", client);
+            session.setAttribute("sessionClient", owner);
 
-            User user = new User(client.getMail(), client.getPass(), permisos);
+            User user = new User(owner.getMail(), owner.getPass(), permisos);
             return user;
         } else {
             return null;
