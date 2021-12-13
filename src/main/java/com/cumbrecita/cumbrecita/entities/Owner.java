@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -20,6 +21,7 @@ public class Owner {
     private Long dni;
     private String mail;
     private String pass;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthdate;
 
     public Owner() {

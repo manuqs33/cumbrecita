@@ -1,7 +1,7 @@
 ## YAML Template.
 ---
 
-#Configuración Mail Sender
+#Configuraciï¿½n Mail Sender
 spring:
   mail: 
     host: smtp.gmail.com
@@ -13,15 +13,15 @@ spring:
                 starttls:
                     required: true
                     enable: true
-    username: ElNahuel2003@gmail.com
-    password: miclavenahuelmdq
- #Configuración MySQL
+    username: noreply.cumbrecita@gmail.com
+    password: cumbrecita2021
+ #Configuraciï¿½n MySQL
   datasource: 
     url: jdbc:mysql://localhost:3306/cumbrecita?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver 
-#Configuaración Creacion de tablas (Hibernate)
+#Configuaraciï¿½n Creacion de tablas (Hibernate)
   jpa:
     show-sql: true
     hibernate:
@@ -31,7 +31,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect      
   thymeleaf:
     cache: false 
-#Configuración para cambiar la pagina de error 
+#Configuraciï¿½n para cambiar la pagina de error 
 server: 
   error:
     whitelabel:
