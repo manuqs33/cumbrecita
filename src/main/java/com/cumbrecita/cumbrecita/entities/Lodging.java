@@ -7,11 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
+import com.cumbrecita.cumbrecita.enumc.Type;
 
-enum Type
-{
-    house, room;
-}
+
 
 @Entity
 public class Lodging {
