@@ -6,7 +6,9 @@
 package com.cumbrecita.cumbrecita.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MainController {
@@ -16,4 +18,10 @@ public class MainController {
         return "index.html";
     }
     
+    @PostMapping("/signup")
+    public String register(ModelMap model){
+        
+        
+        return "signup.html";
+    }
 }
