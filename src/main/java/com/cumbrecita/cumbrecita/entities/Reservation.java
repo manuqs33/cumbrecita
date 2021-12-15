@@ -52,13 +52,12 @@ public class Reservation {
     }
 
 
-
-    public Date getStarDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
     public void setStartDate(Date start) {
-        this.startDate = startDate;
+        this.startDate = start;
 
     }
 
@@ -68,7 +67,7 @@ public class Reservation {
 
 
     public void setEndDate(Date end) {
-        this.endDate = endDate;
+        this.endDate = end;
 
     }
 
