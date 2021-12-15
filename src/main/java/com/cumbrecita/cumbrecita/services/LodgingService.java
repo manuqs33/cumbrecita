@@ -5,7 +5,9 @@ package com.cumbrecita.cumbrecita.services;
 import com.cumbrecita.cumbrecita.enumc.Type;
 import com.cumbrecita.cumbrecita.entities.Lodging;
 import com.cumbrecita.cumbrecita.entities.Owner;
+import com.cumbrecita.cumbrecita.entities.Photo;
 import com.cumbrecita.cumbrecita.repositories.LodgingRepository;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,8 @@ public class LodgingService {
     private LodgingRepository lR;
     
     @Transactional
-    public void registerLodging(String name, String address, Type t, Integer capacity, Double pricepernight, Owner o) throws ErrorService {
-        validate(name, address, t, capacity, pricepernight);
+    public void registerLodging(String name, String address, Type t, Integer capacity, Double pricepernight, Owner o, List<Photo> photolist) throws ErrorService {
+        validate(name, address, t, capacity, pricepernight, photolist);
         validateOwner(o);
         Lodging lodging = new Lodging();
         lodging.setName(name);
@@ -29,13 +31,14 @@ public class LodgingService {
         lodging.setCapacity(capacity);
         lodging.setPricepernight(pricepernight);
         lodging.setO(o);
+        lodging.setPhotolist(photolist);
         lodging.setIsactive(true);
         lR.save(lodging);
     }
     
     @Transactional
-    public void modify(String id, String name, String address, Type t, Integer capacity, Double pricepernight) throws ErrorService {
-           validate(name, address, t, capacity, pricepernight);
+    public void modify(String id, String name, String address, Type t, Integer capacity, Double pricepernight, List<Photo> photolist) throws ErrorService {
+           validate(name, address, t, capacity, pricepernight, photolist);
            Optional<Lodging> ans = lR.findById(id);
           if (ans.isPresent()) {
                Lodging lodging = ans.get();
@@ -44,13 +47,14 @@ public class LodgingService {
                lodging.setT(t);
                lodging.setCapacity(capacity);
                lodging.setPricepernight(pricepernight);
+               lodging.setPhotolist(photolist);
           } else {
               throw new ErrorService("No se encontró el alojamiento solicitado");
           }      
     }
     
     
-    public void validate(String name, String address, Type t, Integer capacity, Double pricepernight) throws ErrorService {
+    public void validate(String name, String address, Type t, Integer capacity, Double pricepernight, List<Photo> photolist) throws ErrorService {
         if (name == null || name.isEmpty()) {
             throw new ErrorService("El nombre del alojamiento no puede estar vacío ni ser nulo");
         }
@@ -66,7 +70,9 @@ public class LodgingService {
         if (pricepernight == 0 || pricepernight == null) {
             throw new ErrorService("El precio por noche del alojamiento no puede estar vacío ni ser nulo");
         }
-        
+         if (photolist == null) {
+            throw new ErrorService("El alojamiento debe tener al menos una foto");
+        }
     }
     
      public void validateOwner(Owner o) throws ErrorService {
