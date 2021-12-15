@@ -52,7 +52,7 @@ public class OwnerService implements UserDetailsService {
     }
 
     @Transactional
-    public void modificar(String id, String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
+    public void modify(String id, String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
 
         validate(firstname, lastname, email, password, password2, dni);
 
@@ -105,6 +105,11 @@ public class OwnerService implements UserDetailsService {
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
+    }
+    
+    
+    public List<Owner> listOwners(){
+        return oR.findAll();
     }
 
     public void validate(String fistname, String lastname, String email, String password, String password2, Long dni) throws ErrorService {

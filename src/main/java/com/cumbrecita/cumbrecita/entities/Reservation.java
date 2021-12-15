@@ -32,8 +32,11 @@ public class Reservation {
 
     public Reservation(String id, Date startDate, Date endDate, Client c, Lodging l, String observations, Double price) {
         this.id = id;
+
+
         this.startDate = startDate;
         this.endDate = endDate;
+
         this.c = c;
         this.l = l;
         this.observations = observations;
@@ -48,20 +51,25 @@ public class Reservation {
         this.id = id;
     }
 
-    public Date getStartDate() {
+
+
+    public Date getStarDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Date start) {
         this.startDate = startDate;
+
     }
 
     public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+
+    public void setEndDate(Date end) {
         this.endDate = endDate;
+
     }
 
     public Client getC() {
