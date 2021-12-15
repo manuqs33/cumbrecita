@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 import com.cumbrecita.cumbrecita.enumc.Type;
+import java.util.List;
+import javax.persistence.OneToMany;
 
 
 
@@ -25,11 +27,13 @@ public class Lodging {
     private Double pricepernight;
     @ManyToOne
     private Owner o;
+    @OneToMany
+    private List<Photo> photolist;
 
     public Lodging() {
     }
 
-    public Lodging(String id, Boolean isactive, String name, String address, Type t, Integer capacity, Double pricepernight, Owner o) {
+    public Lodging(String id, Boolean isactive, String name, String address, Type t, Integer capacity, Double pricepernight, Owner o, List<Photo> photolist) {
         this.id = id;
         this.isactive = isactive;
         this.name = name;
@@ -67,7 +71,7 @@ public class Lodging {
     public String getAddress() {
         return address;
     }
-
+    
     public void setAddress(String address) {
         this.address = address;
     }
@@ -104,5 +108,12 @@ public class Lodging {
         this.o = o;
     }
     
+     public List<Photo> getPhotolist() {
+        return photolist;
+    }
+
+    public void setPhotolist(List<Photo> photolist) {
+        this.photolist = photolist;
+    }
     
 }
