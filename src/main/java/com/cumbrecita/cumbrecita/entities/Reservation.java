@@ -30,10 +30,13 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(String id, Date start, Date end, Client c, Lodging l, String observations, Double price) {
+    public Reservation(String id, Date startDate, Date endDate, Client c, Lodging l, String observations, Double price) {
         this.id = id;
-        this.startDate = start;
-        this.endDate = end;
+
+
+        this.startDate = startDate;
+        this.endDate = endDate;
+
         this.c = c;
         this.l = l;
         this.observations = observations;
@@ -48,20 +51,25 @@ public class Reservation {
         this.id = id;
     }
 
+
+
     public Date getStarDate() {
         return startDate;
     }
 
     public void setStartDate(Date start) {
-        this.startDate = start;
+        this.startDate = startDate;
+
     }
 
     public Date getEndDate() {
         return endDate;
     }
 
+
     public void setEndDate(Date end) {
-        this.endDate = end;
+        this.endDate = endDate;
+
     }
 
     public Client getC() {
