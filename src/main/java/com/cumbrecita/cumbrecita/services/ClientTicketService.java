@@ -7,6 +7,7 @@ package com.cumbrecita.cumbrecita.services;
 
 import com.cumbrecita.cumbrecita.entities.ClientTicket;
 import com.cumbrecita.cumbrecita.entities.Payment;
+import com.cumbrecita.cumbrecita.entities.Photo;
 import com.cumbrecita.cumbrecita.entities.Reservation;
 import com.cumbrecita.cumbrecita.entities.TicketAnswer;
 import com.cumbrecita.cumbrecita.repositories.ClientTicketRepository;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -25,9 +27,10 @@ public class ClientTicketService {
     
     private ClientTicketRepository ctr;
     private TicketAnswerRepository tar;
+    private PhotoService photoService;
     
     @Transactional
-    public void newTicket(Reservation r, Payment t, String subject, String text) throws ErrorService{
+    public void newTicket(Reservation r, Payment t, String subject, String text, MultipartFile file) throws ErrorService{
         validate(subject, text);
         
         ClientTicket ct = new ClientTicket();
@@ -39,11 +42,14 @@ public class ClientTicketService {
         ct.setSubject(subject);
         ct.setText(text);
         
+        Photo photo = photoService.save(file);
+        ct.setPhoto(photo);
+        
         ctr.save(ct);
     }
     
     @Transactional
-    public void answerTicket(String content) throws ErrorService{
+    public void answerTicket(String content, MultipartFile file) throws ErrorService{
         if (content == null || content.equals("") || content.equals(" ")) {
             throw new ErrorService("La respuesta no puede estar vacia");
         }
@@ -51,6 +57,8 @@ public class ClientTicketService {
         TicketAnswer ta = new TicketAnswer();
         
         ta.setContent(content);
+        Photo photo = photoService.save(file);
+        ta.setPhoto(photo);
         
         tar.save(ta);
     }

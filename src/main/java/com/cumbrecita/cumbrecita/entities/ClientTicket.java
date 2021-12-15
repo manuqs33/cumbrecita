@@ -37,7 +37,8 @@ public class ClientTicket {
     private Boolean isactive;
     private String subject;
     private String text;
-    //private Photo photo;
+    @OneToOne
+    private Photo photo;
     @OneToMany
     private TicketAnswer ticketAnswer;
 
@@ -115,6 +116,15 @@ public class ClientTicket {
     public void setTicketAnswer(TicketAnswer ticketAnswer) {
         this.ticketAnswer = ticketAnswer;
     }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+    
     
     
 

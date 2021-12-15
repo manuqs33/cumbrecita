@@ -8,6 +8,7 @@ package com.cumbrecita.cumbrecita.services;
 import com.cumbrecita.cumbrecita.entities.Lodging;
 import com.cumbrecita.cumbrecita.entities.OwnerTicket;
 import com.cumbrecita.cumbrecita.entities.Payment;
+import com.cumbrecita.cumbrecita.entities.Photo;
 import com.cumbrecita.cumbrecita.entities.Reservation;
 import com.cumbrecita.cumbrecita.entities.TicketAnswer;
 import com.cumbrecita.cumbrecita.repositories.OwnerTicketRepository;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -26,9 +28,10 @@ public class OwnerTicketService {
     
     private OwnerTicketRepository otr;
     private TicketAnswerRepository tar;
+    private PhotoService photoService;
     
     @Transactional
-    public void newTicket(Lodging lodging, Reservation r, Payment p, String subject, String text) throws ErrorService{//Photo photo
+    public void newTicket(Lodging lodging, Reservation r, Payment p, String subject, String text, MultipartFile file) throws ErrorService{//Photo photo
         validate(subject, text);
         
         OwnerTicket ot = new OwnerTicket();
@@ -39,13 +42,16 @@ public class OwnerTicketService {
         ot.setInitDate(new Date());
         ot.setIsactive(true);
         ot.setSubject(subject);
-        ot.setText(text);
+        ot.setText(text); 
+        
+        Photo photo = photoService.save(file);
+        ot.setPhoto(photo);
         
         otr.save(ot);
     }
     
     @Transactional
-    public void answerTicket(String content) throws ErrorService{
+    public void answerTicket(String content, MultipartFile file) throws ErrorService{
         if (content == null || content.equals("") || content.equals(" ")) {
             throw new ErrorService("La respuesta no puede estar vacia");
         }
@@ -53,6 +59,9 @@ public class OwnerTicketService {
         TicketAnswer ta = new TicketAnswer();
         
         ta.setContent(content);
+        
+        Photo photo = photoService.save(file);
+        ta.setPhoto(photo);
         
         tar.save(ta);
     }

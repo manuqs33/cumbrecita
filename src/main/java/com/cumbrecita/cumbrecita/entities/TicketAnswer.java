@@ -22,7 +22,7 @@ public class TicketAnswer {
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
     private String content;
-    //private Photo photo;
+    private Photo photo;
 
     public TicketAnswer() {
     }
@@ -46,6 +46,14 @@ public class TicketAnswer {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
     
     
