@@ -49,6 +49,27 @@ public class MainController {
         return "signup.html";
     }
 
+    @GetMapping("/contact")
+    public String contact(){
+        return "contact.html";
+    }
+    
+    /*PostMapping*/
+    
+    @PostMapping("/contact/sendmessage")
+    public String sendEmail(ModelMap model, String subject, String message, String email, String phoneNumber) {
+        try {
+            String emailBody = message + "\n Email de contacto: "+email+"\n Numero celular de contacto: "+phoneNumber;
+            emailService.send(email, emailBody, subject);
+        } catch (ErrorService ex) {
+            model.put("error", ex.getMessage());
+            return "contact.html";
+        }
+        
+        model.put("message", "El mensaje fue enviado correctamente. Nos contactaremos lo antes posible, muchas gracias!");
+        return "contact.html";
+    }
+    
     @PostMapping("/signup")
     public String register(ModelMap model, String fname, String lname, Long dni, String email, String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
 
@@ -69,7 +90,11 @@ public class MainController {
                 + "Si no puedes ver el link puedes utilizar esta direccion URL en tu navegador: \n"
                 + "localhost:8080/client/autorize/" + cR.searchByEmail(email).getId();
 
-        emailService.send(email, emailBody, "Bienvenido a La Cumbrecita");
+        try {
+            emailService.send(email, emailBody, "Bienvenido a La Cumbrecita");
+        } catch (ErrorService ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         model.put("title", "Bienvenido a la Libreria Online");
         model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Revisa tu casilla de correos para completar el registro.");

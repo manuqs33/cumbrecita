@@ -1,7 +1,9 @@
 package com.cumbrecita.cumbrecita.services;
 
 import com.cumbrecita.cumbrecita.entities.Client;
+import com.cumbrecita.cumbrecita.entities.Owner;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
+import com.cumbrecita.cumbrecita.repositories.OwnerRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,11 +29,14 @@ public class ClientService implements UserDetailsService {
 
     @Autowired
     private ClientRepository uR;
+    @Autowired
+    private OwnerRepository oR;
 
     @Transactional
     public void registerClient(String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
         validate(firstname, lastname, email, password, password2, dni);
-
+        validateEmail(email);
+        
         Client client = new Client();
 
         client.setFirstname(firstname);
@@ -52,7 +57,8 @@ public class ClientService implements UserDetailsService {
     public void modify(String id, String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
 
         validate(firstname, lastname, email, password, password2, dni);
-
+        validateEmail(email);
+        
         Optional<Client> ans = uR.findById(id);
         if (ans.isPresent()) {
             Client client = ans.get();
@@ -126,6 +132,23 @@ public class ClientService implements UserDetailsService {
         if (dni == 0 || dni < 1000000 || dni > 100000000) {
             throw new ErrorService("El dni es incorrecto");
         }
+    }
+    
+    public void validateEmail(String email) throws ErrorService{
+        List<Client> clients = uR.findAll();
+        List<Owner> owners = oR.findAll();
+        
+        for (Owner owner : owners) {
+            if (owner.getMail().equals(email)) {
+                throw new ErrorService("El email ingresado ya esta en uso");
+            }
+        }
+        for (Client client : clients) {
+            if (client.getMail().equals(email)) {
+                throw new ErrorService("El email ingresado ya esta en uso");
+            }
+        }
+        
     }
 
     @Override
