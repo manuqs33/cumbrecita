@@ -20,7 +20,9 @@ public class EmailService{
     @Autowired
     private JavaMailSender javaMailSender;
     
-    public void send(String to, String body, String subject){
+    public void send(String to, String body, String subject) throws ErrorService{
+        
+        validate(body, subject);
         
         SimpleMailMessage message = new SimpleMailMessage();
         
@@ -31,6 +33,15 @@ public class EmailService{
         message.setSubject(subject);
         
         javaMailSender.send(message);
+    }
+    
+    public void validate(String body, String subject) throws ErrorService{
+        if (subject.length() < 6) {
+            throw new ErrorService("EL asunto del mensaje no puede contener menos de 6 caracteres.");
+        }
+        if (body.length() < 20) {
+            throw new ErrorService("El mensaje es muy corto, le pedimos por favor sea mas detallado.");
+        }
     }
     
 }

@@ -27,6 +27,8 @@ public class OwnerTicket {
     private String id;
     
     @OneToOne
+    private Owner owner;
+    @OneToOne
     private Lodging lodging;
     @OneToOne
     private Reservation resevation;
@@ -134,6 +136,15 @@ public class OwnerTicket {
     public void setPhoto(Photo photo) {
         this.photo = photo;
     }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+    
     
     
     

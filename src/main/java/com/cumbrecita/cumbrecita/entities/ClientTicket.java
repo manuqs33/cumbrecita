@@ -27,6 +27,8 @@ public class ClientTicket {
     private String id;
 
     @OneToOne
+    private Client client;
+    @OneToOne
     private Reservation reservation;
     @OneToOne
     private Payment payment;
@@ -124,8 +126,13 @@ public class ClientTicket {
     public void setPhoto(Photo photo) {
         this.photo = photo;
     }
-    
-    
-    
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
 }
