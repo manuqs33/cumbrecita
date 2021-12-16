@@ -1,5 +1,3 @@
-
-
 package com.cumbrecita.cumbrecita.entities;
 
 import java.util.Date;
@@ -11,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Owner {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
@@ -109,7 +108,7 @@ public class Owner {
 
     public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
+
     }
-    
-    
+
 }

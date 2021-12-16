@@ -42,7 +42,7 @@ public class ReservationService {
 
     public void validate(Reservation reservation) throws ErrorService {
 
-        if (reservation.getStartDate() == null) {
+        if (reservation.getStarDate()== null) {
             throw new ErrorService("The reservation has to have a start date.");
         }
         if (reservation.getEndDate() == null) {
