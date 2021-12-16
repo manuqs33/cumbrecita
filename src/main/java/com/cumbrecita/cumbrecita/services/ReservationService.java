@@ -8,7 +8,6 @@ import com.cumbrecita.cumbrecita.repositories.ReservationRepository;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,8 @@ public class ReservationService {
         reservation.setL(L);
         reservation.setObservations(observations);
         int days = (int) ((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-        reservation.setPrice(L.getPricepernight() * days);
+        float price = (float) (L.getPricepernight() * days);
+        reservation.setPrice(price);
 
         validate(reservation);
 

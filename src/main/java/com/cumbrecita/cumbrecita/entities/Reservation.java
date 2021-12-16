@@ -25,12 +25,12 @@ public class Reservation {
     @OneToOne
     private Lodging l;
     private String observations;
-    private Double price;
+    private Float price;
 
     public Reservation() {
     }
 
-    public Reservation(String id, Date startDate, Date endDate, Client c, Lodging l, String observations, Double price) {
+    public Reservation(String id, Date startDate, Date endDate, Client c, Lodging l, String observations, Float price) {
         this.id = id;
 
 
@@ -95,11 +95,11 @@ public class Reservation {
         this.observations = observations;
     }
 
-    public Double getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
     
