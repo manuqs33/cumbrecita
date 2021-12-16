@@ -9,6 +9,7 @@ import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
 import com.cumbrecita.cumbrecita.services.EmailService;
 import com.cumbrecita.cumbrecita.services.ErrorService;
+import com.cumbrecita.cumbrecita.services.OwnerService;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,8 @@ public class MainController {
     private ClientRepository cR;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private OwnerService ownerService;
     @Autowired
     private EmailService emailService;
 
@@ -48,7 +51,12 @@ public class MainController {
     public String signup() {
         return "signup.html";
     }
-
+    
+    @GetMapping("/owner/signup")
+    public String ownerSignup() {
+        return "owner-signup.html";
+    }
+    
     @GetMapping("/contact")
     public String contact(){
         return "contact.html";
@@ -88,7 +96,7 @@ public class MainController {
 
         String emailBody = "Tu email ha sido utilizado para registrarse en La Cumbrecita. De no haber sido tú ignora este link, de manera contraria por favor da click aqui: (hipervinculo).\n"
                 + "Si no puedes ver el link puedes utilizar esta direccion URL en tu navegador: \n"
-                + "localhost:8080/client/autorize/" + cR.searchByEmail(email).getId();
+                + "localhost:8080/client/authorize/" + cR.searchByEmail(email).getId();
 
         try {
             emailService.send(email, emailBody, "Bienvenido a La Cumbrecita");
@@ -100,5 +108,28 @@ public class MainController {
         model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Revisa tu casilla de correos para completar el registro.");
         return "succes.html";
     }
+    
+    @PostMapping("/owner/signup")
+    public String ownerRegister(ModelMap model, String fname, String lname, Long dni, String email, Long phoneNumber,String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
+
+        try {
+            ownerService.registerOwner(fname, lname, email, dni, bdate, phoneNumber,password, password2);
+        } catch (ErrorService e) {
+            model.put("error", e.getMessage());
+            model.put("fname", fname);
+            model.put("lname", lname);
+            model.put("password", password);
+            model.put("password2", password2);
+            model.put("email", email);
+            model.put("phonenumber", phoneNumber);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, e);
+            return "owner-signup.html";
+        }
+
+        model.put("title", "Bienvenido a la Libreria Online");
+        model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Ahora espera a que el equipo verifique tus datos y se contacte contigo, hasta entonces mmuchas gracias!");
+        return "succes.html";
+    }
+
 
 }

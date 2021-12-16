@@ -54,7 +54,7 @@ public class AdminController {
     @GetMapping("/control-panel")
     public String panel(ModelMap model, HttpSession session) {
 
-        Client admin = (Client) session.getAttribute("sessionUsuario");
+        Client admin = (Client) session.getAttribute("sessionClient");
         if (admin == null || !admin.getMail().equals("admin@admin.com")) {
             return "redirect:/";
         }
@@ -73,7 +73,7 @@ public class AdminController {
     @GetMapping("/tickets")
     public String tickets(ModelMap model, HttpSession session) {
         
-        Client admin = (Client) session.getAttribute("sessionUsuario");
+        Client admin = (Client) session.getAttribute("sessionClient");
         if (admin == null || !admin.getMail().equals("admin@admin.com")) {
             return "redirect:/";
         }

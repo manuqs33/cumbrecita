@@ -32,7 +32,7 @@ public class OwnerService implements UserDetailsService {
     private OwnerRepository oR;
 
     @Transactional
-    public void registerOwner(String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
+    public void registerOwner(String firstname, String lastname, String email, Long dni, Date bdate, Long phoneNumber,String password, String password2) throws ErrorService {
         validate(firstname, lastname, email, password, password2, dni);
 
         Owner owner = new Owner();
@@ -42,6 +42,7 @@ public class OwnerService implements UserDetailsService {
         owner.setMail(email);
         owner.setDni(dni);
         owner.setBirthdate(bdate);
+        owner.setPhoneNumber(phoneNumber);
 
         String encriptada = new BCryptPasswordEncoder().encode(password);
         owner.setPass(encriptada);
@@ -146,7 +147,7 @@ public class OwnerService implements UserDetailsService {
 
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attr.getRequest().getSession();
-            session.setAttribute("sessionClient", owner);
+            session.setAttribute("sessionOwner", owner);
 
             User user = new User(owner.getMail(), owner.getPass(), permisos);
             return user;
