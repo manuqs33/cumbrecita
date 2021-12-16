@@ -32,8 +32,8 @@ public class ReservationService {
         reservation.setEndDate(endDate);
         reservation.setL(L);
         reservation.setObservations(observations);
-        int dias = endDate.compareTo(startDate);
-        reservation.setPrice(L.getPricepernight() * dias);
+        int days = (int)( (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+        reservation.setPrice(L.getPricepernight() * days);
 
         validate(reservation);
 

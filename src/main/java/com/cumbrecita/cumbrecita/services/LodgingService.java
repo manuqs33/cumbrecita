@@ -110,4 +110,16 @@ public class LodgingService {
            throw new ErrorService("No se encontró el alojamiento solicitado"); 
         }
     }
+    
+    public List<Lodging> listLodgingByQ(String q){
+        return lR.findByQ("%" + q + "%");
+    }
+    
+    public List<Lodging> listAllLodging(){
+        return lR.findAll();
+    }
+    
+    public Optional<Lodging> listById(String id){
+        return lR.findById(id);
+    }
 }
