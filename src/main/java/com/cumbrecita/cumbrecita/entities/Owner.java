@@ -23,6 +23,7 @@ public class Owner {
     private String pass;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthdate;
+    private Long phoneNumber;
 
     public Owner() {
     }
@@ -101,6 +102,13 @@ public class Owner {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
-    
+
+    public Long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }    
     
 }
