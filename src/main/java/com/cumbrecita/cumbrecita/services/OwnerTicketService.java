@@ -7,7 +7,6 @@ package com.cumbrecita.cumbrecita.services;
 
 import com.cumbrecita.cumbrecita.entities.Lodging;
 import com.cumbrecita.cumbrecita.entities.OwnerTicket;
-import com.cumbrecita.cumbrecita.entities.Payment;
 import com.cumbrecita.cumbrecita.entities.Photo;
 import com.cumbrecita.cumbrecita.entities.Reservation;
 import com.cumbrecita.cumbrecita.entities.TicketAnswer;
@@ -31,14 +30,13 @@ public class OwnerTicketService {
     private PhotoService photoService;
     
     @Transactional
-    public void newTicket(Lodging lodging, Reservation r, Payment p, String subject, String text, MultipartFile file) throws ErrorService{//Photo photo
+    public void newTicket(Lodging lodging, Reservation r, String subject, String text, MultipartFile file) throws ErrorService{//Photo photo
         validate(subject, text);
         
         OwnerTicket ot = new OwnerTicket();
         
         ot.setLodging(lodging);
         ot.setResevation(r);
-        ot.setPayment(p);
         ot.setInitDate(new Date());
         ot.setIsactive(true);
         ot.setSubject(subject);

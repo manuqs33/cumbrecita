@@ -30,8 +30,6 @@ public class ClientTicket {
     private Client client;
     @OneToOne
     private Reservation reservation;
-    @OneToOne
-    private Payment payment;
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date initDate;
@@ -39,15 +37,15 @@ public class ClientTicket {
     private Boolean isactive;
     private String subject;
     private String text;
+    
     @OneToOne
     private Photo photo;
     @OneToMany
     private TicketAnswer ticketAnswer;
 
-    public ClientTicket(String id, Reservation reservation, Payment payment, Date initDate, Boolean isactive) {
+    public ClientTicket(String id, Reservation reservation, Date initDate, Boolean isactive) {
         this.id = id;
         this.reservation = reservation;
-        this.payment = payment;
         this.initDate = initDate;
         this.isactive = isactive;
     }
@@ -69,14 +67,6 @@ public class ClientTicket {
 
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
     }
 
     public Date getInitDate() {

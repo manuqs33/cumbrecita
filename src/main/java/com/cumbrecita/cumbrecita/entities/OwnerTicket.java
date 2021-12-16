@@ -32,8 +32,6 @@ public class OwnerTicket {
     private Lodging lodging;
     @OneToOne
     private Reservation resevation;
-    @OneToOne
-    private Payment payment;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date initDate;
@@ -41,6 +39,7 @@ public class OwnerTicket {
     private Boolean isactive;
     private String subject;
     private String text;
+    @OneToOne
     private Photo photo;
     @OneToMany
     private TicketAnswer ticketAnswer;
@@ -48,11 +47,10 @@ public class OwnerTicket {
     public OwnerTicket() {
     }
     
-    public OwnerTicket(String id, Lodging lodging, Reservation resevation, Payment payment, Date initDate, Boolean isactive ) {
+    public OwnerTicket(String id, Lodging lodging, Reservation resevation, Date initDate, Boolean isactive ) {
         this.id = id;
         this.lodging = lodging;
         this.resevation = resevation;
-        this.payment = payment;
         this.initDate = initDate;
         this.isactive = isactive;
     }
@@ -79,14 +77,6 @@ public class OwnerTicket {
 
     public void setResevation(Reservation resevation) {
         this.resevation = resevation;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
     }
 
     public Date getInitDate() {
