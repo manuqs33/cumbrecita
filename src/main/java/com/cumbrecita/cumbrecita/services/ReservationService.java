@@ -31,7 +31,9 @@ public class ReservationService {
         reservation.setEndDate(endDate);
         reservation.setL(L);
         reservation.setObservations(observations);
+
         int days = (int) ((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+        
         float price = (float) (L.getPricepernight() * days);
         reservation.setPrice(price);
 
