@@ -22,7 +22,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ClientService implements UserDetailsService {
@@ -36,7 +35,7 @@ public class ClientService implements UserDetailsService {
     public void registerClient(String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
         validate(firstname, lastname, email, password, password2, dni);
         validateEmail(email);
-        
+
         Client client = new Client();
 
         client.setFirstname(firstname);
@@ -57,8 +56,7 @@ public class ClientService implements UserDetailsService {
     public void modify(String id, String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
 
         validate(firstname, lastname, email, password, password2, dni);
-        validateEmail(email);
-        
+
         Optional<Client> ans = uR.findById(id);
         if (ans.isPresent()) {
             Client client = ans.get();
@@ -108,8 +106,8 @@ public class ClientService implements UserDetailsService {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
     }
-    
-    public List<Client> listClient(){
+
+    public List<Client> listClient() {
         return uR.findAll();
     }
 
@@ -133,11 +131,11 @@ public class ClientService implements UserDetailsService {
             throw new ErrorService("El dni es incorrecto");
         }
     }
-    
-    public void validateEmail(String email) throws ErrorService{
+
+    public void validateEmail(String email) throws ErrorService {
         List<Client> clients = uR.findAll();
         List<Owner> owners = oR.findAll();
-        
+
         for (Owner owner : owners) {
             if (owner.getMail().equals(email)) {
                 throw new ErrorService("El email ingresado ya esta en uso");
@@ -148,14 +146,14 @@ public class ClientService implements UserDetailsService {
                 throw new ErrorService("El email ingresado ya esta en uso");
             }
         }
-        
+
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Client client = uR.searchByEmail(email);
 
-        if (client != null) {
+        if (client != null || client.getIsactive()) {
 
             List<GrantedAuthority> permisos = new ArrayList();
 
