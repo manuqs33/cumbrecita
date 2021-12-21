@@ -36,7 +36,7 @@ public class ReservationController {
     @PostMapping("/client/reservation")
     public String showReserv(ModelMap model, HttpSession session) {
         Client client = (Client) session.getAttribute("sessionClient");
-        Reservation reserv = rR.searchClient(session.getId());
+        List<Reservation> reserv = rR.searchClient(session.getId());//trae la lista de reservas que haya realizado el usuario
         model.addAttribute("reserv", reserv);
         return "client-reserv.html";
     }
