@@ -31,17 +31,17 @@ public class ClientController {
 
     @GetMapping("/client/authorize/{id}")
     public String authorize(@PathParam("id") String id, ModelMap model) {
-
+        System.out.println(id);
         try {
             clientService.activeClient(id);
         } catch (ErrorService ex) {
             Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
             model.put("error", ex.getMessage());
-            return "succes.html";
+            return "success.html";
         }
         
         model.put("title","Tu usuario fue autorizado correctamente");
-        return "succes.html";
+        return "success.html";
     }
 
 }

@@ -175,7 +175,11 @@ public class ClientService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Client client = uR.searchByEmail(email);
 
-        if (client != null || client.getIsactive()) {
+        if (!client.getIsactive()) {
+            return null;
+        }
+        
+        if (client != null ) {
 
             List<GrantedAuthority> permisos = new ArrayList();
 
