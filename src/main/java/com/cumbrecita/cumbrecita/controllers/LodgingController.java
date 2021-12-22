@@ -25,7 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LodgingController {
     
     //PARA QUIEN LEA:
-    
     //FALTA AGREGARLE LA SEGURIDAD. 
     //REVISAR EL "RECORRIDO" DE LA PÁGINA. SI ESTÁ BIEN QUE DESPUES DE CADA ACCION SE LO REDIRIGA A LAS VISTAS MENCIONADAS.
 
