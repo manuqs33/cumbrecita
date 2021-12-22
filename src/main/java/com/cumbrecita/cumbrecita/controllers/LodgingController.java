@@ -9,7 +9,9 @@ import com.cumbrecita.cumbrecita.services.ErrorService;
 import com.cumbrecita.cumbrecita.services.LodgingService;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LodgingController {
     
     //PARA QUIEN LEA:
-    
     //FALTA AGREGARLE LA SEGURIDAD. 
     //REVISAR EL "RECORRIDO" DE LA PÁGINA. SI ESTÁ BIEN QUE DESPUES DE CADA ACCION SE LO REDIRIGA A LAS VISTAS MENCIONADAS.
 
@@ -41,7 +42,8 @@ public class LodgingController {
         return "lodging-list";
     }
     
-    @GetMapping("/form") //ACÁ SE METEN LOS DATOS DEL LODGING. PONGO POR LAS DUDAS LA ESTRUCTURA PARA EDITAR UN ALOJAMIENTO (Por si se equivoca en una letra, no tenga que borrar y volver a crear)
+    @PreAuthorize("hasAnyRole('OWNER')")
+    @GetMapping("/create") //ACÁ SE METEN LOS DATOS DEL LODGING. PONGO POR LAS DUDAS LA ESTRUCTURA PARA EDITAR UN ALOJAMIENTO (Por si se equivoca en una letra, no tenga que borrar y volver a crear)
     public String createLodging(Model model, @RequestParam(required = false) String id) {
         if (id != null) {
             Optional<Lodging> optional = lodgingService.listById(id);
@@ -67,14 +69,27 @@ public class LodgingController {
         return "redirect:/lodging/list"; 
     }
     
+    @PreAuthorize("hasAnyRole('OWNER')")
     @GetMapping("/deactivate") //ACÁ VA A VENIR PARA CUANDO TOQUE EL BOTON "DAR DE BAJA"
-    public String deleteLodging(@RequestParam (required = true) String id) throws ErrorService{
+    public String deleteLodging(@RequestParam(required = true) String id, HttpSession session) throws ErrorService {
+        Lodging lodging = lodgingService.listById(id).get();
+        Owner owner = (Owner) session.getAttribute("sessionOwner");
+        if (owner == null || !lodging.getO().getId().equals(owner.getId())) {
+            return "redirect:/index";
+        }
+
         lodgingService.deactivate(id);
         return "redirect:/lodging/list";
     }
-    
+
+    @PreAuthorize("hasAnyRole('OWNER')")
     @GetMapping("activate") //ACÁ VIENE CUANDO TOQUE EL BOTON "DAR DE ALTA"
-    public String activateLodging(@RequestParam (required = true) String id) throws ErrorService{
+    public String activateLodging(@RequestParam(required = true) String id, HttpSession session) throws ErrorService {
+        Lodging lodging = lodgingService.listById(id).get();
+        Owner owner = (Owner) session.getAttribute("sessionOwner");
+        if (owner == null || !lodging.getO().getId().equals(owner.getId())) {
+            return "redirect:/index";
+        }
         lodgingService.activate(id);
         return "redirect:/lodging/list";
     }
