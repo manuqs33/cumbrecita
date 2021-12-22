@@ -79,14 +79,14 @@ public class MainController {
     }
     
     @PostMapping("/signup")
-    public String register(ModelMap model, String fname, String lname, Long dni, String email, String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
+    public String register(ModelMap model, String firstname, String lastname, Long dni, String email, String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
 
         try {
-            clientService.registerClient(fname, lname, email, dni, bdate, password, password2);
+            clientService.registerClient(firstname, lastname, email, dni, bdate, password, password2);
         } catch (ErrorService e) {
             model.put("error", e.getMessage());
-            model.put("fname", fname);
-            model.put("lname", lname);
+            model.put("fname", firstname);
+            model.put("lname", lastname);
             model.put("password", password);
             model.put("password2", password2);
             model.put("email", email);
@@ -97,7 +97,6 @@ public class MainController {
         String emailBody = "Tu email ha sido utilizado para registrarse en La Cumbrecita. De no haber sido tú ignora este link, de manera contraria por favor da click aqui: (hipervinculo).\n"
                 + "Si no puedes ver el link puedes utilizar esta direccion URL en tu navegador: \n"
                 + "localhost:8080/client/authorize/" + cR.searchByEmail(email).getId();
-
         try {
             emailService.send(email, emailBody, "Bienvenido a La Cumbrecita");
         } catch (ErrorService ex) {
@@ -106,7 +105,7 @@ public class MainController {
 
         model.put("title", "Bienvenido a la Libreria Online");
         model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Revisa tu casilla de correos para completar el registro.");
-        return "succes.html";
+        return "index.html";
     }
     
     @PostMapping("/owner/signup")

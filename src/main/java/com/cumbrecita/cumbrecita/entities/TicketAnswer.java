@@ -8,6 +8,7 @@ package com.cumbrecita.cumbrecita.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -22,6 +23,7 @@ public class TicketAnswer {
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
     private String content;
+    @OneToOne
     private Photo photo;
 
     public TicketAnswer() {

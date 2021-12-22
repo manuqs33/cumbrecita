@@ -45,7 +45,7 @@ public class ClientController {
 
     @GetMapping("/client/authorize/{id}")
     public String authorize(@PathParam("id") String id, ModelMap model) {
-
+        System.out.println(id);
         try {
             clientService.activeClient(id);
         } catch (ErrorService ex) {

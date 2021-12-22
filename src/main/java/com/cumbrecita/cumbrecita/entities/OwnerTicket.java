@@ -6,6 +6,7 @@
 package com.cumbrecita.cumbrecita.entities;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class OwnerTicket {
     @OneToOne
     private Photo photo;
     @OneToMany
-    private TicketAnswer ticketAnswer;
+    private List<TicketAnswer> ticketAnswer;
 
     public OwnerTicket() {
     }
@@ -111,11 +112,11 @@ public class OwnerTicket {
         this.text = text;
     }
 
-    public TicketAnswer getTicketAnswer() {
+    public List<TicketAnswer> getTicketAnswer() {
         return ticketAnswer;
     }
 
-    public void setTicketAnswer(TicketAnswer ticketAnswer) {
+    public void setTicketAnswer(List<TicketAnswer> ticketAnswer) {
         this.ticketAnswer = ticketAnswer;
     }
 

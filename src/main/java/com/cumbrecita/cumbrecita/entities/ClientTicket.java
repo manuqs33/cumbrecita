@@ -5,7 +5,10 @@
  */
 package com.cumbrecita.cumbrecita.entities;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author Flia Vasquez
  */
 @Entity
-public class ClientTicket {
+public class ClientTicket implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -41,7 +44,7 @@ public class ClientTicket {
     @OneToOne
     private Photo photo;
     @OneToMany
-    private TicketAnswer ticketAnswer;
+    private List<TicketAnswer> ticketAnswer;
 
     public ClientTicket(String id, Reservation reservation, Date initDate, Boolean isactive) {
         this.id = id;
@@ -101,11 +104,11 @@ public class ClientTicket {
         this.text = text;
     }
 
-    public TicketAnswer getTicketAnswer() {
+    public List<TicketAnswer> getTicketAnswer() {
         return ticketAnswer;
     }
 
-    public void setTicketAnswer(TicketAnswer ticketAnswer) {
+    public void setTicketAnswer(List<TicketAnswer>  ticketAnswer) {
         this.ticketAnswer = ticketAnswer;
     }
 
