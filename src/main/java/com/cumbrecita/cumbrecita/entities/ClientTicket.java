@@ -5,6 +5,8 @@
  */
 package com.cumbrecita.cumbrecita.entities;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -20,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author Flia Vasquez
  */
 @Entity
-public class ClientTicket {
+public class ClientTicket implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")

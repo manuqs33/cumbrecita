@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface LodgingRepository extends JpaRepository<Lodging, String> {
     
      @Query("SELECT c FROM Lodging c WHERE c.name = :name")
-    public ArrayList<Lodging> searchByLastName(@Param("name") String name);
+    public List<Lodging> searchByLastName(@Param("name") String name);
     
     @Query ("SELECT p FROM Lodging p WHERE p.name LIKE :q")
     public List<Lodging> findByQ(@Param("q")String q);
