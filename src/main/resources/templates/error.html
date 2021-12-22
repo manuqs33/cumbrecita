@@ -11,6 +11,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <label th:if="${titulo != null}" th:text="${titulo}"></label>
+        <label th:if="${text != null}" th:text="${text}"></label>
     </body>
 </html>
