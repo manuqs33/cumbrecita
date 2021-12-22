@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 public class ReservationService {
 
     @Autowired
-    ReservationRepository reservationRepository;
+    private ReservationRepository reservationRepository;
 
     @Autowired
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     //CONSULTAR
     @Transactional
