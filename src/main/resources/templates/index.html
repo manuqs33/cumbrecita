@@ -13,5 +13,11 @@ and open the template in the editor.
     <body>
         <button onclick="location.href='/login'">Login</button>
         <button onclick="location.href='/signup'">Registrar</button>
+        <button onclick="location.href='owner/signup'">Registrar dueño</button>
+        <button onclick="location.href='/lodging/create'">Cargar lodging</button>
+        <button onclick="location.href='/lodging/list'">ver lodging</button>
+        
+        <label th:if="${session.sessionOwner != null}">hola</label>
+        
     </body>
 </html>

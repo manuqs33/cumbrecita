@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>New lodging</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form th:action="@{/lodging/save}" method="POST" enctype="multipart/form-data">
+            <label for="name"><b>Nombre</b></label>
+            <input type="text" placeholder="Enter name" name="name" required>
+
+            <label for="address"><b>Direccion</b></label>
+            <input type="text" placeholder="Street name + number" name="address" required>
+
+            <label for="type"><b>Tipo</b></label>
+            <select name="type">
+                <option th:each="typeIndex : ${types}" th:value="${typeIndex}" th:text="${typeIndex}"></option>
+            </select>
+
+            <label for="capacity"><b>Capacidad</b></label>
+            <input type="number" placeholder="Enter capacity" name="capacity" required>
+
+            <label for="ppnigth"><b>Precio p/noche</b></label>
+            <input type="number" placeholder="Enter price" name="ppnigth" required>
+
+            <label for="photolist"><b>Fotos</b></label>
+            <input type="file" name="photolist"> 
+
+            <button type="submit" class="signupbtn">Cargar</button>
+        </form>
+    </body>
+</html>

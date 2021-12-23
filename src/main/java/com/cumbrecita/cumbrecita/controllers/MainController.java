@@ -54,7 +54,7 @@ public class MainController {
     
     @GetMapping("/owner/signup")
     public String ownerSignup() {
-        return "owner-signup.html";
+        return "owner-form.html";
     }
     
     @GetMapping("/contact")
@@ -127,7 +127,7 @@ public class MainController {
 
         model.put("title", "Bienvenido a la Libreria Online");
         model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Ahora espera a que el equipo verifique tus datos y se contacte contigo, hasta entonces mmuchas gracias!");
-        return "succes.html";
+        return "success.html";
     }
 
 

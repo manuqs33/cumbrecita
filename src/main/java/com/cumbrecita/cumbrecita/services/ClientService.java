@@ -74,27 +74,27 @@ public class ClientService implements UserDetailsService {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
     }
-    
+
     @Transactional
-    public void changePassword(String id, String password, String password2) throws ErrorService{ //OLVIDE LA CONTRASENA
+    public void changePassword(String id, String password, String password2) throws ErrorService { //OLVIDE LA CONTRASENA
         if (password.isEmpty() || password.equals(" ")) {
             throw new ErrorService("La contraseña no puede estar vacia");
-        }else if(password.equals(password2)){
+        } else if (password.equals(password2)) {
             throw new ErrorService("Las contraseñas no coinciden");
         }
-        
+
         Optional<Client> ans = uR.findById(id);
         if (ans.isPresent()) {
             Client client = ans.get();
-            
+
             String encriptada = new BCryptPasswordEncoder().encode(password);
             client.setPass(encriptada);
-            
+
             uR.save(client);
-        }else{
+        } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
-        
+
     }
 
     @Transactional
@@ -174,15 +174,29 @@ public class ClientService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Client client = uR.searchByEmail(email);
+        Owner owner = oR.searchByEmail(email);
+
+        if (owner != null) {
+            List<GrantedAuthority> permisos = new ArrayList();
+
+            GrantedAuthority p1 = new SimpleGrantedAuthority("OWNER");
+            permisos.add(p1);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession();
+            session.setAttribute("sessionOwner", owner);
+
+            User user = new User(owner.getMail(), owner.getPass(), permisos);
+            return user;
+        }
 
         if (!client.getIsactive()) {
             return null;
         }
-        
-        if (client != null ) {
+
+        if (client != null) {
 
             List<GrantedAuthority> permisos = new ArrayList();
-
             GrantedAuthority p1 = new SimpleGrantedAuthority("CLIENT");
             permisos.add(p1);
 

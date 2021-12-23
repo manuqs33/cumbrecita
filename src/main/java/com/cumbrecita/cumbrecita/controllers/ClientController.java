@@ -7,7 +7,6 @@ package com.cumbrecita.cumbrecita.controllers;
 
 import com.cumbrecita.cumbrecita.entities.Client;
 import com.cumbrecita.cumbrecita.entities.Lodging;
-import com.cumbrecita.cumbrecita.entities.Reservation;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.repositories.LodgingRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
@@ -24,6 +23,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -44,7 +44,7 @@ public class ClientController {
     private ReservationService reservationservice;
 
     @GetMapping("/client/authorize/{id}")
-    public String authorize(@PathParam("id") String id, ModelMap model) {
+    public String authorize(@PathVariable("id") String id, ModelMap model) {
         System.out.println(id);
         try {
             clientService.activeClient(id);
