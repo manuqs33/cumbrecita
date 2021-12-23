@@ -11,7 +11,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <form action="/lodging/save" method="POST" enctype="multipart/form-data">
+        <form th:action="@{/lodging/save}" method="POST" enctype="multipart/form-data">
             <label for="name"><b>Nombre</b></label>
             <input type="text" placeholder="Enter name" name="name" required>
 
@@ -19,8 +19,8 @@ and open the template in the editor.
             <input type="text" placeholder="Street name + number" name="address" required>
 
             <label for="type"><b>Tipo</b></label>
-            <select th:if="${type != null}" name="type" id="libro">
-                <option th:each="type : ${types.values()}" th:value="${type}" th:text="${type}"></option>
+            <select name="type">
+                <option th:each="typeIndex : ${types}" th:value="${typeIndex}" th:text="${typeIndex}"></option>
             </select>
 
             <label for="capacity"><b>Capacidad</b></label>
@@ -29,10 +29,10 @@ and open the template in the editor.
             <label for="ppnigth"><b>Precio p/noche</b></label>
             <input type="number" placeholder="Enter price" name="ppnigth" required>
 
-            <label for="photos"><b>Fotos</b></label>
-            <input type="file" name="photolist" required> 
+            <label for="photolist"><b>Fotos</b></label>
+            <input type="file" name="photolist"> 
 
-            <input type="submit" value="Cargar" />
+            <button type="submit" class="signupbtn">Cargar</button>
         </form>
     </body>
 </html>

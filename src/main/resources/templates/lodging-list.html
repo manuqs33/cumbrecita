@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <table class="form-control" name="idBooks">
+            <tr>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Capacidad</th>
+                <th>Precio por noche</th>
+                <th>Tipo</th>
+            </tr>
+            <tr th:each="lodg : ${lodgings}">
+                <td th:text="${lodg.name}"></td>
+                <td th:text="${lodg.address}"></td>
+                <td th:text="${lodg.capacity}"></td>
+                <td th:text="${lodg.pricepernight}"></td>
+                <td th:text="${lodg.t}"></td>
+            </tr>
+        </table>
+    </body>
+</html>

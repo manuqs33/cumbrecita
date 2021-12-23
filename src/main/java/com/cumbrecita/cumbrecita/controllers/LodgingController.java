@@ -16,8 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -29,7 +31,6 @@ public class LodgingController {
     //REVISAR EL "RECORRIDO" DE LA PÁGINA. SI ESTÁ BIEN QUE DESPUES DE CADA ACCION SE LO REDIRIGA A LAS VISTAS MENCIONADAS.
     @Autowired
     private LodgingService lodgingService;
-    
 
     @GetMapping("/list") //ESTO ES PARA LISTAR LOS ALOJAMIENTOS Y QUE SE LOS PUEDA BUSCAR METIENDO UN STRING.
     public String listLodgings(Model model, @RequestParam(required = false) String q) {
@@ -40,10 +41,14 @@ public class LodgingController {
         }
         return "lodging-list";
     }
-
-    @PreAuthorize("hasAnyRole('OWNER')")
+    //("/search")
+//    @PreAuthorize("hasAnyRole('OWNER')")
     @GetMapping("/create") //ACÁ SE METEN LOS DATOS DEL LODGING. PONGO POR LAS DUDAS LA ESTRUCTURA PARA EDITAR UN ALOJAMIENTO (Por si se equivoca en una letra, no tenga que borrar y volver a crear)
-    public String createLodging(ModelMap model, @RequestParam(required = false) String id) {
+    public String createLodging(ModelMap model, @RequestParam(required = false) String id, HttpSession session) {
+        Owner o = (Owner) session.getAttribute("sessionOwner");
+        if (o == null) {
+            return "redirect:/";
+        }
         if (id != null) {
             Optional<Lodging> optional = lodgingService.listById(id);
             if (optional.isPresent()) {
@@ -59,18 +64,19 @@ public class LodgingController {
     }
 
     @PostMapping("/save") //ACA VIENEN LOS DATOS CUANDO EL DUEÑO GUARDA SU ALOJAMIENTO DESDE LA PAGINA.
-    public String saveLodging(@RequestParam String name, @RequestParam String address, @RequestParam Integer typeIndex, @RequestParam Integer capacity, @RequestParam Double ppnigth, HttpSession session, @RequestParam List<Photo> photolist, RedirectAttributes redirectAttributes) throws ErrorService {
+    public String saveLodging(@RequestParam String name, @RequestParam String address, @RequestParam Integer capacity, @RequestParam Double ppnigth, HttpSession session, @RequestBody List<MultipartFile> photolist, RedirectAttributes redirectAttributes) throws ErrorService {
+        Owner o = (Owner) session.getAttribute("sessionOwner");
+        if (o == null) {
+            return "redirect:/";
+        }
         try {
-            Owner o = (Owner) session.getAttribute("sessionClient");
-            if (o == null) {
-                return "redirect:/";
-            }
-            lodgingService.registerLodging(name, address, Type.values()[typeIndex], capacity, ppnigth, o, photolist);
+            //PONER PARAMETRO TYPEINDEX SOLUCIONAR
+            lodgingService.registerLodging(name, address, Type.house, capacity, ppnigth, o, photolist);
             redirectAttributes.addFlashAttribute("success", "The lodging has been saved"); //En caso que se haya podido guardar. Manda este mensaje a la vista (se muestra con th:success)
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Something went wrong"); //Igual que arriba, pero por si sale mal algo.
         }
-        return "redirect:/lodging/list";
+        return "/";
     }
 
     @PreAuthorize("hasAnyRole('OWNER')")

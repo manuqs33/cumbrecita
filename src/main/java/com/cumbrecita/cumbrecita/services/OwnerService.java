@@ -26,7 +26,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-public class OwnerService implements UserDetailsService {
+public class OwnerService {
 
     @Autowired
     private OwnerRepository oR;
@@ -134,26 +134,26 @@ public class OwnerService implements UserDetailsService {
         }
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Owner owner = oR.searchByEmail(email);
-
-        if (owner != null) {
-
-            List<GrantedAuthority> permisos = new ArrayList();
-
-            GrantedAuthority p1 = new SimpleGrantedAuthority("OWNER");
-            permisos.add(p1);
-
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            HttpSession session = attr.getRequest().getSession();
-            session.setAttribute("sessionOwner", owner);
-
-            User user = new User(owner.getMail(), owner.getPass(), permisos);
-            return user;
-        } else {
-            return null;
-        }
-
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        Owner owner = oR.searchByEmail(email);
+//
+//        if (owner != null) {
+//
+//            List<GrantedAuthority> permisos = new ArrayList();
+//
+//            GrantedAuthority p1 = new SimpleGrantedAuthority("OWNER");
+//            permisos.add(p1);
+//
+//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//            HttpSession session = attr.getRequest().getSession();
+//            session.setAttribute("sessionOwner", owner);
+//
+//            User user = new User(owner.getMail(), owner.getPass(), permisos);
+//            return user;
+//        } else {
+//            return null;
+//        }
+//
+//    }
 }

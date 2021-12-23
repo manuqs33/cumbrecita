@@ -7,11 +7,13 @@ import com.cumbrecita.cumbrecita.entities.Lodging;
 import com.cumbrecita.cumbrecita.entities.Owner;
 import com.cumbrecita.cumbrecita.entities.Photo;
 import com.cumbrecita.cumbrecita.repositories.LodgingRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -19,11 +21,15 @@ import org.springframework.stereotype.Service;
 public class LodgingService {
     @Autowired
     private LodgingRepository lR;
+    @Autowired
+    private PhotoService photoService;
     
     @Transactional
-    public void registerLodging(String name, String address, Type t, Integer capacity, Double pricepernight, Owner o, List<Photo> photolist) throws ErrorService {
-        validate(name, address, t, capacity, pricepernight, photolist);
+    public void registerLodging(String name, String address, Type t, Integer capacity, Double pricepernight, Owner o, List<MultipartFile> photolist) throws ErrorService {
+        validate(name, address,t, capacity, pricepernight);
         validateOwner(o);
+        
+        
         Lodging lodging = new Lodging();
         lodging.setName(name);
         lodging.setAddress(address);
@@ -31,14 +37,21 @@ public class LodgingService {
         lodging.setCapacity(capacity);
         lodging.setPricepernight(pricepernight);
         lodging.setO(o);
-        lodging.setPhotolist(photolist);
+        
+        List<Photo> photos = new ArrayList();
+        for (MultipartFile multipartFile : photolist) {
+            Photo photo = photoService.save(multipartFile);
+            photos.add(photo);
+        }
+        
+        lodging.setPhotolist(photos);
         lodging.setIsactive(true);
         lR.save(lodging);
     }
     
     @Transactional
     public void modify(String id, String name, String address, Type t, Integer capacity, Double pricepernight, List<Photo> photolist) throws ErrorService {
-           validate(name, address, t, capacity, pricepernight, photolist);
+           validate(name, address, t, capacity, pricepernight);
            Optional<Lodging> ans = lR.findById(id);
           if (ans.isPresent()) {
                Lodging lodging = ans.get();
@@ -54,7 +67,7 @@ public class LodgingService {
     }
     
     
-    public void validate(String name, String address, Type t, Integer capacity, Double pricepernight, List<Photo> photolist) throws ErrorService {
+    public void validate(String name, String address, Type t, Integer capacity, Double pricepernight) throws ErrorService {
         if (name == null || name.isEmpty()) {
             throw new ErrorService("El nombre del alojamiento no puede estar vacío ni ser nulo");
         }
@@ -69,9 +82,6 @@ public class LodgingService {
         }
         if (pricepernight == 0 || pricepernight == null) {
             throw new ErrorService("El precio por noche del alojamiento no puede estar vacío ni ser nulo");
-        }
-         if (photolist == null) {
-            throw new ErrorService("El alojamiento debe tener al menos una foto");
         }
     }
     
