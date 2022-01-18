@@ -1,18 +1,167 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>New lodging</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <form th:action="@{/lodging/save}" method="POST" enctype="multipart/form-data">
-            <label for="name"><b>Nombre</b></label>
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Registrate - Reserva la Cumbrecita</title>
+ 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style media="screen">
+      *,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    
+}
+body{
+    background-color: #080710;
+}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: url("../imagenes/penon.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0px;
+    padding: 50px 50px;
+    left: -300px;
+    top: -40px;
+}
+.shape:last-child{
+    background: url("../imagenes/treking.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0px;
+    padding: 50px 50px;
+    right: -300px;
+    bottom: -40px;
+}
+form{
+    height: 690px;
+    width: 528px;
+    background:url("../imagenes/025d98ab-8405-4b83-9d51-cd1bb41434f7.jpg") ;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-position-y: 0px;
+    
+    
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 40px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 200;
+    
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.social{
+  margin-top: 30px;
+  display: flex;
+}
+.social div{
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
+}
+.social div:hover{
+  background-color: rgba(255,255,255,0.47);
+}
+.social .fb{
+  margin-left: 25px;
+}
+.social i{
+  margin-right: 4px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form th:action="@{/lodging/save}" method="POST" enctype="multipart/form-data">
+        <h3>Registrarse como dueño</h3>
+
+        <label for="name"><b>Nombre</b></label>
             <input type="text" placeholder="Enter name" name="name" required>
 
             <label for="address"><b>Direccion</b></label>
@@ -31,8 +180,15 @@ and open the template in the editor.
 
             <label for="photolist"><b>Fotos</b></label>
             <input type="file" name="photolist"> 
+<!--
+        <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+-->
+        <div class="clearfix">
+            <button type="button" class="cancelbtn">Cancelar</button>
+            <button type="submit" class="signupbtn">Cargar Alojamiento</button>
+        </div>
 
-            <button type="submit" class="signupbtn">Cargar</button>
-        </form>
-    </body>
+       
+    </form>
+</body>
 </html>
