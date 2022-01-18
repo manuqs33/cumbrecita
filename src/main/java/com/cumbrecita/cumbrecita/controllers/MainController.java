@@ -109,10 +109,10 @@ public class MainController {
     }
     
     @PostMapping("/owner/signup")
-    public String ownerRegister(ModelMap model, String fname, String lname, Long dni, String email, Long phoneNumber,String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
+    public String ownerRegister(ModelMap model, String fname, String lname, Long dni, String email, Long phonenumber,String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
 
         try {
-            ownerService.registerOwner(fname, lname, email, dni, bdate, phoneNumber,password, password2);
+            ownerService.registerOwner(fname, lname, email, dni, bdate, phonenumber,password, password2);
         } catch (ErrorService e) {
             model.put("error", e.getMessage());
             model.put("fname", fname);
@@ -120,7 +120,7 @@ public class MainController {
             model.put("password", password);
             model.put("password2", password2);
             model.put("email", email);
-            model.put("phonenumber", phoneNumber);
+            model.put("phonenumber", phonenumber);
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, e);
             return "owner-signup.html";
         }
