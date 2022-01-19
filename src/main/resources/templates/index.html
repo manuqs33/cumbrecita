@@ -22,7 +22,7 @@
             <button onclick="location.href='/lodging/create'" th:if="${session.sessionOwner != null}" >Cargar lodging</button>
           
             <button onclick="location.href='/lodging/list'">ver lodging</button>
-            <button th:if="${session.sessionOwner != null || session.sessionClient != null}" th:text="${nombrelog}"></button>
+            <button th:if="${session.sessionOwner != null || session.sessionClient != null}" th:value="${nombrelog}"></button>
         
     </nav>
     <div class="content-header">
