@@ -57,7 +57,7 @@ public class ClientController {
         model.put("title", "Tu usuario fue autorizado correctamente");
         return "success.html";
     }
-
+    // Agregar método authorize para owner
     //reservar
     @PreAuthorize("hasAnyRole('CLIENT')")
     @GetMapping("/client/book/")

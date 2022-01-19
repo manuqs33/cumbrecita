@@ -5,6 +5,8 @@
  */
 package com.cumbrecita.cumbrecita.controllers;
 
+import com.cumbrecita.cumbrecita.entities.Client;
+import com.cumbrecita.cumbrecita.entities.Owner;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
 import com.cumbrecita.cumbrecita.services.EmailService;
@@ -13,6 +15,7 @@ import com.cumbrecita.cumbrecita.services.OwnerService;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -34,7 +37,16 @@ public class MainController {
     private EmailService emailService;
 
     @GetMapping("/")
-    public String index() {
+    public String index(HttpSession session, ModelMap model) {
+        Client client = (Client) session.getAttribute("sessionClient");
+        Owner owner = (Owner) session.getAttribute("sessionClient");
+        
+        if (owner != null) { 
+            model.put("namelog", owner.getFirstname());
+        }
+         if (client != null) { 
+            model.put("namelog", client.getFirstname());
+        }
         return "index.html";
     }
 
@@ -109,20 +121,20 @@ public class MainController {
     }
     
     @PostMapping("/owner/signup")
-    public String ownerRegister(ModelMap model, String fname, String lname, Long dni, String email, Long phonenumber,String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
+    public String ownerRegister(ModelMap model, String firstname, String lastname, Long dni, String email, Long phonenumber,String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
 
         try {
-            ownerService.registerOwner(fname, lname, email, dni, bdate, phonenumber,password, password2);
+            ownerService.registerOwner(firstname, lastname, email, dni, bdate, phonenumber, password, password2);
         } catch (ErrorService e) {
             model.put("error", e.getMessage());
-            model.put("fname", fname);
-            model.put("lname", lname);
+            model.put("firstname", firstname);
+            model.put("lastname", lastname);
             model.put("password", password);
             model.put("password2", password2);
             model.put("email", email);
             model.put("phonenumber", phonenumber);
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, e);
-            return "owner-signup.html";
+            return "owner-form.html";
         }
 
         model.put("title", "Bienvenido a la Libreria Online");

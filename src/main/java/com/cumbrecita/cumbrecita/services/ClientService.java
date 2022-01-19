@@ -176,15 +176,13 @@ public class ClientService implements UserDetailsService {
         Client client = uR.searchByEmail(email);
         Owner owner = oR.searchByEmail(email);
 
-        
-        
         if (owner != null) {
             List<GrantedAuthority> permisos = new ArrayList();
-            
-             if (!owner.getIsactive()) {
-            return null;
-        }
-            
+
+            if (!owner.getIsactive()) {
+                return null;
+            }
+
             GrantedAuthority p1 = new SimpleGrantedAuthority("OWNER");
             permisos.add(p1);
 
