@@ -39,14 +39,20 @@ public class MainController {
     @GetMapping("/")
     public String index(HttpSession session, ModelMap model) {
         Client client = (Client) session.getAttribute("sessionClient");
-        Owner owner = (Owner) session.getAttribute("sessionClient");
-        
-        if (owner != null) { 
+        Owner owner = (Owner) session.getAttribute("sessionOwner");
+
+        if (owner != null) {
             model.put("namelog", owner.getFirstname());
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+owner.getFirstname());
         }
-         if (client != null) { 
+        if (client != null) {
             model.put("namelog", client.getFirstname());
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+client.getFirstname());
         }
+
+        
+        
+
         return "index.html";
     }
 
@@ -63,33 +69,32 @@ public class MainController {
     public String signup() {
         return "signup.html";
     }
-    
+
     @GetMapping("/owner/signup")
     public String ownerSignup() {
         return "owner-form.html";
     }
-    
+
     @GetMapping("/contact")
-    public String contact(){
+    public String contact() {
         return "contact.html";
     }
-    
+
     /*PostMapping*/
-    
     @PostMapping("/contact/sendmessage")
     public String sendEmail(ModelMap model, String subject, String message, String email, String phoneNumber) {
         try {
-            String emailBody = message + "\n Email de contacto: "+email+"\n Numero celular de contacto: "+phoneNumber;
+            String emailBody = message + "\n Email de contacto: " + email + "\n Numero celular de contacto: " + phoneNumber;
             emailService.send(email, emailBody, subject);
         } catch (ErrorService ex) {
             model.put("error", ex.getMessage());
             return "contact.html";
         }
-        
+
         model.put("message", "El mensaje fue enviado correctamente. Nos contactaremos lo antes posible, muchas gracias!");
         return "contact.html";
     }
-    
+
     @PostMapping("/signup")
     public String register(ModelMap model, String firstname, String lastname, Long dni, String email, String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
 
@@ -119,9 +124,9 @@ public class MainController {
         model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Revisa tu casilla de correos para completar el registro.");
         return "index.html";
     }
-    
+
     @PostMapping("/owner/signup")
-    public String ownerRegister(ModelMap model, String firstname, String lastname, Long dni, String email, Long phonenumber,String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
+    public String ownerRegister(ModelMap model, String firstname, String lastname, Long dni, String email, Long phonenumber, String password, String password2, @DateTimeFormat(pattern = "yyyy-MM-dd") Date bdate) {
 
         try {
             ownerService.registerOwner(firstname, lastname, email, dni, bdate, phonenumber, password, password2);
@@ -141,6 +146,5 @@ public class MainController {
         model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Ahora espera a que el equipo verifique tus datos y se contacte contigo, hasta entonces mmuchas gracias!");
         return "success.html";
     }
-
 
 }
