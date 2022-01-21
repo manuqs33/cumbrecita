@@ -12,7 +12,7 @@
     background-size: cover;
     height: 100vh;
     font-family:sans-serif;
-    position: relative;
+   
     overflow: hidden;
 }
 
@@ -20,8 +20,8 @@
    
     display: flex;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
-    position: absolute;
-    width: 100%;
+    
+      width: 100%;
     z-index: 5;
 }
 
