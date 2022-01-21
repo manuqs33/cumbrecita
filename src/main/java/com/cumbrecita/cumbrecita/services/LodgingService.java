@@ -25,57 +25,64 @@ public class LodgingService {
     private PhotoService photoService;
     
     @Transactional
-    public void registerLodging(String name, String address, Type t, Integer capacity, Double pricepernight, Owner o, List<MultipartFile> photolist) throws ErrorService {
-        validate(name, address,t, capacity, pricepernight);
+    public void registerLodging(String name, String address, Integer index, Integer capacity, Double pricepernight, Owner o, List<MultipartFile> photolist) throws ErrorService {
+        validate(name, address, index, capacity, pricepernight);
         validateOwner(o);
-        
-        
+
         Lodging lodging = new Lodging();
         lodging.setName(name);
         lodging.setAddress(address);
-        lodging.setT(t);
+        if (index == 0) {
+            lodging.setT(Type.CASA);
+        } else {
+            lodging.setT(Type.HABITACIÓN);
+        }
         lodging.setCapacity(capacity);
         lodging.setPricepernight(pricepernight);
         lodging.setO(o);
-        
+
         List<Photo> photos = new ArrayList();
         for (MultipartFile multipartFile : photolist) {
             Photo photo = photoService.save(multipartFile);
             photos.add(photo);
         }
-        
+
         lodging.setPhotolist(photos);
         lodging.setIsactive(true);
         lR.save(lodging);
     }
     
     @Transactional
-    public void modify(String id, String name, String address, Type t, Integer capacity, Double pricepernight, List<Photo> photolist) throws ErrorService {
-           validate(name, address, t, capacity, pricepernight);
-           Optional<Lodging> ans = lR.findById(id);
-          if (ans.isPresent()) {
-               Lodging lodging = ans.get();
-               lodging.setName(name);
-               lodging.setAddress(address);
-               lodging.setT(t);
-               lodging.setCapacity(capacity);
-               lodging.setPricepernight(pricepernight);
-               lodging.setPhotolist(photolist);
-          } else {
-              throw new ErrorService("No se encontró el alojamiento solicitado");
-          }      
+    public void modify(String id, String name, String address, Integer index, Integer capacity, Double pricepernight, List<Photo> photolist) throws ErrorService {
+        validate(name, address, index, capacity, pricepernight);
+        Optional<Lodging> ans = lR.findById(id);
+        if (ans.isPresent()) {
+            Lodging lodging = ans.get();
+            lodging.setName(name);
+            lodging.setAddress(address);
+            if (index == 0) {
+                lodging.setT(Type.CASA);
+            } else {
+                lodging.setT(Type.HABITACIÓN);
+            }
+            lodging.setCapacity(capacity);
+            lodging.setPricepernight(pricepernight);
+            lodging.setPhotolist(photolist);
+        } else {
+            throw new ErrorService("No se encontró el alojamiento solicitado");
+        }
     }
     
     
-    public void validate(String name, String address, Type t, Integer capacity, Double pricepernight) throws ErrorService {
+    public void validate(String name, String address, Integer index, Integer capacity, Double pricepernight) throws ErrorService {
         if (name == null || name.isEmpty()) {
             throw new ErrorService("El nombre del alojamiento no puede estar vacío ni ser nulo");
         }
         if (address == null || address.isEmpty()) {
             throw new ErrorService("La dirección del alojamiento no puede estar vacía ni ser nula");
         }
-        if (t == null) {
-            throw new ErrorService("El tipo de alojamiento no puede ser nulo");
+        if (index == null || index > 1) {
+            throw new ErrorService("Error procesando el tipo de alojamiento.");
         }
         if (capacity == null) {
             throw new ErrorService("La capacidad del alojamiento no puede ser nula");

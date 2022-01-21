@@ -41,6 +41,7 @@ public class LodgingController {
         }
         return "lodging-list";
     }
+
     //("/search")
 //    @PreAuthorize("hasAnyRole('OWNER')")
     @GetMapping("/create") //ACÁ SE METEN LOS DATOS DEL LODGING. PONGO POR LAS DUDAS LA ESTRUCTURA PARA EDITAR UN ALOJAMIENTO (Por si se equivoca en una letra, no tenga que borrar y volver a crear)
@@ -64,14 +65,15 @@ public class LodgingController {
     }
 
     @PostMapping("/save") //ACA VIENEN LOS DATOS CUANDO EL DUEÑO GUARDA SU ALOJAMIENTO DESDE LA PAGINA.
-    public String saveLodging(@RequestParam String name, @RequestParam String address, @RequestParam Integer capacity, @RequestParam Double ppnigth, HttpSession session, @RequestBody List<MultipartFile> photolist, RedirectAttributes redirectAttributes) throws ErrorService {
+    public String saveLodging(@RequestParam String name, @RequestParam String address, @RequestParam Integer index, @RequestParam Integer capacity, @RequestParam Double ppnigth, HttpSession session, @RequestBody List<MultipartFile> photolist, RedirectAttributes redirectAttributes) throws ErrorService {
         Owner o = (Owner) session.getAttribute("sessionOwner");
         if (o == null) {
             return "redirect:/";
         }
         try {
             //PONER PARAMETRO TYPEINDEX SOLUCIONAR
-            lodgingService.registerLodging(name, address, Type.house, capacity, ppnigth, o, photolist);
+
+            lodgingService.registerLodging(name, address, index, capacity, ppnigth, o, photolist);
             redirectAttributes.addFlashAttribute("success", "The lodging has been saved"); //En caso que se haya podido guardar. Manda este mensaje a la vista (se muestra con th:success)
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Something went wrong"); //Igual que arriba, pero por si sale mal algo.
