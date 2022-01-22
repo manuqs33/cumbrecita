@@ -115,15 +115,17 @@ public class ClientService implements UserDetailsService {
 
     @Transactional
     public void deactivate(String id) throws ErrorService {
-
+        System.out.println("aaaaaaaaaaaaaaaaaaaa");
         Optional<Client> ans = uR.findById(id);
         if (ans.isPresent()) {
             Client client = ans.get();
+            System.out.println("aaaaaaaaaaaaaaaaaaaa");
             if (!client.getIsactive()) {
                 throw new ErrorService("El usuario ya esta dado de baja");
             }
             client.setIsactive(false);
             uR.save(client);
+            System.out.println("aaaaaaaaaaaaaaaaaaaa");
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }

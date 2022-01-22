@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
     <title>La Cumbrecita.</title>
 </head>
 <body>
@@ -21,6 +21,7 @@
             <button onclick="location.href='owner/signup'" th:if="${session.sessionOwner == null}" >Registrar dueño</button>
             <button onclick="location.href='/lodging/create'" th:if="${session.sessionOwner != null}" >Cargar lodging</button>
             <button onclick="location.href='/lodging/list'">ver lodging</button>
+            <button onclick="location.href='/control-panel'" sec:authorize="isAuthenticated()" >panel de control</button>
             <button sec:authorize="isAuthenticated()" th:text="${namelog}"></button>
         
     </nav>

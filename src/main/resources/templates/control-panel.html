@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Panel de control</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <button onclick="location.href = '/'" >Volver al inicio</button>
+
+        <table class="form-control">
+            <tr>
+                <th>ID</th>
+                <th>NACIMIENTO</th>
+                <th>DNI</th>
+                <th>NOMBRE</th>
+                <th>APELLIDO</th>
+                <th>EMAIL</th>
+                <th>ACTIVO</th>
+            </tr>
+            <tr th:each="user : ${users}">
+
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.birthdate}"></td>
+                <td th:text="${user.dni}"></td>
+                <td th:text="${user.firstname}"></td>
+                <td th:text="${user.lastname}"></td>
+                <td th:text="${user.mail}"></td>
+                <td th:text="${user.isactive}"></td>
+            <form action="/deactivate-client" method="post">
+                <input type="text" name="iduser" th:value="${user.id}">
+                <button type="submit">Dar de baja</button>
+            </form>
+        </tr>
+    </table>
+
+
+    <table class="form-control">
+        <tr>
+            <th>ID</th>
+            <th>NACIMIENTO</th>
+            <th>DNI</th>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>EMAIL</th>
+        </tr>
+        <tr th:each="owner : ${owners}">
+        
+        <td th:text="${owner.id}"></td>
+        <td th:text="${owner.birthdate}"></td>
+        <td th:text="${owner.dni}"></td>
+        <td th:text="${owner.firstname}"></td>
+        <td th:text="${owner.lastname}"></td>
+        <td th:text="${owner.mail}"></td>
+        <td th:text="${owner.phoneNumber}"></td>
+        <form action="/deactivate-owner" method="post">
+            <input type="hidden" name="idowner" value="${owner.id}">
+            <button type="submit">Dar de baja</button>
+        </form>
+    </tr>
+</table>
+
+
+</body>
+</html>

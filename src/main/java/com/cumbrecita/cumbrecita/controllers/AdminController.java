@@ -17,6 +17,7 @@ import com.cumbrecita.cumbrecita.repositories.OwnerRepository;
 import com.cumbrecita.cumbrecita.repositories.OwnerTicketRepository;
 import com.cumbrecita.cumbrecita.repositories.TicketAnswerRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
+import com.cumbrecita.cumbrecita.services.ErrorService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
  * @author Flia Vasquez
  */
 @Controller
-@PreAuthorize("hasAnyRole('ADMIN')")
+//@PreAuthorize("hasAnyRole('ADMIN')")
 public class AdminController {
 
     @Autowired
@@ -99,4 +102,14 @@ public class AdminController {
         return "tickets.tml";
     }
 
+    @PostMapping("deactivate-client")
+    public String deactivateClient (@RequestParam String iduser){
+        try{
+           adminService.deactivate(iduser);
+        }catch (ErrorService e){
+            return "500.html";
+        }
+        return "redirect:/control-panel";
+    }
+    
 }
