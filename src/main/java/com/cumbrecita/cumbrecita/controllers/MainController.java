@@ -79,6 +79,19 @@ public class MainController {
     public String contact() {
         return "contact.html";
     }
+    
+    @GetMapping("/lodging-form")
+    public String lodgingForm(){
+        return "lodging-form.html";
+    }
+    
+    @GetMapping("/lodging-list")
+    public String lodgingList(){
+        return "lodging-list.html";
+    }
+    
+    
+    
 
     /*PostMapping*/
     @PostMapping("/contact/sendmessage")
