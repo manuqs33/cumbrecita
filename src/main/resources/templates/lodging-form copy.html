@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Login - La Cumbrecita</title>
+  <title>Register - La Cumbrecita</title>
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -40,7 +40,7 @@
 
     body {
       /* background-color: #f6fedb; */
-      background-image: url("./imagenes/vertiente3.jpeg");
+      background-image: url("./imagenes/vertiente2.jpeg");
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -94,7 +94,7 @@
     form {
       margin: auto;
       margin-top: 4em;
-      height: 690px;
+      height: 950px;
       width: 528px;
       background: url("../imagenes/025d98ab-8405-4b83-9d51-cd1bb41434f7.jpg");
       background-repeat: no-repeat;
@@ -210,13 +210,47 @@
 
 
   <div>
-    <form action="/login/process" method="POST">
-      <h3>Login</h3>
-      <label for="username">Email</label>
-      <input type="text" name="username" placeholder="Email" />
-      <label for="password">Password</label>
-      <input type="password" name="password" placeholder="Password" />
-      <button type="submit">Login</button>
+    <form action="/signup" method="POST">
+      <form action="/owner/signup" method="POST">
+        <h3>Registrarse como dueño</h3>
+
+        <label for="firstname"><b>Nombre</b></label>
+        <input type="text" placeholder="Ingrese nombre" name="firstname" required>
+
+        <label for="lastname"><b>Apellido</b></label>
+        <input type="text" placeholder="Ingrese Apellido" name="lastname" required>
+
+        <label for="dni"><b>DNI</b></label>
+        <input type="number" placeholder="Ingrese DNI" name="dni" required>
+
+        <label for="bdate"><b>Nacimiento</b></label>
+        <input type="date" placeholder="Ingrese fecha de nacimiento" name="bdate" required>
+
+        <label for="email"><b>Email</b></label>
+        <input type="email" placeholder="Ingrese  Email" name="email" required>
+
+        <label for="password"><b>Contraseña</b></label>
+        <input type="password" placeholder="Ingrese contraseña" name="password" required>
+
+        <label for="password2"><b>Repita Contraseña</b></label>
+        <input type="password" placeholder="Repita contraseña" name="password2" required>
+
+        <label for="phonenumber"><b>Número de teléfono</b></label>
+        <input type="number" placeholder="Ingrese teléfono" name="phonenumber" required>
+
+
+        <!--
+            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+    -->
+        <div class="clearfix">
+          <button type="button" class="cancelbtn">Cancelar</button>
+          <button type="submit" class="signupbtn">Registrarse</button>
+        </div>
+
+
+      </form>
+
+
     </form>
   </div>
 

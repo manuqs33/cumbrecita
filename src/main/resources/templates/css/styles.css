@@ -6,7 +6,7 @@
 
 .main-header{
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-     url("../imagenes/la-olla.jpg");
+     url("../../static/imagenes/la-olla.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -26,7 +26,7 @@
 }
 
 .logo {
-    background: url("../imagenes/025d98ab-8405-4b83-9d51-cd1bb41434f7.jpg");
+    background: url("../../static/imagenes/025d98ab-8405-4b83-9d51-cd1bb41434f7.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
