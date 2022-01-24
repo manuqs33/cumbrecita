@@ -1,0 +1,58 @@
+nav {
+  background-color: #91972a;
+  color: white;
+}
+
+footer {
+  background-color: #91972a;
+  padding: 3%;
+  margin: 0;
+  }
+  .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 2%;
+  margin-left: 0;
+  }
+  footer a{
+  color: white;
+  }
+  footer ul {
+  list-style: none;
+  color: white;
+  list-style: none;
+  color: white;
+  padding-left: 0;
+  }
+  .newsletter{
+    font-size: 12px;
+    text-align: center;
+  }
+   .copyright{
+  background-color:	#e6d3a3;
+  color: black;
+  padding: 1%;
+  text-align: center;
+  }
+  .copyright p{
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  }
+  i{
+  padding: 2%;
+  }
+  #redessociales{
+   border-radius: 100% ;
+   border: 2px solid white;
+   padding: 5px;
+   margin-top: 10px;
+   margin-bottom: 10px;
+  }
+  h4{
+    color: white;
+  }
+  .col-xs-12{
+  padding: 2%;
+  }
