@@ -4,33 +4,607 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="styles.css">
-    <title>La Cumbrecita.</title>
+    <title>La Cumbrecita Reservas</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">             
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="datepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <link rel="stylesheet" href="stylealt.css">
+
+
 </head>
 <body>
-    
-<header class="main-header">
-    <nav class="main-nav">
-        <div class="logo">
-            <span></span>
+<!--El navbar-->
+
+        <div class="tm-main-content" id="top">
+            <div class="tm-top-bar-bg"></div>    
+            <div class="tm-top-bar" id="tm-top-bar">
+                <div class="container">
+                    <div class="row">
+                        <nav class="navbar navbar-expand-lg narbar-light">
+                            <a class="navbar-brand mr-auto" href="#">
+                                <img src="img/LogoCumbrecitaAlt1.png" alt="Logo Reservas">
+                                La Cumbrecita
+                            </a>
+                            <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
+                                <ul class="navbar-nav ml-auto">
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#tm-section-3">Qué visitar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/login'" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/signup'" sec:authorize="!isAuthenticated()">Registrate</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='owner/signup'" th:if="${session.sessionOwner == null}">Registrar dueño</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/lodging/create'" th:if="${session.sessionOwner != null}">Registrá tu propiedad</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#contact">Contacto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#tm-section-3">Quiénes somos</a>
+                                </li>
+                            </ul>
+                        </div>                            
+                    </nav>
+                </div> 
+            </div> 
         </div>
+
+<!--Fin del NAVBAR-->
+
+<!--comienzo de header imagen-->
+<div class="tm-page-wrap mx-auto">
+    <section class="tm-banner">
+        <div class="tm-container-outer tm-banner-bg">
+            <div class="container">
+                <div class="row tm-banner-row tm-banner-row-header">
+                    <div class="col-xs-12">
+                        <div class="tm-banner-header">
+                            <h1 class="text-uppercase tm-banner-title">Viví La Cumbrecita</h1>
+                            <img src="img/puntos_3.png" alt="3 puntos">
+                            <h2 class="tm-banner-subtitle">Encontrá el alojamiento ideal para tu visita</h2>
+                            <a href="javascript:void(0)" class="tm-down-arrow-link"><i class="fa fa-2x fa-angle-down tm-down-arrow"></i></a>       
+                        </div>    
+                    </div>                  
+                </div> 
+                <div class="row tm-banner-row" id="tm-section-search">
+</body>
+</html>
+<!--fin del header  - comienzo del buscador-->
+
+<!--BUSCADOR-->
+<div class="row tm-banner-row" id="tm-section-search">
+
+    <form action="index.html" method="get" class="tm-search-form tm-section-pad-2">
+        <div class="form-row tm-search-form-row">                                
+            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+                <label for="alojamiento">Seleccione tipo de alojamiento:</label>
+                <select name="room" class="form-control tm-select" id="inputRoom">
+                    <option value="1" selected>Habitación</option>
+                    <option value="2">Casa</option>
+                </select>  
+            </div>
+            <div class="form-group tm-form-group tm-form-group-1">                                    
+                <div class="form-group tm-form-group tm-form-group-pad tm-form-group-2">
+                    <label for="inputRoom">Cantidad</label>
+                    <select name="room" class="form-control tm-select" id="inputRoom">
+                        <option value="1" selected>1 habitación</option>
+                        <option value="2">2 habitaciones</option>
+                        <option value="3">3 habitaciones</option>
+                        <option value="4">4 habitaciones</option>
+                        <option value="5">5 habitaciones</option>
+                    </select>                                        
+                </div>
+                <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">                                       
+                    <label for="inputAdultos">Adultos</label>     
+                    <select name="adulto" class="form-control tm-select" id="inputAdulto">
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>                                        
+                </div>
+                <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+
+                    <label for="inputNinos">Niños</label>                                            
+                    <select name="ninos" class="form-control tm-select" id="inputNinos">
+                        <option value="0" selected>0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="9">10</option>
+                    </select>                                        
+                </div>
+            </div>
+        </div> 
+        <div class="form-row tm-search-form-row">
+
+            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+                <label for="inputCheckIn">Ingreso</label>
+                <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+            </div>
+            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+                <label for="inputCheckOut">Salida</label>
+                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+            </div>
+            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+                <label for="btnSubmit">&nbsp;</label>
+                <button type="submit" class="btn btn-primary tm-btn tm-btn-search text-uppercase" id="btnSubmit">Ver Disponibilidad</button>
+            </div>
+        </div>                              
+    </form>                             
+
+</div> 
+<div class="tm-banner-overlay"></div>
+</div>                
+</div>                   
+</section>
+<!--banner intermedio-->
+
+<section class="p-5 tm-container-outer tm-bg-gray">            
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">                        
+                <h2 class="text-uppercase mb-4">Tu <strong>viaje</strong> es nuestra prioridad</h2>
+                <p class="mb-4">Te acercamos las mejores opciones para tu confort y seguridad. Reservá con nosotros y viví esperiencias únicas en un entorno natural maravilloso.</p>
+                <a href="#" class="text-uppercase btn-primary tm-btn">Registrate</a>                              
+            </div>
+        </div>
+    </div>            
+</section>
+
+<!--Fin de banner intermedio-->
+
+
+<div class="tm-container-outer" id="tm-section-2">
+                <section class="tm-slideshow-section">
+                    <div class="tm-slideshow">
+                        <img src="img/quehacer1.jpg" alt="Image">
+                        <img src="img/quehacer2.jpg" alt="Image">
+                        <img src="img/quehacer3.jpg" alt="Image">    
+                    </div>
+                    <div class="tm-slideshow-description tm-bg-primary">
+                        <h2 class="">Qué hacer en La Cumbrecita </h2>
+                        <p>En este pintoresco pueblo no hay que perderse: las caminatas por el centro histórico y las paradas gastronómicas en alguno de sus restaurantes. Para descubrir una nueva mirada son recomendables el arborismo y la tirolesa, entre otras actividades de aventura. Se suma el trekking por sus cerros y senderos y la visita a sus cascadas.</p>
+                        <a href="#" class="text-uppercase tm-btn tm-btn-white tm-btn-white-primary">Más información</a>
+                    </div>        
+                </section>
+                <section class="clearfix tm-slideshow-section tm-slideshow-section-reverse">
+
+                    <div class="tm-right tm-slideshow tm-slideshow-highlight">
+                        <img src="img/quevisitar1.jpg" alt="Image">
+                        <img src="img/quevisitar2.jpg" alt="Image">
+                        <img src="img/quevisitar3.jpg" alt="Image">
+                    </div> 
+
+                    <div class="tm-slideshow-description tm-slideshow-description-left tm-bg-highlight">
+                        <h2 class="">Qué visitar en La Cumbrecita</h2>
+                        <p>Una de las mejores formas de conocer la rica historia que tiene La Cumbrecita es caminando por su centro histórico. En relación a esto, cabe recordar que este pueblo de montaña es peatonal y todo aquel que llegue en su auto particular deberá estacionarlo en la playa municipal sobre la ruta. Al descender del auto, habrá que ajustarse las zapatillas y prepararse para disfrutar del camino.</p>
+                        <a href="https://www.lacumbrecita.gob.ar/rincones.html" class="text-uppercase tm-btn tm-btn-white tm-btn-white-highlight">Más información</a>
+                    </div>                   
+
+                </section>
+                <!--<section class="tm-slideshow-section">
+                    <div class="tm-slideshow">
+                        <img src="img/gastronomia1.jpg" alt="Image">
+                        <img src="img/gastronomia2.jpg" alt="Image">
+                        <img src="img/gastronomia4.jpg" alt="Image">
+                    </div>
+                    <div class="tm-slideshow-description tm-bg-primary">
+                        <h2 class=""></h2>
+                        <p>las alternativas gastronómicas son diversas y amplias. para almuerzos y cenas se puede visitar Helmut, una de las casas más antiguas del pueblo, donde se pueden probar platos típicos y minutas. Para meriendas, se recomienda la casa de té Edelweiss Delikatessen, donde se pueden encontrar miles de variedades de infusiones y tortas caseras. Restaurante Engel es una buena opción para celíacos.</p>
+                        <a href="https://www.lacumbrecita.gob.ar/rincones.html" class="text-uppercase tm-btn tm-btn-white tm-btn-white-primary">Más información</a>
+                    </div>
+                </section>-->
+            </div>        
+            <br>
+            <br>
+            <section class="p-5 tm-container-outer tm-bg-gray">            
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">                          
+                            <h2 class="text-uppercase mb-4"><strong>Conectamos</strong> viajeros con los mejores hospedajes</h2>
+                            <p class="mb-4">Ofrecé tu espacio y llegá a más personas</p>
+                            <a href="#" class="text-uppercase btn-primary tm-btn">Registrá tu propiedad</a>                              
+                        </div>
+                    </div>
+                </div>      
+            </section>
+                <br>
+                <br>
+                <div class="tab-content clearfix">
+
+
+<!--OFERTAS DE ALOJAMIENTO-->
+<div class="tab-content clearfix">
+                   
+                       <!-- Tab 1 -->
+                    <div class="tab-pane fade" id="1a">
+                        <div class="tm-recommended-place-wrap">
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-06.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">North Garden Resort</h3>
+                                    <p class="tm-text-highlight">One North</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$110</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>                        
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-07.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Felis nec dignissim</h3>
+                                    <p class="tm-text-highlight">Two North</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <div id="preload-hover-img"></div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$120</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-05.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Sed fermentum justo</h3>
+                                    <p class="tm-text-highlight">Three North</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$130</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-04.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Maecenas ultricies neque</h3>
+                                    <p class="tm-text-highlight">Four North</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$140</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>    
+                        </div>                        
+
+                        <a href="#" class="text-uppercase btn-primary tm-btn mx-auto tm-d-table">Encontrá más Alojamientos</a>
+                    </div> 
+            
+                    
+                    <!-- Tab 2 -->
+                    <div class="tab-pane fade" id="2a">
+
+                        <div class="tm-recommended-place-wrap">
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-05.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">South Resort Hotel</h3>
+                                    <p class="tm-text-highlight">South One</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$220</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>                        
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-04.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Aenean ac ante nec diam</h3>
+                                    <p class="tm-text-highlight">South Second</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$230</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-07.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Suspendisse nec dapibus</h3>
+                                    <p class="tm-text-highlight">South Third</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$240</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-06.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Aliquam viverra mi at nisl</h3>
+                                    <p class="tm-text-highlight">South Fourth</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$250</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>    
+                        </div>                        
+
+                        <a href="#" class="text-uppercase btn-primary tm-btn mx-auto tm-d-table">Encontrá más Alojamientos</a>
+                    </div> 
+                
+                    
+                    <!-- Tab 3 -->     
+                    <div class="tab-pane fade" id="3a">
+
+                        <div class="tm-recommended-place-wrap">
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-04.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Europe Hotel</h3>
+                                    <p class="tm-text-highlight">Venecia, Italy</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$330</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>                        
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-05.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">In viverra enim turpis</h3>
+                                    <p class="tm-text-highlight">Paris, France</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$340</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-06.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Volutpat pellentesque</h3>
+                                    <p class="tm-text-highlight">Barcelona, Spain</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$350</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-07.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Grand Resort Pasha</h3>
+                                    <p class="tm-text-highlight">Istanbul, Turkey</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$360</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>    
+                        </div>                        
+
+                        <a href="#" class="text-uppercase btn-primary tm-btn mx-auto tm-d-table">Encontrá más Alojamientos</a>
+                    </div> 
+                
+                    
+                    <!-- Tab 4 -->
+                    <div class="tab-pane fade show active" id="4a">
+                    <!-- Current Active Tab WITH "show active" classes in DIV tag -->
+                        <div class="tm-recommended-place-wrap">
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-06.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Asia Resort Hotel</h3>
+                                    <p class="tm-text-highlight">Singapore</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$440</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>                        
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-07.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Nullam eget est a nisl</h3>
+                                    <p class="tm-text-highlight">Yangon, Myanmar</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <div id="preload-hover-img"></div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$450</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-05.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Proin interdum ullamcorper</h3>
+                                    <p class="tm-text-highlight">Bangkok, Thailand</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$460</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>
+
+                            <div class="tm-recommended-place">
+                                <img src="img/tm-img-04.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title">Lorem ipsum dolor sit</h3>
+                                    <p class="tm-text-highlight">Vientiane, Laos</p>
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                </div>
+                                <a href="#" class="tm-recommended-price-box">
+                                    <p class="tm-recommended-price">$470</p>
+                                    <p class="tm-recommended-price-link">Continue Reading</p>
+                                </a>
+                            </div>    
+                        </div>                        
+
+                        <a href="#" class="text-uppercase btn-primary tm-btn mx-auto tm-d-table">Encontrá más Alojamientos</a>
+                    </div> 
+                
+                    
+                   
+                </div>
+            </div>
+
+
+                  
+                    
+                        
+            
+<br>
+<br>
+
+<!--MAPA Y CONTACTO-->
+            <div class="tm-container-outer tm-position-relative" id="tm-section-6">
+                <div id="google-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9043.127071640203!2d-64.78039889821041!3d-31.897214886897114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d2cb22ee24bc3f%3A0x9455570e961749c!2sLa%20Cumbrecita%2C%20C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1643039996357!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div> 
+            
+ 
+             
+                <form action="index.html" method="post" class="tm-contact-form">
+                    <h2 id="contact"> Contactanos!</h2>
+                    <div class="form-group tm-name-container">
+                        <input type="text" id="contact_name" name="nombre_contacto" class="form-control" placeholder="Nombre"  required/>
+                    </div>
+                    <div class="form-group tm-email-container">
+                        <input type="email" id="email_contacto" name="email_contacto" class="form-control" placeholder="Email"  required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="asunto" name="asunto_contacto" class="form-control" placeholder="Asunto"  required/>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="mensaje" name="mensaje_contacto" class="form-control" rows="9" placeholder="Mensaje" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary tm-btn-primary tm-btn-send text-uppercase">Enviar mensaje</button>
+                </form>
+            </div>
+            
+            <!-- CIERRE CONTACTO-->
+            <section class="p-5 tm-container-outer tm-bg-gray">            
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">                          
+                            <h2 class="text-uppercase mb-4"><strong>Conectamos</strong> viajeros con los mejores hospedajes</h2>
+                            <p class="mb-4">Ofrecé tu espacio y llegá a más personas</p>
+                            <a href="#" class="text-uppercase btn-primary tm-btn">Registrá tu propiedad</a>                              
+                        </div>
+                    </div>
+                </div>      
+            </section>
+         
+         
+            <!--footer-->
+            <footer class="tm-container-outer">
+                <p class="mb-0">La Cumbrecita Reservas © <span class="tm-current-year">2022</span>  
+                    
+                
+            </footer>
         
-            <button onclick="location.href='/login'" sec:authorize="!isAuthenticated()">Login</button>
-            <button onclick="location.href='/signup'" sec:authorize="!isAuthenticated()" >Registrar</button>
-            <button onclick="location.href='owner/signup'" th:if="${session.sessionOwner == null}" >Registrar dueño</button>
-            <button onclick="location.href='/lodging/create'" th:if="${session.sessionOwner != null}" >Cargar lodging</button>
-            <button onclick="location.href='/lodging/list'">ver lodging</button>
-            <button sec:authorize="isAuthenticated()" th:text="${namelog}"></button>
         
-    </nav>
-    <div class="content-header">
-        <h1>La Cumbrecita.</h1>
-        <p>Página de reservas de alojamientos en La Cumbrecita, Valle de Calamuchita, Córdoba</p>
-        <a href="reserva.html">Reservar Ahora</a>
+        
+        </div>
     </div>
-    
-    
-</header>    
+
+    <!-- load JS files -->
+    <script src="js/jquery-1.11.3.min.js"></script>             
+    <script src="js/popper.min.js"></script>                      
+    <script src="js/bootstrap.min.js"></script>                 
+    <script src="js/datepicker.min.js"></script>                
+    <script src="js/jquery.singlePageNav.min.js"></script>      
+    <script src="slick/slick.min.js"></script>                  
+    <script src="js/jquery.scrollTo.min.js"></script>           
+    <script> 
+       
+        
+
+        /* DOM is ready
+        ------------------------------------------------*/
+        $(function(){
+
+            // Change top navbar on scroll
+            $(window).on("scroll", function() {
+                if($(window).scrollTop() > 100) {
+                    $(".tm-top-bar").addClass("active");
+                } else {                    
+                 $(".tm-top-bar").removeClass("active");
+                }
+            });
+
+            // Smooth scroll to search form
+            $('.tm-down-arrow-link').click(function(){
+                $.scrollTo('#tm-section-search', 300, {easing:'linear'});
+            });
+
+            // Date Picker in Search form
+            var pickerCheckIn = datepicker('#inputCheckIn');
+            var pickerCheckOut = datepicker('#inputCheckOut');
+
+            // Update nav links on scroll
+            $('#tm-top-bar').singlePageNav({
+                currentClass:'active',
+                offset: 60
+            });
+
+            // Close navbar after clicked
+            $('.nav-link').click(function(){
+                $('#mainNav').removeClass('show');
+            });
+
+            // Slick Carousel
+            $('.tm-slideshow').slick({
+                infinite: true,
+                arrows: true,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            });
+        });
+    </script>             
+
 </body>
 </html>

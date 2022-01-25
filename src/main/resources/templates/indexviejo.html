@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>La Cumbrecita.</title>
+</head>
+<body>
+    
+<header class="main-header">
+    <nav class="main-nav">
+        <div class="logo">
+            <span></span>
+        </div>
+        
+            <button onclick="location.href='/login'" sec:authorize="!isAuthenticated()">Login</button>
+            <button onclick="location.href='/signup'" sec:authorize="!isAuthenticated()" >Registrar</button>
+            <button onclick="location.href='owner/signup'" th:if="${session.sessionOwner == null}" >Registrar dueño</button>
+            <button onclick="location.href='/lodging/create'" th:if="${session.sessionOwner != null}" >Cargar lodging</button>
+            <button onclick="location.href='/lodging/list'">ver lodging</button>
+            <button sec:authorize="isAuthenticated()" th:text="${namelog}"></button>
+        
+    </nav>
+    <div class="content-header">
+        <h1>La Cumbrecita.</h1>
+        <p>Página de reservas de alojamientos en La Cumbrecita, Valle de Calamuchita, Córdoba</p>
+        <a href="reserva.html">Reservar Ahora</a>
+    </div>
+    
+    
+</header>    
+</body>
+</html>
