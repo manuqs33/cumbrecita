@@ -38,13 +38,16 @@
                                     <a class="nav-link" href="#tm-section-3">Qué visitar</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/login">Iniciar sesión</a>
+                                    <a class="nav-link" onclick="location.href='/login'" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#tm-section">Registrate</a>
+                                    <a class="nav-link" onclick="location.href='/signup'" sec:authorize="!isAuthenticated()">Registrate</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#tm-section-5">Registrá tu propiedad</a>
+                                    <a class="nav-link" onclick="location.href='owner/signup'" th:if="${session.sessionOwner == null}">Registrar dueño</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/lodging/create'" th:if="${session.sessionOwner != null}">Registrá tu propiedad</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#contact">Contacto</a>
