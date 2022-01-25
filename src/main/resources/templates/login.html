@@ -1,212 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Login - La Cumbrecita</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cumbrecita Reservas</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">             
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="datepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <link rel="stylesheet" href="stylealt.css">
 
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-
-  <!-- Script para traer Header-->
-  <script src="js/main.js" type="text/javascript"></script>
-
-  <!-- Estilos Header y Footer -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="css\base.css">
-  <link rel="stylesheet" href="css\base.css">
-
-  <!--Estilos-->
-  <style media="screen">
-    *,
-    *:before,
-    *:after {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-
-
-    }
-
-    body {
-      /* background-color: #f6fedb; */
-      background-image: url("./imagenes/vertiente3.jpeg");
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-    }
-
-    .background {
-      width: 230px;
-      height: 120px;
-
-      transform: translate(-50%, -50%);
-      left: 50%;
-      top: 50%;
-    }
-
-    .background .shape {
-      height: 200px;
-      width: 200px;
-
-      border-radius: 50%;
-    }
-
-    .shape:first-child {
-      background: url("../imagenes/penon.jpg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-left: 0px;
-      padding: 50px 50px;
-      left: -300px;
-      top: -40px;
-    }
-
-    .shape:last-child {
-      background: url("../imagenes/treking.jpg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-left: 0px;
-      padding: 50px 50px;
-      right: -300px;
-      bottom: -40px;
-    }
-
-    form {
-      margin: auto;
-      margin-top: 4em;
-      height: 690px;
-      width: 528px;
-      background: url("../imagenes/025d98ab-8405-4b83-9d51-cd1bb41434f7.jpg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      background-position-y: 0px;
-
-
-      background-color: rgba(182, 196, 84, .2);
-
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-      padding: 50px 35px;
-      margin-bottom: 240px;
-    }
-
-    form * {
-      font-family: 'Poppins', sans-serif;
-      color: 'black';
-      letter-spacing: 0.5px;
-      outline: none;
-      border: none;
-    }
-
-    form h3 {
-      font-size: 32px;
-      font-weight: 500;
-      line-height: 40px;
-      text-align: center;
-    }
-
-    label {
-      display: block;
-      margin-top: 20px;
-      font-size: 16px;
-      font-weight: 200;
-
-    }
-
-    input {
-      display: block;
-      height: 50px;
-      width: 100%;
-      background-color: rgba(255, 255, 255, .8);
-      border-radius: 3px;
-      padding: 0 10px;
-      margin-top: 8px;
-      font-size: 14px;
-      font-weight: 300;
-    }
-
-    ::placeholder {
-      color: #151515;
-    }
-
-    button {
-      margin-top: 50px;
-      width: 100%;
-      background-color: #E6D3A3;
-      color: #080710;
-      padding: 15px 0;
-      font-size: 18px;
-      font-weight: 600;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .social {
-      margin-top: 30px;
-      display: flex;
-    }
-
-    .social div {
-      background: red;
-      width: 150px;
-      border-radius: 3px;
-      padding: 5px 10px 10px 5px;
-      background-color: rgba(255, 255, 255, 0.27);
-      color: #eaf0fb;
-      text-align: center;
-    }
-
-    .social div:hover {
-      background-color: rgba(255, 255, 255, 0.47);
-    }
-
-    .social .fb {
-      margin-left: 25px;
-    }
-
-    .social i {
-      margin-right: 4px;
-    }
-
-    .clearfix {
-      display: flex;
-      width: 100%;
-      flex-flow: column wrap;
-    }
-
-    .footerEmergency {
-      margin-top: 200px;
-    }
-  </style>
 
 </head>
-
 <body>
+<!--El navbar-->
 
-  <nuevo-header> </nuevo-header>
+        <div class="tm-main-content" id="top">
+            <div class="tm-top-bar-bg"></div>    
+            <div class="tm-top-bar" id="tm-top-bar">
+                <div class="container">
+                    <div class="row">
+                        <nav class="navbar navbar-expand-lg narbar-light">
+                            <a class="navbar-brand mr-auto" href="#">
+                                <img src="img/LogoCumbrecitaAlt1.png" alt="Logo Reservas">
+                                La Cumbrecita
+                            </a>
+                            <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
+                                <ul class="navbar-nav ml-auto">
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#tm-section-3">Qué visitar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/login'" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/signup'" sec:authorize="!isAuthenticated()">Registrate</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='owner/signup'" th:if="${session.sessionOwner == null}">Registrar dueño</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/lodging/create'" th:if="${session.sessionOwner != null}">Registrá tu propiedad</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#contact">Contacto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#tm-section-3">Quiénes somos</a>
+                                </li>
+                            </ul>
+                        </div>                            
+                    </nav>
+                </div> 
+            </div> 
+        </div>
+
+<!--Fin del NAVBAR-->
 
 
   <div>
@@ -219,8 +75,6 @@
       <button type="submit">Login</button>
     </form>
   </div>
-
-  <nuevo-footer class="footerEmergency"></nuevo-footer>
 
 </body>
 
