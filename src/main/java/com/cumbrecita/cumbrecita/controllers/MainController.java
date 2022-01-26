@@ -43,11 +43,9 @@ public class MainController {
 
         if (owner != null) {
             model.put("namelog", owner.getFirstname());
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+owner.getFirstname());
         }
         if (client != null) {
             model.put("namelog", client.getFirstname());
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+client.getFirstname());
         }
 
         

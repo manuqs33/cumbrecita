@@ -32,7 +32,7 @@ public class OwnerService {
     private OwnerRepository oR;
 
     @Transactional
-    public void registerOwner(String firstname, String lastname, String email, Long dni, Date bdate, Long phoneNumber,String password, String password2) throws ErrorService {
+    public void registerOwner(String firstname, String lastname, String email, Long dni, Date bdate, Long phoneNumber, String password, String password2) throws ErrorService {
         validate(firstname, lastname, email, password, password2, dni);
 
         Owner owner = new Owner();
@@ -82,34 +82,27 @@ public class OwnerService {
         Optional<Owner> ans = oR.findById(id);
         if (ans.isPresent()) {
             Owner owner = ans.get();
-            if (owner.getIsactive()) {
-                throw new ErrorService("El usuario ya esta activo");
-            }
             owner.setIsactive(true);
             oR.save(owner);
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
     }
-    
+
     @Transactional
     public void deactivate(String id) throws ErrorService {
 
         Optional<Owner> ans = oR.findById(id);
         if (ans.isPresent()) {
             Owner owner = ans.get();
-            if (!owner.getIsactive()) {
-                throw new ErrorService("El usuario ya esta dado de baja");
-            }
             owner.setIsactive(false);
             oR.save(owner);
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
     }
-    
-    
-    public List<Owner> listOwners(){
+
+    public List<Owner> listOwners() {
         return oR.findAll();
     }
 

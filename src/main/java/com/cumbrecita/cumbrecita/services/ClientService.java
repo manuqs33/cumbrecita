@@ -103,9 +103,6 @@ public class ClientService implements UserDetailsService {
         Optional<Client> ans = uR.findById(id);
         if (ans.isPresent()) {
             Client client = ans.get();
-            if (client.getIsactive()) {
-                throw new ErrorService("El usuario ya esta activo");
-            }
             client.setIsactive(true);
             uR.save(client);
         } else {
@@ -119,9 +116,6 @@ public class ClientService implements UserDetailsService {
         Optional<Client> ans = uR.findById(id);
         if (ans.isPresent()) {
             Client client = ans.get();
-            if (!client.getIsactive()) {
-                throw new ErrorService("El usuario ya esta dado de baja");
-            }
             client.setIsactive(false);
             uR.save(client);
         } else {

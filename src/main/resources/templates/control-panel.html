@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Panel de control</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <button onclick="location.href = '/'" >Volver al inicio</button>
+
+        <table class="form-control">
+            <tr>
+                <th>ID</th>
+                <th>NACIMIENTO</th>
+                <th>DNI</th>
+                <th>NOMBRE</th>
+                <th>APELLIDO</th>
+                <th>EMAIL</th>
+                <th>ACTIVO</th>
+            </tr>
+            <tr th:each="user : ${users}">
+
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.birthdate}"></td>
+                <td th:text="${user.dni}"></td>
+                <td th:text="${user.firstname}"></td>
+                <td th:text="${user.lastname}"></td>
+                <td th:text="${user.mail}"></td>
+                <td th:text="${user.isactive}"></td>
+                <td>
+                    <form action="/deactivate-client" method="post">
+                        <input type="hidden" name="iduser" th:value="${user.id}">
+                        <button type="submit">Dar de baja</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/activate-client" method="post">
+                        <input type="hidden" name="iduser" th:value="${user.id}">
+                        <button type="submit">Dar de alta</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+
+        <table class="form-control">
+            <tr>
+                <th>ID</th>
+                <th>NACIMIENTO</th>
+                <th>DNI</th>
+                <th>NOMBRE</th>
+                <th>APELLIDO</th>
+                <th>EMAIL</th>
+                <th>TELEFONO</th>
+                <th>ACTIVO</th>
+            </tr>
+            <tr th:each="owner : ${owners}">
+
+                <td th:text="${owner.id}"></td>
+                <td th:text="${owner.birthdate}"></td>
+                <td th:text="${owner.dni}"></td>
+                <td th:text="${owner.firstname}"></td>
+                <td th:text="${owner.lastname}"></td>
+                <td th:text="${owner.mail}"></td>
+                <td th:text="${owner.phoneNumber}"></td>
+                <td th:text="${owner.isactive}"></td>
+                <td>
+                    <form action="/deactivate-owner" method="post">
+                        <input type="hidden" name="idowner" th:value="${owner.id}">
+                        <button type="submit">Dar de baja</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/activate-owner" method="post">
+                        <input type="hidden" name="idowner" th:value="${owner.id}">
+                        <button type="submit">Dar de alta</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+
+        <table class="form-control">
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>CALLE</th>
+                <th>CAPACIDAD</th>
+                <th>TIPO</th>
+                <th>DESC</th>
+                <th>PRECIO</th>
+                <th>ACTIVO</th>
+                <th>FOTO</th>
+                <th>DUEÑO</th>
+            </tr>
+            <tr th:each="lod : ${lods}">
+
+                <td th:text="${lod.id}"></td>
+                <td th:text="${lod.name}"></td>
+                <td th:text="${lod.address}"></td>
+                <td th:text="${lod.capacity}"></td>
+                <td th:text="${lod.t}"></td>
+                <td th:text="${lod.description}"></td>
+                <td th:text="${lod.pricepernight}"></td>
+                <td th:text="${lod.isactive}"></td>
+                <td><img th:src="${'/photo/lodging/' + lod.id}" ></img></td>
+                <td th:text="${lod.o.id}"></td>
+                <td>
+                    <form action="/deactivate-lodging" method="post">
+                        <input type="hidden" name="idlod" th:value="${lod.id}">
+                        <button type="submit">Dar de baja</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/activate-lodging" method="post">
+                        <input type="hidden" name="idlod" th:value="${lod.id}">
+                        <button type="submit">Dar de alta</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+    </body>
+</html>

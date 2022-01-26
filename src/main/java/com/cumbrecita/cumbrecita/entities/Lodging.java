@@ -25,10 +25,12 @@ public class Lodging {
     private Type t;
     private Integer capacity;
     private Double pricepernight;
+    private String description;
     @ManyToOne
     private Owner o;
     @OneToMany
     private List<Photo> photolist;
+    
 
     public Lodging() {
     }
@@ -98,6 +100,14 @@ public class Lodging {
 
     public void setPricepernight(Double pricepernight) {
         this.pricepernight = pricepernight;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String desc) {
+        this.description = desc;
     }
 
     public Owner getO() {

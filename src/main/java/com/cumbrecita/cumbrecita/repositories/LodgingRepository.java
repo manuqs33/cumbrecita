@@ -1,5 +1,3 @@
-
-
 package com.cumbrecita.cumbrecita.repositories;
 
 import com.cumbrecita.cumbrecita.entities.Lodging;
@@ -12,10 +10,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LodgingRepository extends JpaRepository<Lodging, String> {
-    
-     @Query("SELECT c FROM Lodging c WHERE c.name = :name")
+
+    @Query("SELECT c FROM Lodging c WHERE c.name = :name")
     public List<Lodging> searchByLastName(@Param("name") String name);
-    
-    @Query ("SELECT p FROM Lodging p WHERE p.name LIKE :q")
-    public List<Lodging> findByQ(@Param("q")String q);
+
+    @Query("SELECT p FROM Lodging p WHERE p.name LIKE :q")
+    public List<Lodging> findByQ(@Param("q") String q);
+
+    @Query("SELECT l FROM Lodging l WHERE l.id = :id")
+    public Lodging getById(@Param("id") String id);
 }

@@ -171,31 +171,6 @@
 
 </head>
     <body>
-
-        <nuevo-header> </nuevo-header>
-
-        <div>
-          <form action="/lodging-list" method="POST">
-            <h3>Login-List</h3>
-            <label for="username">Nombre</label>
-            <input type="text" name="username" placeholder="Nombre" />
-
-            <label for="username">Direccion</label>
-            <input type="text" name="username" placeholder="Direccion" />
-
-            <label for="number">Capacidad</label>
-            <input type="number" name="number" placeholder="Capacidad de Alojamiento" />
-
-            <label for="price">Precio por Noche</label>
-            <input type="price" name="username" placeholder="Precio por Noche" />
-
-            <label for="username">Tipo</label>
-            <input type="text" name="username" placeholder="Tipo de habitacion" />
-
-            <button type="submit">Buscar</button>
-          </form>
-        
-
         <table class="form-control" name="idBooks">
             
             <tr th:each="lodg : ${lodgings}">
@@ -204,11 +179,9 @@
                 <td th:text="${lodg.capacity}"></td>
                 <td th:text="${lodg.pricepernight}"></td>
                 <td th:text="${lodg.t}"></td>
+                <td><img th:src="${'/photo/lodging/' + lodg.id}" ></img></td>
+                
             </tr>
         </table>
-
-        <nuevo-footer class="footerEmergency"></nuevo-footer>
-
-        </div>
     </body>
 </html>

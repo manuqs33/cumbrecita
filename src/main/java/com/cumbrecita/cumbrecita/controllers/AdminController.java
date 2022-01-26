@@ -18,6 +18,8 @@ import com.cumbrecita.cumbrecita.repositories.OwnerTicketRepository;
 import com.cumbrecita.cumbrecita.repositories.TicketAnswerRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
 import com.cumbrecita.cumbrecita.services.ErrorService;
+import com.cumbrecita.cumbrecita.services.LodgingService;
+import com.cumbrecita.cumbrecita.services.OwnerService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,10 @@ public class AdminController {
     @Autowired
     private ClientService adminService;
     @Autowired
+    private OwnerService ownerService;
+    @Autowired
+    private LodgingService lodgingService;
+    @Autowired
     private ClientRepository cR;
     @Autowired
     private OwnerRepository oR;
@@ -52,8 +58,7 @@ public class AdminController {
     private OwnerTicketRepository otr;
     @Autowired
     private TicketAnswerRepository tcr;
-    
-    
+
     @GetMapping("/control-panel")
     public String panel(ModelMap model, HttpSession session) {
 
@@ -75,41 +80,90 @@ public class AdminController {
 
     @GetMapping("/tickets")
     public String tickets(ModelMap model, HttpSession session) {
-        
+
         Client admin = (Client) session.getAttribute("sessionClient");
         if (admin == null || !admin.getMail().equals("admin@admin.com")) {
             return "redirect:/";
         }
-        
+
         List<OwnerTicket> oTickets = otr.findAll();
         List<ClientTicket> cTickets = ctr.findAll();
-        
+
         for (ClientTicket cTicket : cTickets) {
             if (!cTicket.getIsactive()) {
                 cTickets.remove(cTicket);
             }
         }
-        
+
         for (OwnerTicket oTicket : oTickets) {
             if (!oTicket.getIsactive()) {
                 oTickets.remove(oTicket);
             }
         }
-        
+
         model.put("ownertickets", oTickets);
         model.put("clientTickets", cTickets);
-        
+
         return "tickets.tml";
     }
 
-    @PostMapping("deactivate-client")
-    public String deactivateClient (@RequestParam String iduser){
-        try{
-           adminService.deactivate(iduser);
-        }catch (ErrorService e){
+    @PostMapping("/deactivate-client")
+    public String deactivateClient(@RequestParam String iduser) {
+        try {
+            adminService.deactivate(iduser);
+        } catch (ErrorService e) {
             return "500.html";
         }
         return "redirect:/control-panel";
     }
-    
+
+    @PostMapping("/activate-client")
+    public String activateClient(@RequestParam String iduser) {
+        try {
+            adminService.activeClient(iduser);
+        } catch (ErrorService e) {
+            return "500.html";
+        }
+        return "redirect:/control-panel";
+    }
+
+    @PostMapping("/deactivate-owner")
+    public String deactivateOwner(@RequestParam String idowner) {
+        try {
+            ownerService.deactivate(idowner);
+        } catch (ErrorService e) {
+            return "500.html";
+        }
+        return "redirect:/control-panel";
+    }
+
+    @PostMapping("/activate-owner")
+    public String activateOwner(@RequestParam String idowner) {
+        try {
+            ownerService.activeOwner(idowner);
+        } catch (ErrorService e) {
+            return "500.html";
+        }
+        return "redirect:/control-panel";
+    }
+
+    @PostMapping("/deactivate-lodging")
+    public String deactivateLodging(@RequestParam String idlod) {
+        try {
+            lodgingService.deactivate(idlod);
+        } catch (ErrorService e) {
+            return "500.html";
+        }
+        return "redirect:/control-panel";
+    }
+
+    @PostMapping("/activate-lodging")
+    public String activateLodging(@RequestParam String idlod) {
+        try {
+            lodgingService.activate(idlod);
+        } catch (ErrorService e) {
+            return "500.html";
+        }
+        return "redirect:/control-panel";
+    }
 }

@@ -39,7 +39,7 @@ public class LodgingController {
         } else {
             model.addAttribute("lodgings", lodgingService.listAllLodging());
         }
-        return "lodging-list";
+        return "lodging-list.html";
     }
     //("/search")
 //    @PreAuthorize("hasAnyRole('OWNER')")
@@ -60,18 +60,18 @@ public class LodgingController {
             model.put("types", Type.values());
             model.addAttribute("lodging", new Lodging()); //Si no vino ningun ID, esto manda un lodging nuevo.
         }
-        return "lodging-form";
+        return "lodging-form.html";
     }
 
     @PostMapping("/save") //ACA VIENEN LOS DATOS CUANDO EL DUEÑO GUARDA SU ALOJAMIENTO DESDE LA PAGINA.
-    public String saveLodging(@RequestParam String name, @RequestParam String address, @RequestParam Integer capacity, @RequestParam Double ppnigth, HttpSession session, @RequestBody List<MultipartFile> photolist, RedirectAttributes redirectAttributes) throws ErrorService {
+    public String saveLodging(@RequestParam String name, @RequestParam String address, @RequestParam Integer type,@RequestParam Integer capacity,@RequestParam String desc, @RequestParam Double ppnigth, HttpSession session, @RequestBody List<MultipartFile> photolist, RedirectAttributes redirectAttributes) throws ErrorService {
         Owner o = (Owner) session.getAttribute("sessionOwner");
         if (o == null) {
             return "redirect:/";
         }
         try {
             //PONER PARAMETRO TYPEINDEX SOLUCIONAR
-            lodgingService.registerLodging(name, address, Type.house, capacity, ppnigth, o, photolist);
+            lodgingService.registerLodging(name, address, type, capacity, ppnigth, desc, o, photolist);
             redirectAttributes.addFlashAttribute("success", "The lodging has been saved"); //En caso que se haya podido guardar. Manda este mensaje a la vista (se muestra con th:success)
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Something went wrong"); //Igual que arriba, pero por si sale mal algo.
