@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar-expand-lg bg-light"></nav>
+    <div class="container">
+        <a  class="navbar-brand" href="/">
+            <img src="img/LogoCumbrecitaAlt1.png" alt="Logo Reservas">
+            La Cumbrecita Reservas</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#tm-section-3">Qué visitar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/login'" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/signup'" sec:authorize="!isAuthenticated()">Registrate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/owner'" th:if="${session.sessionOwner == null}">Registrar dueño</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/lodging'" th:if="${session.sessionOwner != null}">Registrá tu propiedad</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tm-section-3">Quiénes somos</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+
+</body>
+</html>
