@@ -68,7 +68,7 @@ public class MainController {
         return "signup.html";
     }
 
-    @GetMapping("/owner/signup")
+    @GetMapping("/ownersignup")
     public String ownerSignup() {
         return "owner-form.html";
     }

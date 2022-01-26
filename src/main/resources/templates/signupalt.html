@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registrate</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/styleform.css" />
+</head>
+<body>
+    
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+  
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="imagenes/LogoCumbrecitaAlt2.png" width="50" height="50" class="d-inline-block align-top" alt="">
+      <button type="button" class="btn btn-outline-success">Volver al Inicio</button>
+    </a>
+  </nav>
+  <br>
+  <br>
+ 
+    <span class="border">
+  <form>
+  <div class="row">
+
+    <div class="col-lg-2"></div>
+    <div class="col-lg-10">
+
+    <form action="/signup" method="POST">
+        <div class="col-lg-6">
+          <br>
+            <h3>Registrate en Reservas La Cumbrecita</h3>
+              </div>
+     <br>
+      
+      <div class="form-group">
+        <label class="col-lg-8 control-label">Nombre</label>
+        <div class="col-lg-6">
+        <input type="text"  class="form-control" placeholder="Ingresar su Nombre" name="firstname" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-8 control-label">Apellido</label>
+        <div class="col-lg-6">
+        <input type="text"  class="form-control" placeholder="Ingresar su apellido" name="lastname" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-8 control-label">DNI</label>
+        <div class="col-lg-6">
+        <input type="number"  class="form-control" placeholder="Ingresar su DNI" name="dni" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-8 control-label">Fecha de Nacimiento</label>
+        <div class="col-lg-6">
+        <input type="date"  class="form-control" placeholder="Ingrese fecha de nacimiento" name="bdate" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-8 control-label">Email</label>
+        <div class="col-lg-6">
+        <input type="email"  class="form-control" placeholder="Ingrese  Email" name="email" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-8 control-label">Password</label>
+        <div class="col-lg-6">
+        <input type="password"  class="form-control" placeholder="Ingrese una contraseña" name="password" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-8 control-label">Reingrese su Password</label>
+        <div class="col-lg-6">
+        <input type="password"  class="form-control" placeholder="Repita su contraseña" name="password2" required>
+        </div>
+      </div>
+
+    <br>
+    <br>
+      <div class="form-group">
+        <div class="col-lg-6 control-label">
+          <button type="submit" class="btn btn-success center">Registrarse</button>
+          <button type="submit" class="btn btn-danger center">Cancelar</button>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+</form>
+</span>
+</body>
+</html>
+
