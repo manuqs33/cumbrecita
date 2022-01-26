@@ -68,7 +68,7 @@ public class MainController {
         return "signup.html";
     }
 
-    @GetMapping("/ownersignup")
+    @GetMapping("/owner")
     public String ownerSignup() {
         return "owner-form.html";
     }
@@ -78,7 +78,7 @@ public class MainController {
         return "contact.html";
     }
     
-    @GetMapping("/lodging-form")
+    @GetMapping("/lodging")
     public String lodgingForm(){
         return "lodging-form.html";
     }
