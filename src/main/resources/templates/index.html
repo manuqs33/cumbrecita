@@ -44,7 +44,7 @@
                                     <a class="nav-link" onclick="location.href='/signup'" sec:authorize="!isAuthenticated()">Registrate</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" onclick="location.href='/ownersignup'" th:if="${session.sessionOwner == null}">Registrar dueño</a>
+                                    <a class="nav-link" onclick="location.href='/owner'" th:if="${session.sessionOwner == null}">Registrar dueño</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" onclick="location.href='/lodging'" th:if="${session.sessionOwner != null}">Registrá tu propiedad</a>
