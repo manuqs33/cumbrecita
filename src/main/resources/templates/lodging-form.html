@@ -1,52 +1,111 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cumbrecita Reservas</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="datepicker.css" />
+    <link rel="stylesheet" type="text/css" href="slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
+    <link rel="stylesheet" href="stylealt.css">
+
+
+</head>
+
+<body>
+    <!--El navbar-->
+
+    <div class="tm-main-content" id="top">
+        <div class="tm-top-bar-bg"></div>
+        <div class="tm-top-bar" id="tm-top-bar">
+            <div class="container">
+                <div class="row">
+                    <nav class="navbar navbar-expand-lg narbar-light">
+                        <a class="navbar-brand mr-auto" href="/">
+                            <img src="img/LogoCumbrecitaAlt1.png" alt="Logo Reservas">
+                            La Cumbrecita
+                        </a>
+                        <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse"
+                            data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
+                            <ul class="navbar-nav ml-auto">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#tm-section-3">Qué visitar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/login'"
+                                        sec:authorize="!isAuthenticated()">Iniciar sesión</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/signup'"
+                                        sec:authorize="!isAuthenticated()">Registrate</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='owner/signup'"
+                                        th:if="${session.sessionOwner == null}">Registrar dueño</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/lodging/create'"
+                                        th:if="${session.sessionOwner != null}">Registrá tu propiedad</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#contact">Contacto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#tm-section-3">Quiénes somos</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!--Fin del NAVBAR-->
+        <div>
         <form th:action="@{/lodging/save}" method="POST" enctype="multipart/form-data">
             <h3>Registra tu propiedad</h3>
-
             <label for="name"><b>Nombre</b></label>
             <input type="text" placeholder="Enter name" name="name" required>
-
             <label for="address"><b>Direccion</b></label>
             <input type="text" placeholder="Street name + number" name="address" required>
-
             <label for="type"><b>Tipo</b></label>
-            <select name="type">
-                <option value="0">Casa</option>
-                <option value="1">Habitacion</option>
+
+            <!--
+          <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+  -->
             </select>
 
             <label for="capacity"><b>Capacidad</b></label>
             <input type="number" placeholder="Enter capacity" name="capacity" required>
-
             <label for="ppnigth"><b>Precio p/noche</b></label>
             <input type="number" placeholder="Enter price" name="ppnigth" required>
-            
+
             <label for="desc"><b>Descripcion del alojamiento</b></label>
             <textarea id="desc" name="desc" rows="10" cols="15"></textarea>
-
             <label for="photolist"><b>Fotos</b></label>
-            <input type="file" name="photolist" id="img" />
-
-
-            <!--
-              <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-            -->
+            <input type="file" name="photolist" id="img" 
             <div class="clearfix">
-                <button type="button" class="cancelbtn">Cancelar</button>
-                <button type="submit" class="signupbtn">Cargar Alojamiento</button>
-            </div>
-
-
-        </form>
-    </body>
-</html>
+            <button type="button" class="cancelbtn">Cancelar</button>
+            <button type="submit" class="signupbtn">Cargar Alojamiento</button>
+        </div>
+    </form>
+    </div>
+    <!-- load JS files -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/datepicker.min.js"></script>
+    <script src="js/jquery.singlePageNav.min.js"></script>
+    <script src="slick/slick.min.js"></script>
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script>
