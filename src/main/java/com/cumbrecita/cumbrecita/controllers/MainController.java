@@ -78,7 +78,7 @@ public class MainController {
         return "contact.html";
     }
     
-    @GetMapping("/lodging-form")
+    @GetMapping("/lodging")
     public String lodgingForm(){
         return "lodging-form.html";
     }
