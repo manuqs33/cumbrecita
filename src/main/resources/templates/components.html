@@ -20,6 +20,7 @@
     <header th:fragment="header">
         <h1>Welcome to My Blog</h1>
     </header>
+
     <div th:fragment="navbar">
         <div  class="tm-main-content" id="top">
             <div class="tm-top-bar-bg"></div>    
@@ -59,7 +60,7 @@
                                     <a class="nav-link" href="#tm-section-3">Quiénes somos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" onclick="location.href='/logout'" sec:authorize="isAuthenticated()" >Logout</a>
+                                    <a class="nav-link" onclick="location.href='/logout'" sec:authorize="isAuthenticated()" >Cerrar Sesión</a>
                                 </li>
                             </ul>
                         </div>                            
