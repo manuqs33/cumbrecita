@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8">
@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
         <link rel="stylesheet" href="stylealt.css">
     </head>
-<body>
+    <body>
     <!--El navbar-->
 
     <div class="tm-main-content" id="top">
@@ -91,12 +91,14 @@
                     <input type="text" class="form-control" placeholder="Ingresar su Nombre" name="firstname" required>
                 </div>
             </div>
+
             <div for="lastname" class="form-group">
                 <label class="col-lg-8 control-label">Apellido</label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control" placeholder="Ingresar su apellido" name="lastname" required>
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="dni" class="col-lg-8 control-label">DNI</label>
                 <div class="col-lg-6">
@@ -110,6 +112,7 @@
                     <input type="date" class="form-control" placeholder="Ingrese fecha de nacimiento" name="bdate"
                         required>
                 </div>
+            </div>
 
                 <div class="form-group">
                     <label for="email" class="col-lg-8 control-label">Email</label>
@@ -142,10 +145,12 @@
                         <button type="reset" class="cancelbtn">Cancelar</button>
                     </div>
                 </div>
-
-            </form>
-            </div>
+        </form>
     </div>
+</div>
+
+<!-- footer -->
+<div th:replace="components.html :: footer"></div>
     
 <!-- load JS files -->
 
@@ -201,7 +206,7 @@
         });
     });
 </script>  
-    </body>
+</body>
 
 </html>
 
