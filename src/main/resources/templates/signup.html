@@ -17,58 +17,9 @@
     <body>
     <!--El navbar-->
 
-    <div class="tm-main-content" id="top">
-        <div class="tm-top-bar-bg"></div>
-        <div class="tm-top-bar" id="tm-top-bar">
-            <div class="container">
-                <div class="row">
-                    <nav class="navbar navbar-expand-lg narbar-light">
-                        <a class="navbar-brand mr-auto" href="/">
-                            <img src="img/LogoCumbrecitaAlt1.png" alt="Logo Reservas">
-                            La Cumbrecita
-                        </a>
-                        
-                        <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse"
-                            data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+<div th:replace="components.html :: navbar"></div>
 
-                        <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
-                            <ul class="navbar-nav ml-auto">
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#tm-section-3">Qué visitar</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" onclick="location.href='/login'"
-                                        sec:authorize="!isAuthenticated()">Iniciar sesión</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" onclick="location.href='/signup'"
-                                        sec:authorize="!isAuthenticated()">Registrate</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" onclick="location.href='/owner'"
-                                        th:if="${session.sessionOwner == null}">Registrar dueño</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" onclick="location.href='/lodging/create'"
-                                        th:if="${session.sessionOwner != null}">Registrá tu propiedad</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#contact">Contacto</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#tm-section-3">Quiénes somos</a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--Fin del NAVBAR-->
   
 
 

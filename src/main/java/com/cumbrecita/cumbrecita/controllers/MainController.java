@@ -156,7 +156,7 @@ public class MainController {
 
         model.put("title", "Bienvenido a la Libreria Online");
         model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Ahora espera a que el equipo verifique tus datos y se contacte contigo, hasta entonces mmuchas gracias!");
-        return "index.html";
+        return "redirect:/";
     }
 
 }
