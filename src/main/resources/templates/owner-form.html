@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8">
@@ -157,6 +157,9 @@
                     </form>
                 </div>
             </div>
+    <!-- footer -->
+    <div th:replace="components.html :: footer"></div>
+    
                     
     <!-- load JS files -->
     <script src="js/jquery-1.11.3.min.js"></script>             
