@@ -107,7 +107,7 @@
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
 
-            <form action="signup" method="POST">
+            <form action="/signup" method="POST">
                 <div class="col-lg-6">
                     <br>
                     <h3>Registrate en Reservas La Cumbrecita</h3>
@@ -115,13 +115,13 @@
                 <br>
 
                 <div class="form-group">
-                    <label class="col-lg-8 control-label">Nombre</label>
+                    <label for="firstname" class="col-lg-8 control-label">Nombre</label>
                     <div class="col-lg-6">
                         <input type="text" class="form-control" placeholder="Ingresar su Nombre"
                             name="firstname" required>
                     </div>
                 </div>
-                <div class="form-group">
+                <div for="lastname" class="form-group">
                     <label class="col-lg-8 control-label">Apellido</label>
                     <div class="col-lg-6">
                         <input type="text" class="form-control" placeholder="Ingresar su apellido"
@@ -129,7 +129,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-8 control-label">DNI</label>
+                    <label for="dni" class="col-lg-8 control-label">DNI</label>
                     <div class="col-lg-6">
                         <input type="number" class="form-control" placeholder="Ingresar su DNI" name="dni"
                             required>
@@ -137,7 +137,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-lg-8 control-label">Fecha de Nacimiento</label>
+                    <label for="bdate" class="col-lg-8 control-label">Fecha de Nacimiento</label>
                     <div class="col-lg-6">
                         <input type="date" class="form-control" placeholder="Ingrese fecha de nacimiento"
                             name="bdate" required>
@@ -225,7 +225,7 @@
                         </div>
 
                 <div class="form-group">
-                    <label class="col-lg-8 control-label">Email</label>
+                    <label for="email" class="col-lg-8 control-label">Email</label>
                     <div class="col-lg-6">
                         <input type="email" class="form-control" placeholder="Ingrese  Email" name="email"
                             required>
@@ -233,15 +233,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-lg-8 control-label">Password</label>
+                    <label for="password" class="col-lg-8 control-label">Contraseña</label>
                     <div class="col-lg-6">
                         <input type="password" class="form-control" placeholder="Ingrese una contraseña"
                             name="password" required>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-lg-8 control-label">Reingrese su Password</label>
+                <div for="password2" class="form-group">
+                    <label class="col-lg-8 control-label">Repita su contraseña</label>
                     <div class="col-lg-6">
                         <input type="password" class="form-control" placeholder="Repita su contraseña"
                             name="password2" required>
@@ -253,7 +253,7 @@
                 <div class="form-group">
                     <div class="col-lg-6 control-label">
                         <button type="submit" class="btn btn-success center">Registrarse</button>
-                        <button type="submit" class="btn btn-danger center">Cancelar</button>
+                        <button type="reset" class="btn btn-danger center">Cancelar</button>
                     </div>
 
                 </div>
