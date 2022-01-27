@@ -79,8 +79,10 @@
             <input type="text" placeholder="Enter name" name="name" required>
             <label for="address"><b>Dirección</b></label>
 
-            <input type="text" placeholder="Street name + number" name="address" required>
             <label for="type"><b>Tipo</b></label>
+            <select name="type">
+                <option th:each="typeIndex : ${types}" th:value="${typeIndex}" th:text="${typeIndex}"></option>
+            </select>
 
             <!--
           <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
