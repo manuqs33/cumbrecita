@@ -1,33 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-  <title>Login - La Cumbrecita</title>
+<!--head with sylesheets and bootstrap-->
 
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-
-  <!-- Script para traer Header-->
-  <script src="js/main.js" type="text/javascript"></script>
-
-  <!-- Estilos Header y Footer -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="css\base.css">
-  <link rel="stylesheet" href="css\base.css">
-
-  
+<head th:replace="components.html :: head">
 </head>
+
     <body>
 
       <!--El navbar-->
@@ -48,7 +26,63 @@
             </tr>
         </table>
 
-        <div th:replace="components.html :: footer"></div>
+    <!-- footer -->
+     <div th:replace="components.html :: footer"></div>
+
+     <!-- load JS files -->
+     <script src="js/jquery-1.11.3.min.js"></script>             
+     <script src="js/popper.min.js"></script>                      
+     <script src="js/bootstrap.min.js"></script>                 
+     <script src="js/datepicker.min.js"></script>                
+     <script src="js/jquery.singlePageNav.min.js"></script>      
+     <script src="slick/slick.min.js"></script>                  
+     <script src="js/jquery.scrollTo.min.js"></script>           
+     <script> 
+         
+ 
+         /* DOM is ready
+         ------------------------------------------------*/
+         $(function(){
+ 
+             // Change top navbar on scroll
+             $(window).on("scroll", function() {
+                 if($(window).scrollTop() > 100) {
+                     $(".tm-top-bar").addClass("active");
+                 } else {                    
+                  $(".tm-top-bar").removeClass("active");
+                 }
+             });
+ 
+             // Smooth scroll to search form
+             $('.tm-down-arrow-link').click(function(){
+                 $.scrollTo('#tm-section-search', 300, {easing:'linear'});
+             });
+ 
+             // Date Picker in Search form
+             var pickerCheckIn = datepicker('#inputCheckIn');
+             var pickerCheckOut = datepicker('#inputCheckOut');
+ 
+             // Update nav links on scroll
+             $('#tm-top-bar').singlePageNav({
+                 currentClass:'active',
+                 offset: 60
+             });
+ 
+             // Close navbar after clicked
+             $('.nav-link').click(function(){
+                 $('#mainNav').removeClass('show');
+             });
+ 
+             // Slick Carousel
+             $('.tm-slideshow').slick({
+                 infinite: true,
+                 arrows: true,
+                 slidesToShow: 1,
+                 slidesToScroll: 1
+             });
+         });
+     </script> 
+
     </body>
 </html>
 

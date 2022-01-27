@@ -22,7 +22,7 @@ p:last-child { margin-bottom: 0; }
 
 .tm-container-outer {
     max-width: 1400px;
-    margin: 0 auto;    
+    margin: 0 auto; 
 }
 
 .tm-content-box { box-shadow: 0 0 3px rgba(0, 0, 0, 0.15); }
@@ -428,6 +428,7 @@ label { font-weight: 700; }
 footer {
     background: #038850;
     padding-top: 40px;
+    
     padding-bottom: 40px;
     text-align: center;    
     font-size: 0.8rem;
