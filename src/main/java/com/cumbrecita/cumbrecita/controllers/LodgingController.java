@@ -70,13 +70,12 @@ public class LodgingController {
             return "redirect:/";
         }
         try {
-            //PONER PARAMETRO TYPEINDEX SOLUCIONAR
             lodgingService.registerLodging(name, address, type, capacity, ppnigth, desc, o, photolist);
             redirectAttributes.addFlashAttribute("success", "The lodging has been saved"); //En caso que se haya podido guardar. Manda este mensaje a la vista (se muestra con th:success)
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Something went wrong"); //Igual que arriba, pero por si sale mal algo.
         }
-        return "/";
+        return "redirect:/";
     }
 
     @PreAuthorize("hasAnyRole('OWNER')")
@@ -85,7 +84,7 @@ public class LodgingController {
         Lodging lodging = lodgingService.listById(id).get();
         Owner owner = (Owner) session.getAttribute("sessionOwner");
         if (owner == null || !lodging.getO().getId().equals(owner.getId())) {
-            return "redirect:/index";
+            return "redirect:/";
         }
 
         lodgingService.deactivate(id);

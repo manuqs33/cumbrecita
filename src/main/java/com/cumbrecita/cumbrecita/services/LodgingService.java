@@ -90,12 +90,6 @@ public class LodgingService {
         if (pricepernight == 0 || pricepernight == null) {
             throw new ErrorService("El precio por noche del alojamiento no puede estar vacío ni ser nulo");
         }
-        if (desc == null || desc.length() < 5) {
-            throw new ErrorService("La descripcion del alojamiento es muy corta");
-        }
-        if (desc.length() < 500) {
-            throw new ErrorService("La descripcion del alojamiento es muy larga");
-        }
     }
 
     public void validateOwner(Owner o) throws ErrorService {
