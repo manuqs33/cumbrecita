@@ -23,8 +23,6 @@ p:last-child { margin-bottom: 0; }
 .tm-container-outer {
     max-width: 1400px;
     margin: 0 auto; 
-    position: relative;
-    bottom: 0;   
 }
 
 .tm-content-box { box-shadow: 0 0 3px rgba(0, 0, 0, 0.15); }
@@ -485,7 +483,6 @@ footer p { color: white; }
     font-size: 0.8rem;
     font-weight: 600;
 }
-
 /*dimension y medida del mapa*/
 
 #google-map { height: 800px;
