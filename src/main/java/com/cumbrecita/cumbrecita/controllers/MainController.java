@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,10 +56,10 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, ModelMap model) {
+    public String login(@RequestParam(required = false) String error, Model model) {
         if (error != null) {
-            model.put("error", "Correo electrocnico o clave incorrectos");
-            return "error.html";
+            model.addAttribute("error", "Correo electrónico o clave incorrectos");
+            
         }
         return "login.html";
     }

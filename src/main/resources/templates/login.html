@@ -66,6 +66,9 @@
 
 
   <div>
+    <div th:if="${error}" class="alert alert-warning mt-3" role="alert">
+        <span th:text="${error}"></span>
+      </div>
     <form action="/login/process" method="POST">
       <h3>Login</h3>
       <label for="username">Email</label>
