@@ -23,7 +23,7 @@ public class ReservationService {
 
     //CONSULTAR
     @Transactional
-    public Reservation saveReservation(Client C, Date startDate, Date endDate, Lodging L, String observations) throws ErrorService {
+    public void saveReservation(Client C, Date startDate, Date endDate, Lodging L, String observations) throws ErrorService {
 
         Reservation reservation = new Reservation();
         reservation.setC(C);
@@ -33,13 +33,11 @@ public class ReservationService {
         reservation.setObservations(observations);
 
         int days = (int) ((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-        
         float price = (float) (L.getPricepernight() * days);
         reservation.setPrice(price);
+        //validate(reservation);
 
-        validate(reservation);
-
-        return reservationRepository.save(reservation);
+        reservationRepository.save(reservation);
     }
 
     public void validate(Reservation reservation) throws ErrorService {

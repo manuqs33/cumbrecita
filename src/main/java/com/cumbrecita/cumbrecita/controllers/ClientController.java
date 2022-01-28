@@ -13,17 +13,20 @@ import com.cumbrecita.cumbrecita.services.ClientService;
 import com.cumbrecita.cumbrecita.services.ErrorService;
 import com.cumbrecita.cumbrecita.services.ReservationService;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -57,29 +60,41 @@ public class ClientController {
         model.put("title", "Tu usuario fue autorizado correctamente");
         return "success.html";
     }
-    // Agregar método authorize para owner
-    //reservar
-    @PreAuthorize("hasAnyRole('CLIENT')")
-    @GetMapping("/client/book/")
-    public String book(@RequestParam String lodgingid, @RequestParam Date startDate, @RequestParam Date endDate, @RequestParam String observations, HttpSession session, RedirectAttributes redirectAttributes) throws ErrorService {
+    
+    
+    @GetMapping("/reserve")
+    public String reserve(ModelMap model){
+        
+        List<Lodging> lods = lR.findAll();
+        
+        model.put("lodgings", lods);
+        
+        return "reserve-form.html";
+    }
+    
+//    @PreAuthorize("hasAnyRole('CLIENT')")
+    @PostMapping("/client/book")
+    public String book(ModelMap model,@RequestParam String lodgingid,@DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam String observations, HttpSession session, RedirectAttributes redirectAttributes) throws ErrorService {
         Client client = (Client) session.getAttribute("sessionClient");
         if (client == null) {
             return "redirect:/";
         }
         Optional<Lodging> ans = lR.findById(lodgingid);
-
         if (ans.isPresent()) {
             Lodging lodging = ans.get();
             try {
                 reservationservice.saveReservation(client, startDate, endDate, lodging, observations);
                 redirectAttributes.addFlashAttribute("success", "Su reserva ha sido exitosa");
+                model.put("msg", "Reservaste con exito");
             } catch (ErrorService ex) {
                 redirectAttributes.addFlashAttribute("error", "No se pudo guardar la reserva");
+                model.put("msg", "Hubo un error en la reserva");
             }
         } else {
             throw new ErrorService("No se encontró el alojamiento solicitado");
         }
 
+        
         return "success.html";
     }
     //pagar

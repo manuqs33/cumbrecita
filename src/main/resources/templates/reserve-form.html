@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div>
+
+            <table class="form-control">
+                <tr th:each="lodg : ${lodgings}">
+                    <td th:text="${lodg.name}"></td>
+                    <td th:text="${lodg.address}"></td>
+                    <td th:text="${lodg.capacity}"></td>
+                    <td th:text="${lodg.pricepernight}"></td>
+                    <td th:text="${lodg.t}"></td>
+                    <td><img th:src="${'/photo/lodging/' + lodg.id}" ></img></td>
+                    <td>
+                        <form action="/client/book" method="POST">
+                            <input type="hidden" th:value="${lodg.id}" name="lodgingid">
+                            <input type="date" name="startDate" required>
+                            <input type="date" name="endDate" required>
+                            <label for="desc"><b>Observaciones</b></label>
+                            <textarea id="observations" name="observations" rows="10" cols="15" required></textarea>
+                            <button type="submit" class="signupbtn">Reservar</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </body>
+</html>
