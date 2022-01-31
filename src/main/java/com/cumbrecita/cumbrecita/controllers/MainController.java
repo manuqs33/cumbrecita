@@ -122,6 +122,7 @@ public class MainController {
 
         try {
             clientService.registerClient(firstname, lastname, email, dni, bdate, password, password2);
+            return "redirect:/"; //ESTO LO PONGO HASTA QUE SE CONFIGURE EL MAIL SENDER. SINO TIRA ERROR
         } catch (ErrorService e) {
             model.put("error", e.getMessage());
             model.put("fname", firstname);
