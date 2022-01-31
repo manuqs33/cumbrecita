@@ -89,7 +89,15 @@ public class MainController {
         return "lodging-list.html";
     }
     
-
+     @GetMapping("/faq")
+    public String faq() {
+        return "faq.html";
+    }
+    
+     @GetMapping("/about")
+    public String about() {
+        return "about.html";
+    }
     
     
     
