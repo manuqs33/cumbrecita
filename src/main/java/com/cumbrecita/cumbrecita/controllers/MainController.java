@@ -134,7 +134,7 @@ public class MainController {
 
         model.put("title", "Bienvenido a la Libreria Online");
         model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Revisa tu casilla de correos para completar el registro.");
-        return "index.html";
+        return "redirect:/";
     }
 
     @PostMapping("/owner/signup")
