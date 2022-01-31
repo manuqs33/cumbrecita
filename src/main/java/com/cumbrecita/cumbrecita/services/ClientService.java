@@ -47,7 +47,7 @@ public class ClientService implements UserDetailsService {
         String encriptada = new BCryptPasswordEncoder().encode(password);
         client.setPass(encriptada);
 
-        client.setIsactive(false);
+        client.setIsactive(true);
 
         uR.save(client);
     }
