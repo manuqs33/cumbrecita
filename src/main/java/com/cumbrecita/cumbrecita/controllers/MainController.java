@@ -89,6 +89,8 @@ public class MainController {
         return "lodging-list.html";
     }
     
+
+    
     
     
 
