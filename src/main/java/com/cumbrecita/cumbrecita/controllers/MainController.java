@@ -134,18 +134,18 @@ public class MainController {
             return "signup.html";
         }
 
-        String emailBody = "Tu email ha sido utilizado para registrarse en La Cumbrecita. De no haber sido tú ignora este link, de manera contraria por favor da click aqui: (hipervinculo).\n"
-                + "Si no puedes ver el link puedes utilizar esta direccion URL en tu navegador: \n"
-                + "localhost:8080/client/authorize/" + cR.searchByEmail(email).getId();
-        try {
-            emailService.send(email, emailBody, "Bienvenido a La Cumbrecita");
-        } catch (ErrorService ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        String emailBody = "Tu email ha sido utilizado para registrarse en La Cumbrecita. De no haber sido tú ignora este link, de manera contraria por favor da click aqui: (hipervinculo).\n"
+//                + "Si no puedes ver el link puedes utilizar esta direccion URL en tu navegador: \n"
+//                + "localhost:8080/client/authorize/" + cR.searchByEmail(email).getId();
+//        try {
+//            emailService.send(email, emailBody, "Bienvenido a La Cumbrecita");
+//        } catch (ErrorService ex) {
+//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
-        model.put("title", "Bienvenido a la Libreria Online");
-        model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Revisa tu casilla de correos para completar el registro.");
-        return "redirect:/";
+//        model.put("title", "Bienvenido a la Libreria Online");
+//        model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Revisa tu casilla de correos para completar el registro.");
+//        return "redirect:/";
     }
 
     @PostMapping("/owner/signup")
