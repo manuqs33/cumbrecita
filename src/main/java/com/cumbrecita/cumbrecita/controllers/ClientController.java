@@ -11,6 +11,7 @@ import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.repositories.LodgingRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
 import com.cumbrecita.cumbrecita.services.ErrorService;
+import com.cumbrecita.cumbrecita.services.LodgingService;
 import com.cumbrecita.cumbrecita.services.ReservationService;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +46,8 @@ public class ClientController {
     private LodgingRepository lR;
     @Autowired
     private ReservationService reservationservice;
+    @Autowired
+    private LodgingService lodgingService;
 
     @GetMapping("/client/authorize/{id}")
     public String authorize(@PathVariable("id") String id, ModelMap model) {
@@ -63,11 +66,11 @@ public class ClientController {
     
     
     @GetMapping("/reserve")
-    public String reserve(ModelMap model){
+    public String reserve(ModelMap model, String id){
         
-        List<Lodging> lods = lR.findAll();
+        Lodging lodging = lodgingService.listById(id).get();
         
-        model.put("lodgings", lods);
+        model.put("lodgings", lodging);
         
         return "reserve-form.html";
     }

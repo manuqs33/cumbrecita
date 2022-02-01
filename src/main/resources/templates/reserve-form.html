@@ -9,42 +9,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <div th:replace="components.html :: navbar"></div>
 
     
-        
-        <div class="container mt-5">
-        
-            <div th:each="lodg : ${lodgings}">
-                <div class="row justify content-center">
-                    <div class="card m-1 p-1" style="width: 30%;">
-                        
-                        <div class="row">
-                            <div class="col-md-7">
-                                <img class="float-left ml-1" th:src="${'/photo/lodging/' + lodg.id}"
-                                    style="max-width: 90%; max-height: 100%;"></img>
-                            </div>
-                            <div class="col-md-5 mt-3">
-                                <h4 th:text="${lodg.name}"></h4>
-                                <h6 th:text="${lodg.address}"></h6>
-                                <h5 th:text="${lodg.capacity}"></h5>
-                                <h5 th:text="${lodg.pricepernight}"></h5>
+    <div class="row">
 
-                            </div>
-        
-        
-        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-            </div>
-        </div>
-                                
-                    
-                   <!-- <td th:text="${lodg.t}"></td> 
-                    
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <td th:text="${lodg.t}"></td> 
+                <tr>    
                     <td>
                         <form  action="/client/book" method="POST">
-                            <input type="hidden" th:value="${lodg.id}" name="lodgingid">
+                            <input type="hidden" th:value="${lodging.id}" name="lodgingid">
                             <input type="date" name="startDate" required>
                             <input type="date" name="endDate" required>
                             <label for="desc"><b>Observaciones</b></label>
@@ -52,58 +25,62 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <button type="submit" class="signupbtn">Reservar</button>
                         </form>
                     </td>
-                </tr> -->
-                <div th:replace="components.html :: footer"></div>
+                </tr> 
+        </div>
+    </div>                            
+                    
+                    
+            <div th:replace="components.html :: footer"></div>
                 
-                <script src="js/jquery-1.11.3.min.js"></script>             
-<script src="js/popper.min.js"></script>                      
-<script src="js/bootstrap.min.js"></script>                 
-<script src="js/datepicker.min.js"></script>                
-<script src="js/jquery.singlePageNav.min.js"></script>      
-<script src="slick/slick.min.js"></script>                  
-<script src="js/jquery.scrollTo.min.js"></script>           
-<script> 
+            <script src="js/jquery-1.11.3.min.js"></script>             
+            <script src="js/popper.min.js"></script>                      
+            <script src="js/bootstrap.min.js"></script>                 
+            <script src="js/datepicker.min.js"></script>                
+            <script src="js/jquery.singlePageNav.min.js"></script>      
+            <script src="slick/slick.min.js"></script>                  
+            <script src="js/jquery.scrollTo.min.js"></script>           
+            <script> 
 
-$(function(){
+            $(function(){
 
-// Change top navbar on scroll
-$(window).on("scroll", function() {
-    if($(window).scrollTop() > 100) {
-        $(".tm-top-bar").addClass("active");
-    } else {                    
-    $(".tm-top-bar").removeClass("active");
-    }
-});
+            // Change top navbar on scroll
+            $(window).on("scroll", function() {
+                if($(window).scrollTop() > 100) {
+                    $(".tm-top-bar").addClass("active");
+                } else {                    
+                $(".tm-top-bar").removeClass("active");
+                }
+            });
 
-// Smooth scroll to search form
-$('.tm-down-arrow-link').click(function(){
-    $.scrollTo('#tm-section-search', 300, {easing:'linear'});
-});
+            // Smooth scroll to search form
+            $('.tm-down-arrow-link').click(function(){
+                $.scrollTo('#tm-section-search', 300, {easing:'linear'});
+            });
 
-// Date Picker in Search form
-var pickerCheckIn = datepicker('#inputCheckIn');
-var pickerCheckOut = datepicker('#inputCheckOut');
+            // Date Picker in Search form
+            var pickerCheckIn = datepicker('#inputCheckIn');
+            var pickerCheckOut = datepicker('#inputCheckOut');
 
-// Update nav links on scroll
-$('#tm-top-bar').singlePageNav({
-    currentClass:'active',
-    offset: 60
-});
+            // Update nav links on scroll
+            $('#tm-top-bar').singlePageNav({
+                currentClass:'active',
+                offset: 60
+            });
 
-// Close navbar after clicked
-$('.nav-link').click(function(){
-    $('#mainNav').removeClass('show');
-});
+            // Close navbar after clicked
+            $('.nav-link').click(function(){
+                $('#mainNav').removeClass('show');
+            });
 
-// Slick Carousel
-$('.tm-slideshow').slick({
-    infinite: true,
-    arrows: true,
-    slidesToShow: 1,
-    slidesToScroll: 1
-});
-});
-</script>  
+            // Slick Carousel
+            $('.tm-slideshow').slick({
+                infinite: true,
+                arrows: true,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            });
+            });
+            </script>  
 </body>
         
 
