@@ -1,52 +1,169 @@
+
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <form th:action="@{/lodging/save}" method="POST" enctype="multipart/form-data">
-            <h3>Registra tu propiedad</h3>
+<html lang="en">
+<head>
 
-            <label for="name"><b>Nombre</b></label>
-            <input type="text" placeholder="Enter name" name="name" required>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registrá tu propiedad</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/styleform.css" />
+</head>
 
-            <label for="address"><b>Direccion</b></label>
-            <input type="text" placeholder="Street name + number" name="address" required>
+<body>
 
-            <label for="type"><b>Tipo</b></label>
-            <select name="type">
-                <option value="0">Casa</option>
-                <option value="1">Habitacion</option>
-            </select>
-
-            <label for="capacity"><b>Capacidad</b></label>
-            <input type="number" placeholder="Enter capacity" name="capacity" required>
-
-            <label for="ppnigth"><b>Precio p/noche</b></label>
-            <input type="number" placeholder="Enter price" name="ppnigth" required>
-            
-            <label for="desc"><b>Descripcion del alojamiento</b></label>
-            <textarea id="desc" name="desc" rows="10" cols="15"></textarea>
-
-            <label for="photolist"><b>Fotos</b></label>
-            <input type="file" name="photolist" id="img" />
+   
 
 
-            <!--
-              <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-            -->
-            <div class="clearfix">
-                <button type="button" class="cancelbtn">Cancelar</button>
-                <button type="submit" class="signupbtn">Cargar Alojamiento</button>
-            </div>
+
+    <div th:replace="components.html :: navbar"></div>
+
+    <!--Fin del NAVBAR-->
+    <span class="border">
+        <form>
+            <div class="row">
+
+                <div class="col-lg-2"></div>
+                <div class="col-lg-10">
+
+                    <form th:action="@{/lodging/save}" method="POST" enctype="multipart/form-data">
+                        <div class="col-lg-6">
+                            <br>
+                            <h3>Registrá tu propiedad</h3>
+                        </div>
+                        <br>
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label"><b>Nombre</b></label>
+
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" placeholder="Ingresar Nombre" name="name"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label"><b>Dirección</b></label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" placeholder="Ingresar dirección"
+                                        name="address" required>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label"><b>Tipo de Alojamiento</b></label>
+                                <div class="col-lg-6">
+                                    <select name="type">
+                                        <option value="0">Casa</option>
+                                        <option value="1">Habitacion</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label"><b>Capacidad</b></label>
+                                <div class="col-lg-6">
+                                    <input type="number" placeholder="Ingresar Capacidad" name="capacity" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label"><b>Precio p/noche</b></label>
+                                <div class="col-lg-6">
+                                    <input type="number" placeholder="Ingresar precio" name="ppnigth" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label"><b>Descripción del
+                                        alojamiento</b></label>
+                                <div class="col-lg-6">
+                                    <textarea id="desc" name="desc" rows="10" cols="55"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label"><b>Fotos</b></label>
+                                <div class="col-lg-6">
+                                    <input type="file" name="photolist">
+                                </div>
+                            </div>
 
 
+
+                            <div class="form-group">
+                                <div class="col-lg-6 control-label">
+                                    <button type="submit" class="btn btn-success center">Registrarse</button>
+                                    <button type="submit" class="btn btn-danger center">Cancelar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                </div>
         </form>
-    </body>
+    </span>
+</body>
+
 </html>
+
+<!-- footer -->
+<div th:replace="components.html :: footer"></div>
+
+<!-- load JS files -->
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/datepicker.min.js"></script>
+<script src="js/jquery.singlePageNav.min.js"></script>
+<script src="slick/slick.min.js"></script>
+<script src="js/jquery.scrollTo.min.js"></script>
+<script>
+
+
+    /* DOM is ready
+     ------------------------------------------------*/
+    $(function () {
+
+        // Change top navbar on scroll
+        $(window).on("scroll", function () {
+            if ($(window).scrollTop() > 100) {
+                $(".tm-top-bar").addClass("active");
+            } else {
+                $(".tm-top-bar").removeClass("active");
+            }
+        });
+
+        // Smooth scroll to search form
+        $('.tm-down-arrow-link').click(function () {
+            $.scrollTo('#tm-section-search', 300, { easing: 'linear' });
+        });
+
+        // Date Picker in Search form
+        var pickerCheckIn = datepicker('#inputCheckIn');
+        var pickerCheckOut = datepicker('#inputCheckOut');
+
+        // Update nav links on scroll
+        $('#tm-top-bar').singlePageNav({
+            currentClass: 'active',
+            offset: 60
+        });
+
+        // Close navbar after clicked
+        $('.nav-link').click(function () {
+            $('#mainNav').removeClass('show');
+        });
+
+        // Slick Carousel
+        $('.tm-slideshow').slick({
+            infinite: true,
+            arrows: true,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        });
+    });
+</script>
+</body>
+
+</html>
+>>>>>>> Stashed changes
