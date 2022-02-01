@@ -1,27 +1,49 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>Hola</h1>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="components.html :: head"></head>
+    
+    <div th:replace="components.html :: navbar"></div>
 
-           <table class="form-control">
-                <tr th:each="lodg : ${lodgings}">
-                    <td th:text="${lodg.name}"></td>
-                    <td th:text="${lodg.address}"></td>
-                    <td th:text="${lodg.capacity}"></td>
-                    <td th:text="${lodg.pricepernight}"></td>
-                    <td th:text="${lodg.t}"></td>
-                    <td><img th:src="${'/photo/lodging/' + lodg.id}" ></img></td>
+    
+        
+        <div class="container mt-5">
+        
+            <div th:each="lodg : ${lodgings}">
+                <div class="row justify content-center">
+                    <div class="card m-1 p-1" style="width: 30%;">
+                        
+                        <div class="row">
+                            <div class="col-md-7">
+                                <img class="float-left ml-1" th:src="${'/photo/lodging/' + lodg.id}"
+                                    style="max-width: 90%; max-height: 100%;"></img>
+                            </div>
+                            <div class="col-md-5 mt-3">
+                                <h4 th:text="${lodg.name}"></h4>
+                                <h6 th:text="${lodg.address}"></h6>
+                                <h5 th:text="${lodg.capacity}"></h5>
+                                <h5 th:text="${lodg.pricepernight}"></h5>
+
+                            </div>
+        
+        
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+                                
+                    
+                   <!-- <td th:text="${lodg.t}"></td> 
+                    
                     <td>
-                        <form action="/client/book" method="POST">
+                        <form  action="/client/book" method="POST">
                             <input type="hidden" th:value="${lodg.id}" name="lodgingid">
                             <input type="date" name="startDate" required>
                             <input type="date" name="endDate" required>
@@ -30,8 +52,61 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <button type="submit" class="signupbtn">Reservar</button>
                         </form>
                     </td>
-                </tr>
-            </table> 
+                </tr> -->
+                <div th:replace="components.html :: footer"></div>
+                
+                <script src="js/jquery-1.11.3.min.js"></script>             
+<script src="js/popper.min.js"></script>                      
+<script src="js/bootstrap.min.js"></script>                 
+<script src="js/datepicker.min.js"></script>                
+<script src="js/jquery.singlePageNav.min.js"></script>      
+<script src="slick/slick.min.js"></script>                  
+<script src="js/jquery.scrollTo.min.js"></script>           
+<script> 
 
-    </body>
+$(function(){
+
+// Change top navbar on scroll
+$(window).on("scroll", function() {
+    if($(window).scrollTop() > 100) {
+        $(".tm-top-bar").addClass("active");
+    } else {                    
+    $(".tm-top-bar").removeClass("active");
+    }
+});
+
+// Smooth scroll to search form
+$('.tm-down-arrow-link').click(function(){
+    $.scrollTo('#tm-section-search', 300, {easing:'linear'});
+});
+
+// Date Picker in Search form
+var pickerCheckIn = datepicker('#inputCheckIn');
+var pickerCheckOut = datepicker('#inputCheckOut');
+
+// Update nav links on scroll
+$('#tm-top-bar').singlePageNav({
+    currentClass:'active',
+    offset: 60
+});
+
+// Close navbar after clicked
+$('.nav-link').click(function(){
+    $('#mainNav').removeClass('show');
+});
+
+// Slick Carousel
+$('.tm-slideshow').slick({
+    infinite: true,
+    arrows: true,
+    slidesToShow: 1,
+    slidesToScroll: 1
+});
+});
+</script>  
+</body>
+        
+
+
+   
 </html>
