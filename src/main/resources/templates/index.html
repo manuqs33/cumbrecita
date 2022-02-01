@@ -31,7 +31,7 @@
                 </div> 
                 <div class="row tm-banner-row" id="tm-section-search">
 </body>
-</html>
+
 <!--fin del header  - comienzo del buscador-->
 
 <!--BUSCADOR-->
@@ -85,23 +85,77 @@
 </div>
 </div>
 </section>
-<!--banner intermedio-->
+<!--banner intermedio. 3 para que salgan cosas distintas según estado de login (no loggeado, dueño, cliente)-->
 
 <section class="p-5 tm-container-outer tm-bg-gray">            
-    <div class="container">
+    <div class="container" >
         <div class="row">
-            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">                        
-                <h2 class="text-uppercase mb-4">Tu <strong>viaje</strong> es nuestra prioridad</h2>
-                <p class="mb-4">Te acercamos las mejores opciones para tu confort y seguridad. Reservá con nosotros y viví esperiencias únicas en un entorno natural maravilloso.</p>
-                <a href="/signup" class="text-uppercase btn-primary tm-btn" sec:authorize="!isAuthenticated()">Registrate</a>                              
+            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center" >   
+                
+            
+                <div th:if="${session.sessionOwner != null}">                 
+                    <h2 class="text-uppercase mb-4"><strong>Iniciaste sesión como propietario</strong></h2>
+                    <p class="mb-4"> Agregá tu propiedad para llegar a más personas</p>
+                    <a href="/lodging" class="text-uppercase btn-primary tm-btn">Agregá tu propiedad</a> 
+                </div>  
+                <div th:if="${session.sessionClient != null}">                  
+                    <h2 class="text-uppercase mb-4"><strong>Iniciaste sesión</strong></h2>
+                    <p class="mb-4"> Hacé tu reserva!</p>
+                    <a href="/reserve" class="text-uppercase btn-primary tm-btn">Reservar</a>
+                </div>  
+            
+                <div sec:authorize="!isAuthenticated()">                  
+                    <h2 class="text-uppercase mb-4">Tu <strong>viaje</strong> es nuestra prioridad</h2>
+                    <p class="mb-4">Te acercamos las mejores opciones para tu confort y seguridad. Reservá con nosotros y viví esperiencias únicas en un entorno natural maravilloso.</p>
+                    <a href="/signup" class="text-uppercase btn-primary tm-btn">Registrate</a>  
+                </div>
             </div>
         </div>
     </div>            
 </section>
 
-<!--Fin de banner intermedio-->
 
 
+<!--banner intermedio. 3 para que salgan cosas distintas según estado de login (no loggeado, dueño, cliente)
+
+<section class="p-5 tm-container-outer tm-bg-gray" sec:authorize="!isAuthenticated()">            
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">                        
+                <h2 class="text-uppercase mb-4">Tu <strong>viaje</strong> es nuestra prioridad</h2>
+                <p class="mb-4">Te acercamos las mejores opciones para tu confort y seguridad. Reservá con nosotros y viví esperiencias únicas en un entorno natural maravilloso.</p>
+                <a href="/signup" class="text-uppercase btn-primary tm-btn">Registrate</a>                              
+            </div>
+        </div>
+    </div>            
+</section>
+
+ banner intermedio 2
+<section class="p-5 tm-container-outer tm-bg-gray" th:if="${session.sessionOwner != null}>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">
+                <h2 class="text-uppercase mb-4"><strong>Iniciaste sesión como propietario</strong></h2>
+                <p class="mb-4"> Agregá tu propiedad para llegar a más personas</p>
+                <a href="/lodging" class="text-uppercase btn-primary tm-btn">Agregá tu propiedad</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+banner intermedio 2
+<section class="p-5 tm-container-outer tm-bg-gray" th:if="${session.sessionClient != null}>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">
+                <h2 class="text-uppercase mb-4"><strong>Iniciaste sesión</strong></h2>
+                <p class="mb-4"> Hacé tu reserva!</p>
+                <a href="/reserve" class="text-uppercase btn-primary tm-btn">Reservar</a>
+            </div>
+        </div>
+    </div>
+</section>
+-->
 <div class="tm-container-outer" id="tm-section-2">
                 <section class="tm-slideshow-section">
                     <div class="tm-slideshow">
@@ -145,11 +199,12 @@
             </div>        
             <br>
             <br>
+
   <!--Banner de registro como propietario-->          
             <section class="p-5 tm-container-outer tm-bg-gray">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">
+                        <div class="col-xs-12 mx-auto tm-about-text-wrap text-center" sec:authorize="!isAuthenticated()">
                             <h2 class="text-uppercase mb-4"><strong>Conectamos</strong> viajeros con los mejores hospedajes</h2>
                             <p class="mb-4"> Registrate como dueño y agrega tu propiedad para llegar a más personas</p>
                             <a href="/owner" class="text-uppercase btn-primary tm-btn">Registrate como dueño y agregá tu propiedad</a>
