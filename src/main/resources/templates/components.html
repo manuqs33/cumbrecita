@@ -41,7 +41,10 @@
                                     <a class="nav-link" onclick="location.href='/login'" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" onclick="location.href='/signup'" sec:authorize="!isAuthenticated()">Registrate</a>
+                                    <a class="nav-link" onclick="location.href='/reserve'" sec:authorize="isAuthenticated()">Reservar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="location.href='/signup'" th:if="${session.sessionClient != null}">Registrate</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" onclick="location.href='/owner'" th:if="${session.sessionOwner == null}">Registrar dueño</a>
