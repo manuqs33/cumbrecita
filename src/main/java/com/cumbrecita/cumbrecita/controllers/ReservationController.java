@@ -29,7 +29,7 @@ public class ReservationController {
             }
         }
         model.addAttribute("reservs", reservs);
-        return "owner-reservs.html";
+        return "owner-reservation.html";
     }
 
     @PreAuthorize("hasAnyRole('CLIENT')")
@@ -38,6 +38,6 @@ public class ReservationController {
         Client client = (Client) session.getAttribute("sessionClient");
         List<Reservation> reserv = rR.searchClient(session.getId());//trae la lista de reservas que haya realizado el usuario
         model.addAttribute("reserv", reserv);
-        return "client-reserv.html";
+        return "client-reservation.html";
     }
 }
