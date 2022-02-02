@@ -101,7 +101,7 @@
                 <div th:if="${session.sessionClient != null}">                  
                     <h2 class="text-uppercase mb-4"><strong>Iniciaste sesión</strong></h2>
                     <p class="mb-4"> Hacé tu reserva!</p>
-                    <a href="/reserve" class="text-uppercase btn-primary tm-btn">Reservar</a>
+                    <a href="/lodging-list" class="text-uppercase btn-primary tm-btn">Reservar</a>
                 </div>  
             
                 <div sec:authorize="!isAuthenticated()">                  
