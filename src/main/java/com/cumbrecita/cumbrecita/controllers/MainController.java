@@ -11,6 +11,7 @@ import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
 import com.cumbrecita.cumbrecita.services.EmailService;
 import com.cumbrecita.cumbrecita.services.ErrorService;
+import com.cumbrecita.cumbrecita.services.LodgingService;
 import com.cumbrecita.cumbrecita.services.OwnerService;
 import java.util.Date;
 import java.util.logging.Level;
@@ -36,17 +37,22 @@ public class MainController {
     private OwnerService ownerService;
     @Autowired
     private EmailService emailService;
+     @Autowired
+    private LodgingService lodgingService;
 
     @GetMapping("/")
     public String index(HttpSession session, ModelMap model) {
         Client client = (Client) session.getAttribute("sessionClient");
         Owner owner = (Owner) session.getAttribute("sessionOwner");
-
+        
+        
         if (owner != null) {
-            model.put("namelog", owner.getFirstname());
+            String mail = owner.getMail();
+            model.put("namelog", mail);
         }
         if (client != null) {
-            model.put("namelog", client.getFirstname());
+            String mail = client.getMail();
+            model.put("namelog", mail);
         }
 
         
@@ -85,7 +91,12 @@ public class MainController {
     }
     
     @GetMapping("/lodging-list")
-    public String lodgingList(){
+     public String listLodgings(Model model, @RequestParam(required = false) String q) {
+        if (q != null) {
+            model.addAttribute("lodgings", lodgingService.listLodgingByQ(q));
+        } else {
+            model.addAttribute("lodgings", lodgingService.listAllLodging());
+        }
         return "lodging-list.html";
     }
     

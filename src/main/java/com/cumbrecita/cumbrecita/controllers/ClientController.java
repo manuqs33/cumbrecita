@@ -7,10 +7,12 @@ package com.cumbrecita.cumbrecita.controllers;
 
 import com.cumbrecita.cumbrecita.entities.Client;
 import com.cumbrecita.cumbrecita.entities.Lodging;
+import com.cumbrecita.cumbrecita.enumc.Type;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.repositories.LodgingRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
 import com.cumbrecita.cumbrecita.services.ErrorService;
+import com.cumbrecita.cumbrecita.services.LodgingService;
 import com.cumbrecita.cumbrecita.services.ReservationService;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +47,8 @@ public class ClientController {
     private LodgingRepository lR;
     @Autowired
     private ReservationService reservationservice;
+    @Autowired
+    private LodgingService lodgingService;
 
     @GetMapping("/client/authorize/{id}")
     public String authorize(@PathVariable("id") String id, ModelMap model) {
@@ -63,11 +67,11 @@ public class ClientController {
     
     
     @GetMapping("/reserve")
-    public String reserve(ModelMap model){
+    public String reserve(ModelMap model,@RequestParam String id){
         
-        List<Lodging> lods = lR.findAll();
+        Lodging lodging = lodgingService.listById(id).get();
         
-        model.put("lodgings", lods);
+        model.put("lodgings", lodging);
         
         return "reserve-form.html";
     }
@@ -82,6 +86,7 @@ public class ClientController {
         Optional<Lodging> ans = lR.findById(lodgingid);
         if (ans.isPresent()) {
             Lodging lodging = ans.get();
+            lodging.setT(Type.house);
             try {
                 reservationservice.saveReservation(client, startDate, endDate, lodging, observations);
                 redirectAttributes.addFlashAttribute("success", "Su reserva ha sido exitosa");

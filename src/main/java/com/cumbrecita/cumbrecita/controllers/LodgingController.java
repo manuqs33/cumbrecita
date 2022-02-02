@@ -32,15 +32,15 @@ public class LodgingController {
     @Autowired
     private LodgingService lodgingService;
 
-    @GetMapping("/list") //ESTO ES PARA LISTAR LOS ALOJAMIENTOS Y QUE SE LOS PUEDA BUSCAR METIENDO UN STRING.
-    public String listLodgings(Model model, @RequestParam(required = false) String q) {
-        if (q != null) {
-            model.addAttribute("lodgings", lodgingService.listLodgingByQ(q));
-        } else {
-            model.addAttribute("lodgings", lodgingService.listAllLodging());
-        }
-        return "lodging-list.html";
-    }
+//    @GetMapping("/list") //ESTO ES PARA LISTAR LOS ALOJAMIENTOS Y QUE SE LOS PUEDA BUSCAR METIENDO UN STRING.
+//    public String listLodgings(Model model, @RequestParam(required = false) String q) {
+//        if (q != null) {
+//            model.addAttribute("lodgings", lodgingService.listLodgingByQ(q));
+//        } else {
+//            model.addAttribute("lodgings", lodgingService.listAllLodging());
+//        }
+//        return "lodging-list.html";
+//    }
     //("/search")
 //    @PreAuthorize("hasAnyRole('OWNER')")
     @GetMapping("/create") //ACÁ SE METEN LOS DATOS DEL LODGING. PONGO POR LAS DUDAS LA ESTRUCTURA PARA EDITAR UN ALOJAMIENTO (Por si se equivoca en una letra, no tenga que borrar y volver a crear)
@@ -54,7 +54,7 @@ public class LodgingController {
             if (optional.isPresent()) {
                 model.addAttribute("lodgings", optional.get()); //esto manda a la vista un lodging para modificar.
             } else {
-                return "redirect:/lodging/list";
+                return "redirect:/lodging-list";
             }
         } else {
             model.put("types", Type.values());
