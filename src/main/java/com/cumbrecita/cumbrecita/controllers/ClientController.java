@@ -7,6 +7,7 @@ package com.cumbrecita.cumbrecita.controllers;
 
 import com.cumbrecita.cumbrecita.entities.Client;
 import com.cumbrecita.cumbrecita.entities.Lodging;
+import com.cumbrecita.cumbrecita.enumc.Type;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.repositories.LodgingRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
@@ -66,7 +67,7 @@ public class ClientController {
     
     
     @GetMapping("/reserve")
-    public String reserve(ModelMap model, String id){
+    public String reserve(ModelMap model,@RequestParam String id){
         
         Lodging lodging = lodgingService.listById(id).get();
         
@@ -85,6 +86,7 @@ public class ClientController {
         Optional<Lodging> ans = lR.findById(lodgingid);
         if (ans.isPresent()) {
             Lodging lodging = ans.get();
+            lodging.setT(Type.house);
             try {
                 reservationservice.saveReservation(client, startDate, endDate, lodging, observations);
                 redirectAttributes.addFlashAttribute("success", "Su reserva ha sido exitosa");

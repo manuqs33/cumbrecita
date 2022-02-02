@@ -28,6 +28,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <h5 th:text="${lodg.pricepernight}"></h5>
 
                             </div>
+                            <div>
+                                <form  action="/client/book" method="POST">
+                                    <input type="hidden" th:value="${lodgings.id}" name="lodgingid">
+                                    <input type="date" name="startDate" required>
+                                    <input type="date" name="endDate" required>
+                                    <label for="desc"><b>Observaciones</b></label>
+                                    <textarea id="observations" name="observations" rows="10" cols="15" required></textarea>
+                                    <button type="submit" class="signupbtn">Reservar</button>
+                                </form>
+                            </div>
         
         
         
@@ -40,19 +50,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </div>
                                 
                     
-                   <!-- <td th:text="${lodg.t}"></td> 
+                   <!-- <td th:text="${lodg.t}"></td> -->
                     
                     <td>
-                        <form  action="/client/book" method="POST">
-                            <input type="hidden" th:value="${lodg.id}" name="lodgingid">
-                            <input type="date" name="startDate" required>
-                            <input type="date" name="endDate" required>
-                            <label for="desc"><b>Observaciones</b></label>
-                            <textarea id="observations" name="observations" rows="10" cols="15" required></textarea>
-                            <button type="submit" class="signupbtn">Reservar</button>
-                        </form>
+                       
                     </td>
-                </tr> -->
+                </tr> 
                 <div th:replace="components.html :: footer"></div>
                 
                 <script src="js/jquery-1.11.3.min.js"></script>             
