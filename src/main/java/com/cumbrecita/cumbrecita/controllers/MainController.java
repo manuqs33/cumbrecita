@@ -50,6 +50,7 @@ public class MainController {
             String mail = owner.getMail();
             model.put("namelog", mail);
         }
+        
         if (client != null) {
             String mail = client.getMail();
             model.put("namelog", mail);
@@ -86,12 +87,37 @@ public class MainController {
     }
     
     @GetMapping("/lodging")
-    public String lodgingForm(){
+    public String lodgingForm(HttpSession session,Model model){
+        Client client = (Client) session.getAttribute("sessionClient");
+        Owner owner = (Owner) session.getAttribute("sessionOwner");
+
+        if (owner != null) {
+            String mail = owner.getMail();
+            model.addAttribute("namelog", mail);
+        }
+
+        if (client != null) {
+            String mail = client.getMail();
+            model.addAttribute("namelog", mail);
+        }
         return "lodging-form.html";
     }
     
     @GetMapping("/lodging-list")
-     public String listLodgings(Model model, @RequestParam(required = false) String q) {
+    public String listLodgings(HttpSession session,Model model, @RequestParam(required = false) String q) {
+        Client client = (Client) session.getAttribute("sessionClient");
+        Owner owner = (Owner) session.getAttribute("sessionOwner");
+
+        if (owner != null) {
+            String mail = owner.getMail();
+            model.addAttribute("namelog", mail);
+        }
+
+        if (client != null) {
+            String mail = client.getMail();
+            model.addAttribute("namelog", mail);
+        }
+
         if (q != null) {
             model.addAttribute("lodgings", lodgingService.listLodgingByQ(q));
         } else {
@@ -106,7 +132,19 @@ public class MainController {
     }
     
      @GetMapping("/about")
-    public String about() {
+    public String about(HttpSession session,Model model) {
+         Client client = (Client) session.getAttribute("sessionClient");
+        Owner owner = (Owner) session.getAttribute("sessionOwner");
+
+        if (owner != null) {
+            String mail = owner.getMail();
+            model.addAttribute("namelog", mail);
+        }
+
+        if (client != null) {
+            String mail = client.getMail();
+            model.addAttribute("namelog", mail);
+        }
         return "about.html";
     }
     
