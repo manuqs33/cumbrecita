@@ -3,7 +3,12 @@ package com.cumbrecita.cumbrecita.controllers;
 import com.cumbrecita.cumbrecita.entities.Client;
 import com.cumbrecita.cumbrecita.entities.Reservation;
 import com.cumbrecita.cumbrecita.repositories.ReservationRepository;
+import com.cumbrecita.cumbrecita.services.ReservationService;
+import com.mercadopago.exceptions.MPException;
+import com.mercadopago.resources.Preference;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,12 +16,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ReservationController {
 
     @Autowired
     private ReservationRepository rR;
+    @Autowired
+    private ReservationService rS;
 
     @PreAuthorize("hasAnyRole('OWNER')")
     @GetMapping("/owner/reservation")
@@ -39,5 +47,20 @@ public class ReservationController {
         List<Reservation> reserv = rR.searchClient(session.getId());//trae la lista de reservas que haya realizado el usuario
         model.addAttribute("reserv", reserv);
         return "client-reserv.html";
+    }
+    
+    @GetMapping("/reservation/pay")
+    public String pay(@RequestParam String reserveId, ModelMap model){
+        
+        Reservation reserve = rR.searchById(reserveId);
+        
+        try {
+            Preference preference = rS.pay(reserve);
+            model.put("preference", preference.getId());
+        } catch (MPException ex) {
+            Logger.getLogger(ReservationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return "pay.html";
     }
 }

@@ -102,6 +102,5 @@ public class ClientController {
         
         return "success.html";
     }
-    //pagar
-
+    
 }

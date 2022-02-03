@@ -5,9 +5,19 @@ import com.cumbrecita.cumbrecita.entities.Lodging;
 import com.cumbrecita.cumbrecita.entities.Reservation;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.repositories.ReservationRepository;
+import com.mercadopago.MercadoPago;
+import com.mercadopago.exceptions.MPConfException;
+import com.mercadopago.exceptions.MPException;
+import com.mercadopago.resources.Preference;
+import com.mercadopago.resources.datastructures.preference.BackUrls;
+import com.mercadopago.resources.datastructures.preference.Identification;
+import com.mercadopago.resources.datastructures.preference.Item;
+import com.mercadopago.resources.datastructures.preference.Payer;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +52,7 @@ public class ReservationService {
 
     public void validate(Reservation reservation) throws ErrorService {
 
-        if (reservation.getStartDate()== null) {
+        if (reservation.getStartDate() == null) {
             throw new ErrorService("The reservation has to have a start date.");
         }
         if (reservation.getEndDate() == null) {
@@ -66,6 +76,49 @@ public class ReservationService {
         if (optional.isPresent()) {
             reservationRepository.delete(optional.get());
         }
+    }
+
+    public Preference pay(Reservation reserve) throws MPException {
+        
+        Preference preference = new Preference();
+        
+        try {
+            MercadoPago.SDK.setAccessToken("TEST-5937986277032148-101923-b35b3a307183035d2927e473185484ed-277723064");
+            // Crea un objeto de preferencia
+
+            BackUrls backUrls = new BackUrls("localhost:8080/payment/success",
+                    "localhost:8080/payment/pending",
+                    "localhost:8080/payment/failure");
+
+            Payer payer = new Payer();
+
+            payer.setName(reserve.getC().getFirstname());
+            payer.setSurname(reserve.getC().getLastname());
+            payer.setEmail(reserve.getC().getMail());
+            payer.setDateCreated(new Date() + "");
+            payer.setIdentification(new Identification()
+                    .setType("DNI")
+                    .setNumber(reserve.getC().getDni() + ""));
+
+            // Crea un ítem en la preferencia
+            Item item = new Item();
+            item.setTitle("Reserva de " + reserve.getL().getName())
+                    .setQuantity(1)
+                    .setUnitPrice((float) reserve.getPrice())
+                    .setDescription(reserve.getObservations())
+                    .setCurrencyId("ARS");
+            preference.appendItem(item);
+            preference.save();
+            preference.setAutoReturn(Preference.AutoReturn.approved);
+            preference.setBackUrls(backUrls);
+            preference.setPayer(payer);
+
+            return preference;
+        } catch (MPConfException ex) {
+            Logger.getLogger(ReservationService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return preference;
     }
 
 }
