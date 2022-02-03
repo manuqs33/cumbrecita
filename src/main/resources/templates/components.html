@@ -57,7 +57,7 @@
                                     <a class="nav-link" href="/#contact">Contacto</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" onclick="location.href='/about'">Quiénes somos</a>
+                                    <a class="nav-link" onclick="location.href='/about'" th:if="${session.sessionOwner == null}">Quiénes somos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" onclick="location.href='/logout'" sec:authorize="isAuthenticated()" >Cerrar Sesión</a>
