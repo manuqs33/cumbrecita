@@ -10,45 +10,88 @@
 
 
     <body>
-        <!--El navbar-->
+    <!--El navbar-->
 
-        <div th:replace="components.html :: navbar"></div>
+    <div th:replace="components.html :: navbar"></div>
 
-        <!--Fin del NAVBAR-->
+    <!--Fin del NAVBAR-->
 
-        <div>
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+
             <form th:action="@{/lodging/save}" method="POST" enctype="multipart/form-data">
-                <h3>Registra tu propiedad</h3>
-                <label for="name"><b>Nombre</b></label>
-                <input type="text" placeholder="Enter name" name="name" required>
-
-                <label for="address"><b>Direccion</b></label>
-                <input type="text" placeholder="Street name + number" name="address" required>
-
-                <label for="type"><b>Tipo</b></label>
-                <select name="type">
-                    <option value="0">Casa</option>
-                    <option value="1">Habitacion</option>
-                </select>
-
-                <label for="capacity"><b>Capacidad</b></label>
-                <input type="number" placeholder="Enter capacity" name="capacity" required>
-
-                <label for="ppnigth"><b>Precio p/noche</b></label>
-                <input type="number" placeholder="Enter price" name="ppnigth" required>
-
-                <label for="desc"><b>Descripción del alojamiento</b></label>
-                <textarea id="desc" name="desc" rows="10" cols="15"></textarea>
-
-                <label for="photolist"><b>Fotos</b></label>
-                <input type="file" name="photolist">
-
-                <div class="clearfix">
-                    <button type="button" class="cancelbtn">Cancelar</button>
-                    <button type="submit" class="signupbtn">Cargar Alojamiento</button>
+                <div class="col-lg-6">
+                    <br>
+                    <h3>Agregá tu propiedad</h3>
                 </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="name" class="col-lg-8 control-label"><b>Nombre</b></label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" placeholder="Ingrese nombre del alojamiento" name="name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address" class="col-lg-8 control-label"><b>Direccion</b></label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" placeholder="Ingrese dirección del alojamiento" name="address" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="type" class="col-lg-8 control-label"><b>Tipo</b></label>
+                    <div class="col-lg-6">
+                    <select name="type">
+                        <option value="0">Casa</option>
+                        <option value="1">Habitación</option>
+                    </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="capacity" class="col-lg-8 control-label"><b>Capacidad</b></label>
+                    <div class="col-lg-6">
+                        <input type="number" class="form-control" placeholder="Ingrese capacidad" name="capacity" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ppnigth" class="col-lg-8 control-label"><b>Precio p/noche</b></label>
+                    <div class="col-lg-6">
+                    <input type="number" class="form-control" placeholder="Ingrese el precio por noche" name="ppnigth" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="desc" class="col-lg-8 control-label"><b>Descripción del alojamiento</b></label>
+                    <div class="col-lg-6">
+                        <textarea class="form-control" id="desc" name="desc" rows="10" cols="15">
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="photolist" class="col-lg-8 control-label"><b>Fotos</b></label>
+                    <div class="col-lg-6">
+                        <input type="file" class="btn btn-secondary" name="photolist">
+                    </div>
+                </div>
+                <br>
+                <br>
+
+                <div class="form-group">
+                    <div class="col-lg-8 control-label">
+                        <button type="submit" class="signupbtn btn btn-success">Cargar Alojamiento</button>
+                        <button type="reset" class="cancelbtn btn btn-danger">Cancelar</button>
+                    </div>
+                </div>
+
             </form>
         </div>
+    </div>
 
         <!-- footer -->
         <div th:replace="components.html :: footer"></div>
