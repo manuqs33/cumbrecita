@@ -115,17 +115,17 @@ public class MainController {
 
     /*PostMapping*/
     @PostMapping("/contact/sendmessage")
-    public String sendEmail(ModelMap model, String subject, String message, String email, String phoneNumber) {
+    public String sendEmail(ModelMap model, String subject, String message, String email, String name) {
         try {
-            String emailBody = message + "\n Email de contacto: " + email + "\n Numero celular de contacto: " + phoneNumber;
+            String emailBody = message + "\n Email de contacto: " + email + "\n Nombre: " + name;
             emailService.send(email, emailBody, subject);
         } catch (ErrorService ex) {
             model.put("error", ex.getMessage());
-            return "contact.html";
+            return "redirect:/";
         }
 
-        model.put("message", "El mensaje fue enviado correctamente. Nos contactaremos lo antes posible, muchas gracias!");
-        return "contact.html";
+        model.put("msg", "El mensaje fue enviado correctamente. Nos contactaremos lo antes posible, muchas gracias!");
+        return "redirect";
     }
 
     @PostMapping("/signup")
@@ -133,7 +133,6 @@ public class MainController {
 
         try {
             clientService.registerClient(firstname, lastname, email, dni, bdate, password, password2);
-            return "redirect:/"; //ESTO LO PONGO HASTA QUE SE CONFIGURE EL MAIL SENDER. SINO TIRA ERROR
         } catch (ErrorService e) {
             model.put("error", e.getMessage());
             model.put("fname", firstname);
@@ -145,18 +144,18 @@ public class MainController {
             return "signup.html";
         }
 
-//        String emailBody = "Tu email ha sido utilizado para registrarse en La Cumbrecita. De no haber sido tú ignora este link, de manera contraria por favor da click aqui: (hipervinculo).\n"
-//                + "Si no puedes ver el link puedes utilizar esta direccion URL en tu navegador: \n"
-//                + "localhost:8080/client/authorize/" + cR.searchByEmail(email).getId();
-//        try {
-//            emailService.send(email, emailBody, "Bienvenido a La Cumbrecita");
-//        } catch (ErrorService ex) {
-//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        String emailBody = "Tu email ha sido utilizado para registrarse en La Cumbrecita. De no haber sido tú ignora este link, de manera contraria por favor da click aqui: (hipervinculo).\n"
+                + "Si no puedes ver el link puedes utilizar esta direccion URL en tu navegador: \n"
+                + "localhost:8080/client/authorize/" + cR.searchByEmail(email).getId();
+        try {
+            emailService.send(email, emailBody, "Bienvenido a La Cumbrecita");
+        } catch (ErrorService ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-//        model.put("title", "Bienvenido a la Libreria Online");
-//        model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Revisa tu casilla de correos para completar el registro.");
-//        return "redirect:/";
+        model.put("title", "Bienvenido a La Cumbrecita");
+        model.put("desc", "Tu usuario fue registrado de manera satisfactioria. Revisa tu casilla de correos para completar el registro.");
+        return "redirect:/";
     }
 
     @PostMapping("/owner/signup")

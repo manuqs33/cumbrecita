@@ -84,6 +84,7 @@ public class ReservationService {
         
         try {
             MercadoPago.SDK.setAccessToken("TEST-5937986277032148-101923-b35b3a307183035d2927e473185484ed-277723064");
+            //TEST-56bdbc5a-5ea2-4ee3-b96a-76eb4f6ea954 PUBLIC KEY PARA EL FRONT
             // Crea un objeto de preferencia
 
             BackUrls backUrls = new BackUrls("localhost:8080/payment/success",
