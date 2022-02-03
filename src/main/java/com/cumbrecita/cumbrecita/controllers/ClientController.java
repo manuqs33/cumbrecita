@@ -100,7 +100,7 @@ public class ClientController {
         }
 
         
-        return "success.html";
+        return "success_reservation.html";
     }
     //pagar
 
