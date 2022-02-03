@@ -13,8 +13,8 @@ spring:
                 starttls:
                     required: true
                     enable: true
-    username: noreply.cumbrecita@gmail.com
-    password: cumbrecita2021
+    username: joacovasquez0@gmail.com
+    password: oliteamo1928a
     servlet:
       multipart:
         max-file-size: 10MB

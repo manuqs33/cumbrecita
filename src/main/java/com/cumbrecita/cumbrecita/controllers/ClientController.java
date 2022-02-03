@@ -102,6 +102,5 @@ public class ClientController {
         
         return "success_reservation.html";
     }
-    //pagar
-
+    
 }

@@ -22,58 +22,47 @@ import org.springframework.web.servlet.ModelAndView;
 public class ErrorsController implements ErrorController {
 
     @RequestMapping(value = "/error", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
+    public String renderErrorPage(HttpServletRequest httpRequest) {
 
-        ModelAndView errorPage = new ModelAndView("error");
-        String errorMsg = "";
-        
         int httpErrorCode = getErrorCode(httpRequest);
-        
+
         switch (httpErrorCode) {
             case 400: {
-                errorMsg = "El recurso solicitado no existe.";
-                break;
+                return "400.html";
             }
             case 403: {
-                errorMsg = "No tiene permisos para acceder al recurso.";
-                break;
+                return "403.html";
             }
             case 401: {
-                errorMsg = "No tiene autorizacion para seguir.";
-                break;
+                return "401.html";
             }
             case 404: {
-                errorMsg = "El recurso solicitado no fue encontrado.";
-                break;
+                return "404.html";
             }
             case 500: {
-                errorMsg = "Ocurrio un error interno.";
-                break;
+                return "500.html";
             }
         }
-        
-        errorPage.addObject("titulo", httpErrorCode);
-        errorPage.addObject("text", errorMsg);
 
-        return errorPage;
+        return null;
     }
 
-    private int getErrorCode (HttpServletRequest httpRequest) {
+    private int getErrorCode(HttpServletRequest httpRequest) {
         Map mapa = httpRequest.getParameterMap();
         for (Object key : mapa.keySet()) {
             String[] valores = (String[]) mapa.get(key);
             for (String valor : valores) {
-                System.out.println(key.toString()+" : "+valor);
+                System.out.println(key.toString() + " : " + valor);
             }
         }
         Enumeration<String> atributos = httpRequest.getAttributeNames();
         while (atributos.hasMoreElements()) {
             String key = atributos.nextElement();
-            System.out.println(key+" : "+httpRequest.getAttribute(key));
+            System.out.println(key + " : " + httpRequest.getAttribute(key));
         }
         return (int) httpRequest.getAttribute("javax.servlet.error.status_code");
     }
-    
+
     public String getErrorPath() {
         return "/error";
     }
