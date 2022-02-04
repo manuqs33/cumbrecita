@@ -143,9 +143,7 @@ public class AdminController {
     @PostMapping("/answer-ticket")//para responder el ticket
     public String answerTicket(@RequestParam String idTicket, @RequestParam String content, @RequestParam(required = false) MultipartFile file, ModelMap model, HttpSession session) {
         Client admin = (Client) session.getAttribute("sessionClient");
-        if (admin == null) {
-            return "redirect:/";
-        } else {
+        if (admin != null) {
             try {
                 ctS.answerTicket(content, file, idTicket);
             } catch (ErrorService ex) {
@@ -155,9 +153,7 @@ public class AdminController {
         }
 
         Owner owner = (Owner) session.getAttribute("sessionOWner");
-        if (owner == null) {
-            return "redirect:/";
-        } else {
+        if (owner != null) {
             try {
                 otS.answerTicket(content, file, idTicket);
             } catch (ErrorService ex) {
