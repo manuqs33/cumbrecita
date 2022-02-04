@@ -7,6 +7,7 @@ package com.cumbrecita.cumbrecita.controllers;
 
 import com.cumbrecita.cumbrecita.entities.Client;
 import com.cumbrecita.cumbrecita.entities.Lodging;
+import com.cumbrecita.cumbrecita.entities.Owner;
 import com.cumbrecita.cumbrecita.enumc.Type;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.repositories.LodgingRepository;
@@ -67,7 +68,20 @@ public class ClientController {
     
     
     @GetMapping("/reserve")
-    public String reserve(ModelMap model,@RequestParam String id){
+    public String reserve(HttpSession session,ModelMap model,@RequestParam String id){
+        Client client = (Client) session.getAttribute("sessionClient");
+        Owner owner = (Owner) session.getAttribute("sessionOwner");
+        
+        
+        if (owner != null) {
+            String mail = owner.getMail();
+            model.put("namelog", mail);
+        }
+        
+        if (client != null) {
+            String mail = client.getMail();
+            model.put("namelog", mail);
+        }
         
         Lodging lodging = lodgingService.listById(id).get();
         
