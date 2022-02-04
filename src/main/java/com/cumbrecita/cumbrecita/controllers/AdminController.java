@@ -125,7 +125,7 @@ public class AdminController {
         if (admin == null || !admin.getMail().equals("admin@admin.com")) {
             return "redirect:/";
         }
-        
+
         ClientTicket ct = ctr.getById(id);
         OwnerTicket ot = otr.getById(id);
 
@@ -141,17 +141,29 @@ public class AdminController {
 
     /*POST MAPPINGS*/
     @PostMapping("/answer-ticket")//para responder el ticket
-    public String answerTicket(@RequestParam String idTicket, @RequestParam String content, @RequestParam(required=false) MultipartFile file, ModelMap model, HttpSession session) {
+    public String answerTicket(@RequestParam String idTicket, @RequestParam String content, @RequestParam(required = false) MultipartFile file, ModelMap model, HttpSession session) {
         Client admin = (Client) session.getAttribute("sessionClient");
         if (admin == null) {
             return "redirect:/";
+        } else {
+            try {
+                ctS.answerTicket(content, file, idTicket);
+            } catch (ErrorService ex) {
+                model.put("msg", ex.getMessage());
+                return "ticket.hmtl";
+            }
         }
 
-        try {
-            ctS.answerTicket(content, file, idTicket);
-        } catch (ErrorService ex) {
-            model.put("msg", ex.getMessage());
-            return "ticket.hmtl";
+        Owner owner = (Owner) session.getAttribute("sessionOWner");
+        if (owner == null) {
+            return "redirect:/";
+        } else {
+            try {
+                otS.answerTicket(content, file, idTicket);
+            } catch (ErrorService ex) {
+                model.put("msg", ex.getMessage());
+                return "ticket.hmtl";
+            }
         }
 
         return "redirect:/ticket/";

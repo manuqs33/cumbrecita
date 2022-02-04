@@ -87,6 +87,21 @@ public class ClientController {
 
         return "reserve-form.html";
     }
+    
+    @GetMapping("/client/mytickets")
+    public String myTickets(ModelMap model, HttpSession session) {
+        
+        Client client = (Client) session.getAttribute("sessionClient");
+        if (client == null) {
+            return "redirect:/";
+        }
+        
+        List<ClientTicket> mytickets = ctr.showMyTickets(client.getId());
+        
+        model.put("tickets", mytickets);
+        
+        return "mytickets.html";
+    }
 
     @GetMapping("/client/ticket/{id}")//para ver un ticket en especifico
     public String viewTicket(@PathVariable("id") String id, ModelMap model, HttpSession session) {

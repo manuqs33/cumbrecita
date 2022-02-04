@@ -72,6 +72,21 @@ public class OwnerController {
 
         return "newTicket.html";
     }
+    
+    @GetMapping("/owner/mytickets")
+    public String myTickets(ModelMap model, HttpSession session) {
+        
+        Owner owner = (Owner) session.getAttribute("sessionOwner");
+        if (owner == null) {
+            return "redirect:/";
+        }
+        
+        List<OwnerTicket> mytickets = otr.showMyTickets(owner.getId());
+        
+        model.put("tickets", mytickets);
+        
+        return "mytickets.html";
+    }
 
     @PostMapping("/owner/create-ticket")
     public String createTicket(HttpSession session, ModelMap model, String subjet, String text, MultipartFile file, String idLodging) {
