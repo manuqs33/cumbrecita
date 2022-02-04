@@ -40,11 +40,14 @@ public class ReservationController {
         return "owner-reservation.html";
     }
 
-    @PreAuthorize("hasAnyRole('CLIENT')")
-    @PostMapping("/client/reservation")
+//    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/reservation/list")
     public String showReserv(ModelMap model, HttpSession session) {
         Client client = (Client) session.getAttribute("sessionClient");
-        List<Reservation> reserv = rR.searchClient(session.getId());//trae la lista de reservas que haya realizado el usuario
+        if (client == null) {
+            return "redirect:/";
+        }
+        List<Reservation> reserv = rR.searchClient(client.getId());//trae la lista de reservas que haya realizado el usuario
         model.addAttribute("reserv", reserv);
         return "client-reservation.html";
     }
@@ -62,5 +65,11 @@ public class ReservationController {
         }
         
         return "pay.html";
+    }
+    
+    @GetMapping("/reservation/delete")
+    public String deleteReserv(@RequestParam String id){
+        rS.deleteReservationById(id);
+        return "redirect:/reservation/list";
     }
 }
