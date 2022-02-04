@@ -12,11 +12,14 @@ import org.springframework.stereotype.Repository;
 public interface LodgingRepository extends JpaRepository<Lodging, String> {
 
     @Query("SELECT c FROM Lodging c WHERE c.name = :name")
-    public List<Lodging> searchByLastName(@Param("name") String name);
+    public List<Lodging> searchByName(@Param("name") String name);
 
     @Query("SELECT p FROM Lodging p WHERE p.name LIKE :q")
     public List<Lodging> findByQ(@Param("q") String q);
 
     @Query("SELECT l FROM Lodging l WHERE l.id = :id")
     public Lodging getById(@Param("id") String id);
+
+    @Query("SELECT l FROM Lodging l WHERE l.o.id = :id")
+    public List<Lodging> searchByOwner(@Param("id") String id);
 }

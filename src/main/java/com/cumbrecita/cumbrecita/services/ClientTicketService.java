@@ -47,10 +47,12 @@ public class ClientTicketService {
     }
     
     @Transactional
-    public void answerTicket(String content, MultipartFile file) throws ErrorService{
+    public void answerTicket(String content, MultipartFile file, String idTicket) throws ErrorService{
         if (content == null || content.equals("") || content.equals(" ")) {
             throw new ErrorService("La respuesta no puede estar vacia");
         }
+        
+        ClientTicket ct = ctr.getById(idTicket);
         
         TicketAnswer ta = new TicketAnswer();
         
@@ -58,6 +60,9 @@ public class ClientTicketService {
         Photo photo = photoService.save(file);
         ta.setPhoto(photo);
         
+        ct.getTicketAnswer().add(ta);
+        
+        ctr.save(ct);
         tar.save(ta);
     }
     

@@ -6,7 +6,10 @@
 package com.cumbrecita.cumbrecita.repositories;
 
 import com.cumbrecita.cumbrecita.entities.ClientTicket;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,5 +18,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ClientTicketRepository extends JpaRepository<ClientTicket, String> {
+    
+    @Query("SELECT t ClientTicket WHERE t.client.id = :id")
+    public List<ClientTicket> showMyTickets(@Param("id") String id);
+    
     
 }

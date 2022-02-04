@@ -17,19 +17,26 @@ import com.cumbrecita.cumbrecita.repositories.OwnerRepository;
 import com.cumbrecita.cumbrecita.repositories.OwnerTicketRepository;
 import com.cumbrecita.cumbrecita.repositories.TicketAnswerRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
+import com.cumbrecita.cumbrecita.services.ClientTicketService;
 import com.cumbrecita.cumbrecita.services.ErrorService;
 import com.cumbrecita.cumbrecita.services.LodgingService;
 import com.cumbrecita.cumbrecita.services.OwnerService;
+import com.cumbrecita.cumbrecita.services.OwnerTicketService;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -55,9 +62,13 @@ public class AdminController {
     @Autowired
     private ClientTicketRepository ctr;
     @Autowired
+    private ClientTicketService ctS;
+    @Autowired
+    private OwnerTicketService otS;
+    @Autowired
     private OwnerTicketRepository otr;
     @Autowired
-    private TicketAnswerRepository tcr;
+    private TicketAnswerRepository tar;
 
     @GetMapping("/control-panel")
     public String panel(ModelMap model, HttpSession session) {
@@ -78,7 +89,7 @@ public class AdminController {
         return "control-panel.html";
     }
 
-    @GetMapping("/tickets")
+    @GetMapping("/tickets")//para ver todos los tickets
     public String tickets(ModelMap model, HttpSession session) {
 
         Client admin = (Client) session.getAttribute("sessionClient");
@@ -104,7 +115,71 @@ public class AdminController {
         model.put("ownertickets", oTickets);
         model.put("clientTickets", cTickets);
 
-        return "tickets.tml";
+        return "ticket-list.html";
+    }
+
+    @GetMapping("/ticket/{id}")//para ver un ticket en especifico
+    public String viewTicket(@PathVariable("id") String id, ModelMap model, HttpSession session) {
+
+        Client admin = (Client) session.getAttribute("sessionClient");
+        if (admin == null || !admin.getMail().equals("admin@admin.com")) {
+            return "redirect:/";
+        }
+
+        ClientTicket ct = ctr.getById(id);
+        OwnerTicket ot = otr.getById(id);
+
+        if (ct != null) {
+            model.put("ticket", ct);
+        }
+        if (ot != null) {
+            model.put("ticket", ct);
+        }
+
+        return "ticket.html";
+    }
+
+    /*POST MAPPINGS*/
+    @PostMapping("/answer-ticket")//para responder el ticket
+    public String answerTicket(@RequestParam String idTicket, @RequestParam String content, @RequestParam(required = false) MultipartFile file, ModelMap model, HttpSession session) {
+        Client admin = (Client) session.getAttribute("sessionClient");
+        if (admin == null) {
+            return "redirect:/";
+        } else {
+            try {
+                ctS.answerTicket(content, file, idTicket);
+            } catch (ErrorService ex) {
+                model.put("msg", ex.getMessage());
+                return "ticket.hmtl";
+            }
+        }
+
+        Owner owner = (Owner) session.getAttribute("sessionOWner");
+        if (owner == null) {
+            return "redirect:/";
+        } else {
+            try {
+                otS.answerTicket(content, file, idTicket);
+            } catch (ErrorService ex) {
+                model.put("msg", ex.getMessage());
+                return "ticket.hmtl";
+            }
+        }
+
+        return "redirect:/ticket/";
+    }
+
+    @PostMapping("/tickets/deactivate")//dar de baja un ticket
+    public String deactivateTicket(@RequestParam String idTicket) {
+
+        try {
+            ctS.closeTicket(idTicket);
+            otS.closeTicket(idTicket);
+        } catch (ErrorService ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return "redirect:/tickets";
     }
 
     @PostMapping("/deactivate-client")

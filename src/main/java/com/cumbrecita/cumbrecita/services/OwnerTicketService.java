@@ -15,6 +15,7 @@ import com.cumbrecita.cumbrecita.repositories.TicketAnswerRepository;
 import java.util.Date;
 import java.util.Optional;
 import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,18 +26,20 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class OwnerTicketService {
     
+    @Autowired
     private OwnerTicketRepository otr;
+    @Autowired
     private TicketAnswerRepository tar;
+    @Autowired
     private PhotoService photoService;
     
     @Transactional
-    public void newTicket(Lodging lodging, Reservation r, String subject, String text, MultipartFile file) throws ErrorService{//Photo photo
+    public void newTicket(Lodging lodging, String subject, String text, MultipartFile file) throws ErrorService{//Photo photo
         validate(subject, text);
         
         OwnerTicket ot = new OwnerTicket();
         
         ot.setLodging(lodging);
-        ot.setResevation(r);
         ot.setInitDate(new Date());
         ot.setIsactive(true);
         ot.setSubject(subject);
@@ -49,17 +52,21 @@ public class OwnerTicketService {
     }
     
     @Transactional
-    public void answerTicket(String content, MultipartFile file) throws ErrorService{
+    public void answerTicket(String content, MultipartFile file, String idTicket) throws ErrorService{
         if (content == null || content.equals("") || content.equals(" ")) {
             throw new ErrorService("La respuesta no puede estar vacia");
         }
         
         TicketAnswer ta = new TicketAnswer();
         
+        OwnerTicket ot = otr.getById(idTicket);
+        
         ta.setContent(content);
         
         Photo photo = photoService.save(file);
         ta.setPhoto(photo);
+        
+        ot.getTicketAnswer().add(ta);
         
         tar.save(ta);
     }
