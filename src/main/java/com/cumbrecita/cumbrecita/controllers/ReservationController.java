@@ -47,6 +47,11 @@ public class ReservationController {
         if (client == null) {
             return "redirect:/";
         }
+        
+        if (client != null) {
+            String mail = client.getMail();
+            model.put("namelog", mail);
+        }
         List<Reservation> reserv = rR.searchClient(client.getId());//trae la lista de reservas que haya realizado el usuario
         model.addAttribute("reserv", reserv);
         return "client-reservation.html";

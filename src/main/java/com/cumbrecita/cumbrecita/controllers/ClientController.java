@@ -97,6 +97,11 @@ public class ClientController {
         if (client == null) {
             return "redirect:/";
         }
+        
+        if (client != null) {
+            String mail = client.getMail();
+            model.put("namelog", mail);
+        }
         Optional<Lodging> ans = lR.findById(lodgingid);
         if (ans.isPresent()) {
             Lodging lodging = ans.get();
