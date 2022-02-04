@@ -30,13 +30,12 @@ public class OwnerTicketService {
     private PhotoService photoService;
     
     @Transactional
-    public void newTicket(Lodging lodging, Reservation r, String subject, String text, MultipartFile file) throws ErrorService{//Photo photo
+    public void newTicket(Lodging lodging, String subject, String text, MultipartFile file) throws ErrorService{//Photo photo
         validate(subject, text);
         
         OwnerTicket ot = new OwnerTicket();
         
         ot.setLodging(lodging);
-        ot.setResevation(r);
         ot.setInitDate(new Date());
         ot.setIsactive(true);
         ot.setSubject(subject);

@@ -156,14 +156,13 @@ public class MainController {
     public String sendEmail(ModelMap model, String subject, String message, String email, String name) {
         try {
             String emailBody = message + "\n Email de contacto: " + email + "\n Nombre: " + name;
-            emailService.send(email, emailBody, subject);
+            emailService.send("joacovasquez0@gmail.com", emailBody, subject);
         } catch (ErrorService ex) {
             model.put("error", ex.getMessage());
             return "redirect:/";
         }
-
         model.put("msg", "El mensaje fue enviado correctamente. Nos contactaremos lo antes posible, muchas gracias!");
-        return "redirect";
+        return "redirect:/";
     }
 
     @PostMapping("/signup")

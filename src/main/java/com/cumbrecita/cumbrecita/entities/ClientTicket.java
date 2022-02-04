@@ -54,6 +54,7 @@ public class ClientTicket implements Serializable {
     }
 
     public ClientTicket() {
+        this.isactive = true;
     }
 
     public String getId() {

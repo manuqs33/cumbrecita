@@ -6,11 +6,17 @@
 package com.cumbrecita.cumbrecita.controllers;
 
 import com.cumbrecita.cumbrecita.entities.Client;
+import com.cumbrecita.cumbrecita.entities.ClientTicket;
 import com.cumbrecita.cumbrecita.entities.Lodging;
+import com.cumbrecita.cumbrecita.entities.OwnerTicket;
+import com.cumbrecita.cumbrecita.entities.Reservation;
 import com.cumbrecita.cumbrecita.enumc.Type;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
+import com.cumbrecita.cumbrecita.repositories.ClientTicketRepository;
 import com.cumbrecita.cumbrecita.repositories.LodgingRepository;
+import com.cumbrecita.cumbrecita.repositories.ReservationRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
+import com.cumbrecita.cumbrecita.services.ClientTicketService;
 import com.cumbrecita.cumbrecita.services.ErrorService;
 import com.cumbrecita.cumbrecita.services.LodgingService;
 import com.cumbrecita.cumbrecita.services.ReservationService;
@@ -30,6 +36,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -44,11 +51,17 @@ public class ClientController {
     @Autowired
     private ClientRepository cR;
     @Autowired
+    private ClientTicketRepository ctr;
+    @Autowired
     private LodgingRepository lR;
     @Autowired
     private ReservationService reservationservice;
     @Autowired
+    private ReservationRepository rR;
+    @Autowired
     private LodgingService lodgingService;
+    @Autowired
+    private ClientTicketService ctS;
 
     @GetMapping("/client/authorize/{id}")
     public String authorize(@PathVariable("id") String id, ModelMap model) {
@@ -64,21 +77,37 @@ public class ClientController {
         model.put("title", "Tu usuario fue autorizado correctamente");
         return "success.html";
     }
-    
-    
+
     @GetMapping("/reserve")
-    public String reserve(ModelMap model,@RequestParam String id){
-        
+    public String reserve(ModelMap model, @RequestParam String id) {
+
         Lodging lodging = lodgingService.listById(id).get();
-        
+
         model.put("lodgings", lodging);
-        
+
         return "reserve-form.html";
     }
-    
+
+    @GetMapping("/client/ticket/{id}")//para ver un ticket en especifico
+    public String viewTicket(@PathVariable("id") String id, ModelMap model, HttpSession session) {
+
+        Client admin = (Client) session.getAttribute("sessionClient");
+        if (admin == null) {
+            return "redirect:/";
+        }
+
+        ClientTicket ct = ctr.getById(id);
+
+        if (ct != null) {
+            model.put("ticket", ct);
+        }
+
+        return "ticket.html";
+    }
+
 //    @PreAuthorize("hasAnyRole('CLIENT')")
     @PostMapping("/client/book")
-    public String book(ModelMap model,@RequestParam String lodgingid,@DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam String observations, HttpSession session, RedirectAttributes redirectAttributes) throws ErrorService {
+    public String book(ModelMap model, @RequestParam String lodgingid, @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam String observations, HttpSession session, RedirectAttributes redirectAttributes) throws ErrorService {
         Client client = (Client) session.getAttribute("sessionClient");
         if (client == null) {
             return "redirect:/";
@@ -99,8 +128,32 @@ public class ClientController {
             throw new ErrorService("No se encontró el alojamiento solicitado");
         }
 
-        
         return "success_reservation.html";
     }
-    
+
+    @GetMapping("/client/new-ticket")
+    public String newTicket(ModelMap model, HttpSession session) {
+        Client client = (Client) session.getAttribute("sessionClient");
+        if (client == null) {
+            return "redirect:/";
+        }
+        List<Reservation> reservs = rR.searchClient(client.getId());
+
+        model.addAttribute("reservs", reservs);
+
+        return "newTicket.html";
+    }
+
+    @PostMapping("/client/create-ticket")
+    public String createTicket(HttpSession session, ModelMap model, String subjet, String text, MultipartFile file, String idReservation) {
+
+        try {
+            ctS.newTicket(rR.getById(idReservation), subjet, text, file);
+        } catch (ErrorService ex) {
+            Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return "ticket.html";
+    }
+
 }
