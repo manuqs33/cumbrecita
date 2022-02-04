@@ -10,6 +10,7 @@ import com.cumbrecita.cumbrecita.entities.ClientTicket;
 import com.cumbrecita.cumbrecita.entities.Lodging;
 import com.cumbrecita.cumbrecita.entities.OwnerTicket;
 import com.cumbrecita.cumbrecita.entities.Reservation;
+import com.cumbrecita.cumbrecita.entities.Owner;
 import com.cumbrecita.cumbrecita.enumc.Type;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
 import com.cumbrecita.cumbrecita.repositories.ClientTicketRepository;
@@ -79,8 +80,21 @@ public class ClientController {
     }
 
     @GetMapping("/reserve")
-    public String reserve(ModelMap model, @RequestParam String id) {
-
+    public String reserve(HttpSession session,ModelMap model,@RequestParam String id){
+        Client client = (Client) session.getAttribute("sessionClient");
+        Owner owner = (Owner) session.getAttribute("sessionOwner");
+        
+        
+        if (owner != null) {
+            String mail = owner.getMail();
+            model.put("namelog", mail);
+        }
+        
+        if (client != null) {
+            String mail = client.getMail();
+            model.put("namelog", mail);
+        }
+        
         Lodging lodging = lodgingService.listById(id).get();
 
         model.put("lodgings", lodging);
@@ -126,6 +140,11 @@ public class ClientController {
         Client client = (Client) session.getAttribute("sessionClient");
         if (client == null) {
             return "redirect:/";
+        }
+        
+        if (client != null) {
+            String mail = client.getMail();
+            model.put("namelog", mail);
         }
         Optional<Lodging> ans = lR.findById(lodgingid);
         if (ans.isPresent()) {

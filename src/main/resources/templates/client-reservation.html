@@ -1,35 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--head-->
     <head th:replace="components.html :: head"></head>
 <body>
 <!--El navbar-->
 
 <div th:replace="components.html :: navbar"></div>
+
 <!--Fin del NAVBAR-->
 
-<section class="p-5 tm-container-outer tm-bg-gray">            
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">  
-                             
-                <h2 class="text-uppercase mb-4"> <img src="/img/case.png" alt="case"> <strong>Tu reserva ha sido confirmada!</strong> </h2>
-                
 
-
-
-                <a onclick ="location.href='/reservation/list'" class="text-uppercase btn-success tm-btn">Ver en Reservas</a>      
-                <a href="/" class="text-uppercase btn-danger tm-btn">Cancelar</a>               
-            </div>
+<!--table-->
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+    
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ingreso</th>
+                        <th>Salida</th>
+                        <th>Alojamiento</th>
+                        <th>Observaciones</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reserva:${reserv}">
+                        <td th:text="${reserva.startDate}"></td>
+                        <td th:text="${reserva.endDate}"></td>
+                        <td th:text="${reserva.l.name}"></td>
+                        <td th:text="${reserva.observations}"></td>
+                        <td th:text="${reserva.price}"></td>
+                        <td>
+                            <a th:href="@{/reservation/delete}+'?id='+${reserva.id}">
+                                <button class="btn btn-danger">Eliminar Reserva</button></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </div>            
-</section>
+    </div>
+
+    <!--fin table-->
 
 <!--footer-->
 <div class="fixed-bottom">
     <div th:replace="components.html :: footer">
- </div>
-
-
+</div>
 
 
 <!-- load JS files -->
@@ -85,7 +104,6 @@ $('.tm-slideshow').slick({
     slidesToScroll: 1
 });
 });
-</script>             
-
+</script>    
 </body>
-</html>
+</html>         
