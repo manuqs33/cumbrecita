@@ -33,8 +33,8 @@
                 <td th:text="${reserva.observations}"></td>
                 <td th:text="${reserva.price}"></td>
                 <td>
-                    <a th:href="@{/reservation/delete}+'?id='+${reserva.id}"><button
-                            class="btn btn-outline-secondary ms-auto">Eliminar Reserva</button></a>
+                    <a th:href="@{/reservation/delete}+'?id='+${reserva.id}">
+                        <button class="btn btn-danger">Eliminar Reserva</button></a>
                 </td>
             </tr>
         </tbody>
