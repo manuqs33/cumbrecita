@@ -17,23 +17,26 @@ public class Reservation {
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date start;
+    private Date startDate;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date end;
+    private Date endDate;
     @OneToOne
     private Client c;
     @OneToOne
     private Lodging l;
     private String observations;
-    private Double price;
+    private Float price;
 
     public Reservation() {
     }
 
-    public Reservation(String id, Date start, Date end, Client c, Lodging l, String observations, Double price) {
+    public Reservation(String id, Date startDate, Date endDate, Client c, Lodging l, String observations, Float price) {
         this.id = id;
-        this.start = start;
-        this.end = end;
+
+
+        this.startDate = startDate;
+        this.endDate = endDate;
+
         this.c = c;
         this.l = l;
         this.observations = observations;
@@ -48,20 +51,24 @@ public class Reservation {
         this.id = id;
     }
 
-    public Date getStart() {
-        return start;
+
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
+    public void setStartDate(Date start) {
+        this.startDate = start;
+
     }
 
-    public Date getEnd() {
-        return end;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
+
+    public void setEndDate(Date end) {
+        this.endDate = end;
+
     }
 
     public Client getC() {
@@ -88,11 +95,11 @@ public class Reservation {
         this.observations = observations;
     }
 
-    public Double getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
     

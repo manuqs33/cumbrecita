@@ -1,7 +1,9 @@
 package com.cumbrecita.cumbrecita.services;
 
 import com.cumbrecita.cumbrecita.entities.Client;
+import com.cumbrecita.cumbrecita.entities.Owner;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
+import com.cumbrecita.cumbrecita.repositories.OwnerRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,17 +22,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ClientService implements UserDetailsService {
 
     @Autowired
     private ClientRepository uR;
+    @Autowired
+    private OwnerRepository oR;
 
     @Transactional
     public void registerClient(String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
         validate(firstname, lastname, email, password, password2, dni);
+        validateEmail(email);
 
         Client client = new Client();
 
@@ -43,13 +47,13 @@ public class ClientService implements UserDetailsService {
         String encriptada = new BCryptPasswordEncoder().encode(password);
         client.setPass(encriptada);
 
-        client.setIsactive(false);
+        client.setIsactive(true);
 
         uR.save(client);
     }
 
     @Transactional
-    public void modificar(String id, String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
+    public void modify(String id, String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
 
         validate(firstname, lastname, email, password, password2, dni);
 
@@ -72,14 +76,33 @@ public class ClientService implements UserDetailsService {
     }
 
     @Transactional
+    public void changePassword(String id, String password, String password2) throws ErrorService { //OLVIDE LA CONTRASENA
+        if (password.isEmpty() || password.equals(" ")) {
+            throw new ErrorService("La contraseña no puede estar vacia");
+        } else if (password.equals(password2)) {
+            throw new ErrorService("Las contraseñas no coinciden");
+        }
+
+        Optional<Client> ans = uR.findById(id);
+        if (ans.isPresent()) {
+            Client client = ans.get();
+
+            String encriptada = new BCryptPasswordEncoder().encode(password);
+            client.setPass(encriptada);
+
+            uR.save(client);
+        } else {
+            throw new ErrorService("No se encontro el usuario solicitado");
+        }
+
+    }
+
+    @Transactional
     public void activeClient(String id) throws ErrorService {
 
         Optional<Client> ans = uR.findById(id);
         if (ans.isPresent()) {
             Client client = ans.get();
-            if (client.getIsactive()) {
-                throw new ErrorService("El usuario ya esta activo");
-            }
             client.setIsactive(true);
             uR.save(client);
         } else {
@@ -93,14 +116,15 @@ public class ClientService implements UserDetailsService {
         Optional<Client> ans = uR.findById(id);
         if (ans.isPresent()) {
             Client client = ans.get();
-            if (!client.getIsactive()) {
-                throw new ErrorService("El usuario ya esta dado de baja");
-            }
             client.setIsactive(false);
             uR.save(client);
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
+    }
+
+    public List<Client> listClient() {
+        return uR.findAll();
     }
 
     public void validate(String fistname, String lastname, String email, String password, String password2, Long dni) throws ErrorService {
@@ -124,14 +148,53 @@ public class ClientService implements UserDetailsService {
         }
     }
 
+    public void validateEmail(String email) throws ErrorService {
+        List<Client> clients = uR.findAll();
+        List<Owner> owners = oR.findAll();
+
+        for (Owner owner : owners) {
+            if (owner.getMail().equals(email)) {
+                throw new ErrorService("El email ingresado ya esta en uso");
+            }
+        }
+        for (Client client : clients) {
+            if (client.getMail().equals(email)) {
+                throw new ErrorService("El email ingresado ya esta en uso");
+            }
+        }
+
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Client client = uR.searchByEmail(email);
+        Owner owner = oR.searchByEmail(email);
+
+        if (owner != null) {
+            List<GrantedAuthority> permisos = new ArrayList();
+
+            if (!owner.getIsactive()) {
+                return null;
+            }
+
+            GrantedAuthority p1 = new SimpleGrantedAuthority("OWNER");
+            permisos.add(p1);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession();
+            session.setAttribute("sessionOwner", owner);
+
+            User user = new User(owner.getMail(), owner.getPass(), permisos);
+            return user;
+        }
+
+        if (!client.getIsactive()) {
+            return null;
+        }
 
         if (client != null) {
 
             List<GrantedAuthority> permisos = new ArrayList();
-
             GrantedAuthority p1 = new SimpleGrantedAuthority("CLIENT");
             permisos.add(p1);
 
