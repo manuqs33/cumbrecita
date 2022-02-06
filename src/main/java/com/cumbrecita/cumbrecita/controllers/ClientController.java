@@ -102,92 +102,92 @@ public class ClientController {
         return "reserve-form.html";
     }
     
-    @GetMapping("/client/mytickets")
-    public String myTickets(ModelMap model, HttpSession session) {
-        
-        Client client = (Client) session.getAttribute("sessionClient");
-        if (client == null) {
-            return "redirect:/";
-        }
-        
-        List<ClientTicket> mytickets = ctr.showMyTickets(client.getId());
-        
-        model.put("tickets", mytickets);
-        
-        return "mytickets.html";
-    }
-
-    @GetMapping("/client/ticket/{id}")//para ver un ticket en especifico
-    public String viewTicket(@PathVariable("id") String id, ModelMap model, HttpSession session) {
-
-        Client admin = (Client) session.getAttribute("sessionClient");
-        if (admin == null) {
-            return "redirect:/";
-        }
-
-        ClientTicket ct = ctr.getById(id);
-
-        if (ct != null) {
-            model.put("ticket", ct);
-        }
-
-        return "ticket.html";
-    }
-
-//    @PreAuthorize("hasAnyRole('CLIENT')")
-    @PostMapping("/client/book")
-    public String book(ModelMap model, @RequestParam String lodgingid, @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam String observations, HttpSession session, RedirectAttributes redirectAttributes) throws ErrorService {
-        Client client = (Client) session.getAttribute("sessionClient");
-        if (client == null) {
-            return "redirect:/";
-        }
-        
-        if (client != null) {
-            String mail = client.getMail();
-            model.put("namelog", mail);
-        }
-        Optional<Lodging> ans = lR.findById(lodgingid);
-        if (ans.isPresent()) {
-            Lodging lodging = ans.get();
-            lodging.setT(Type.house);
-            try {
-                reservationservice.saveReservation(client, startDate, endDate, lodging, observations);
-                redirectAttributes.addFlashAttribute("success", "Su reserva ha sido exitosa");
-                model.put("msg", "Reservaste con exito");
-            } catch (ErrorService ex) {
-                redirectAttributes.addFlashAttribute("error", "No se pudo guardar la reserva");
-                model.put("msg", "Hubo un error en la reserva");
-            }
-        } else {
-            throw new ErrorService("No se encontró el alojamiento solicitado");
-        }
-
-        return "success_reservation.html";
-    }
-
-    @GetMapping("/client/new-ticket")
-    public String newTicket(ModelMap model, HttpSession session) {
-        Client client = (Client) session.getAttribute("sessionClient");
-        if (client == null) {
-            return "redirect:/";
-        }
-        List<Reservation> reservs = rR.searchClient(client.getId());
-
-        model.addAttribute("reservs", reservs);
-
-        return "newTicket.html";
-    }
-
-    @PostMapping("/client/create-ticket")
-    public String createTicket(HttpSession session, ModelMap model, String subjet, String text, MultipartFile file, String idReservation) {
-
-        try {
-            ctS.newTicket(rR.getById(idReservation), subjet, text, file);
-        } catch (ErrorService ex) {
-            Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return "ticket.html";
-    }
+//    @GetMapping("/client/mytickets")
+//    public String myTickets(ModelMap model, HttpSession session) {
+//        
+//        Client client = (Client) session.getAttribute("sessionClient");
+//        if (client == null) {
+//            return "redirect:/";
+//        }
+//        
+//        List<ClientTicket> mytickets = ctr.showMyTickets(client.getId());
+//        
+//        model.put("tickets", mytickets);
+//        
+//        return "mytickets.html";
+//    }
+//
+//    @GetMapping("/client/ticket/{id}")//para ver un ticket en especifico
+//    public String viewTicket(@PathVariable("id") String id, ModelMap model, HttpSession session) {
+//
+//        Client admin = (Client) session.getAttribute("sessionClient");
+//        if (admin == null) {
+//            return "redirect:/";
+//        }
+//
+//        ClientTicket ct = ctr.getById(id);
+//
+//        if (ct != null) {
+//            model.put("ticket", ct);
+//        }
+//
+//        return "ticket.html";
+//    }
+//
+////    @PreAuthorize("hasAnyRole('CLIENT')")
+//    @PostMapping("/client/book")
+//    public String book(ModelMap model, @RequestParam String lodgingid, @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam String observations, HttpSession session, RedirectAttributes redirectAttributes) throws ErrorService {
+//        Client client = (Client) session.getAttribute("sessionClient");
+//        if (client == null) {
+//            return "redirect:/";
+//        }
+//        
+//        if (client != null) {
+//            String mail = client.getMail();
+//            model.put("namelog", mail);
+//        }
+//        Optional<Lodging> ans = lR.findById(lodgingid);
+//        if (ans.isPresent()) {
+//            Lodging lodging = ans.get();
+//            lodging.setT(Type.house);
+//            try {
+//                reservationservice.saveReservation(client, startDate, endDate, lodging, observations);
+//                redirectAttributes.addFlashAttribute("success", "Su reserva ha sido exitosa");
+//                model.put("msg", "Reservaste con exito");
+//            } catch (ErrorService ex) {
+//                redirectAttributes.addFlashAttribute("error", "No se pudo guardar la reserva");
+//                model.put("msg", "Hubo un error en la reserva");
+//            }
+//        } else {
+//            throw new ErrorService("No se encontró el alojamiento solicitado");
+//        }
+//
+//        return "success_reservation.html";
+//    }
+//
+//    @GetMapping("/client/new-ticket")
+//    public String newTicket(ModelMap model, HttpSession session) {
+//        Client client = (Client) session.getAttribute("sessionClient");
+//        if (client == null) {
+//            return "redirect:/";
+//        }
+//        List<Reservation> reservs = rR.searchClient(client.getId());
+//
+//        model.addAttribute("reservs", reservs);
+//
+//        return "newTicket.html";
+//    }
+//
+//    @PostMapping("/client/create-ticket")
+//    public String createTicket(HttpSession session, ModelMap model, String subjet, String text, MultipartFile file, String idReservation) {
+//
+//        try {
+//            ctS.newTicket(rR.getById(idReservation), subjet, text, file);
+//        } catch (ErrorService ex) {
+//            Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        return "ticket.html";
+//    }
 
 }
