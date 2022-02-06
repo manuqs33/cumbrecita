@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OwnerTicketRepository extends JpaRepository<OwnerTicket, String> {
     
-    @Query("SELECT t OwnerTicket WHERE t.owner.id = :id")
+    @Query("SELECT t FROM OwnerTicket t WHERE t.owner.id = :id")
     public List<OwnerTicket> showMyTickets(@Param("id") String id);
     
     

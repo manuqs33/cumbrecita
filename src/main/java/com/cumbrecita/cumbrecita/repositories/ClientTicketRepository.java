@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientTicketRepository extends JpaRepository<ClientTicket, String> {
     
-    @Query("SELECT t ClientTicket WHERE t.client.id = :id")
+    @Query("SELECT t FROM ClientTicket t WHERE t.client.id = :id")
     public List<ClientTicket> showMyTickets(@Param("id") String id);
     
     
