@@ -9,7 +9,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <div th:replace="components.html :: navbar"></div>
 
     
-        
+    <div th:if="${msg}" class="alert alert-warning mt-3" role="alert">
+            <span th:text="${msg}"></span>
+        </div>   
     <div class="row">
 
                 <div class="col-lg-1"></div>

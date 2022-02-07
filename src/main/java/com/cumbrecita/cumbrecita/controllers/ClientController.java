@@ -149,14 +149,12 @@ public class ClientController {
         Optional<Lodging> ans = lR.findById(lodgingid);
         if (ans.isPresent()) {
             Lodging lodging = ans.get();
-            lodging.setT(Type.house);
             try {
                 reservationservice.saveReservation(client, startDate, endDate, lodging, observations);
-                redirectAttributes.addFlashAttribute("success", "Su reserva ha sido exitosa");
-                model.put("msg", "Reservaste con exito");
+                model.put("msg", "Tu reserva fue creada exitosamente.");
             } catch (ErrorService ex) {
-                redirectAttributes.addFlashAttribute("error", "No se pudo guardar la reserva");
-                model.put("msg", "Hubo un error en la reserva");
+                model.put("error",ex.getMessage());
+                return "success_reservation.html";
             }
         } else {
             throw new ErrorService("No se encontró el alojamiento solicitado");

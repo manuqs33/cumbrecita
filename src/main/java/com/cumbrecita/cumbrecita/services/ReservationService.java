@@ -45,18 +45,28 @@ public class ReservationService {
         int days = (int) ((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
         float price = (float) (L.getPricepernight() * days);
         reservation.setPrice(price);
-        //validate(reservation);
+        validate(reservation);
 
         reservationRepository.save(reservation);
     }
 
     public void validate(Reservation reservation) throws ErrorService {
 
-        if (reservation.getStartDate() == null) {
-            throw new ErrorService("The reservation has to have a start date.");
+        if (reservation.getStartDate().after(reservation.getEndDate())) {
+            throw new ErrorService("La fecha de salida no puede ser anterior a la fecha de ingreso.");
+        }
+        if (reservation.getStartDate() == reservation.getEndDate()) {
+            throw new ErrorService("Las fechas de salida e ingreso no pueden ser iguales.");
+        }
+        
+        if (new Date().after(reservation.getStartDate())) {
+            throw new ErrorService("La fecha de ingreso debe ser posterior a la fecha actual");
         }
         if (reservation.getEndDate() == null) {
             throw new ErrorService("The reservation has to have an end date.");
+        }
+        if (reservation.getStartDate() == null) {
+            throw new ErrorService("The reservation has to have an start date.");
         }
         if (reservation.getL() == null) {
             throw new ErrorService("The reservation has to have a lodging.");
