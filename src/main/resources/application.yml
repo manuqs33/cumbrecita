@@ -13,7 +13,7 @@ spring:
                 starttls:
                     required: true
                     enable: true
-    username: joacovasquez0@gmail.com
+    username: noreply.cumbrecita@gmail.com
     password: oliteamo1928a
     servlet:
       multipart:
