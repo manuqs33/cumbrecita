@@ -104,8 +104,15 @@ public class MainController {
     }
     
     @GetMapping("/lodging-list")
-    public String listLodgings(HttpSession session,Model model, @RequestParam(required = false) String q) {
-        
+    public String listLodgings(HttpSession session, Model model, @RequestParam(required = false) String q) {
+
+        if (q != null) {
+            model.addAttribute("lodgings", lodgingService.listLodgingByQ(q));
+
+        } else {
+            model.addAttribute("lodgings", lodgingService.listAllLodging());
+        }
+
         Client client = (Client) session.getAttribute("sessionClient");
         Owner owner = (Owner) session.getAttribute("sessionOwner");
 
@@ -118,15 +125,9 @@ public class MainController {
             String mail = client.getMail();
             model.addAttribute("namelog", mail);
         }
-
-        if (q != null) {
-            model.addAttribute("lodgings", lodgingService.listLodgingByQ(q));
-        } else {
-            model.addAttribute("lodgings", lodgingService.listAllLodging());
-        }
         return "lodging-list.html";
     }
-    
+
      @GetMapping("/faq")
     public String faq() {
         return "faq.html";
