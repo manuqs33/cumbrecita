@@ -76,7 +76,7 @@ public class ClientController {
         }
 
         model.put("title", "Tu usuario fue autorizado correctamente");
-        return "success.html";
+        return "redirect:/";
     }
 
     @GetMapping("/reserve")

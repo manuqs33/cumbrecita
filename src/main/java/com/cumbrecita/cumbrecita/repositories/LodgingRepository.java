@@ -1,6 +1,7 @@
 package com.cumbrecita.cumbrecita.repositories;
 
 import com.cumbrecita.cumbrecita.entities.Lodging;
+import com.cumbrecita.cumbrecita.enumc.Type;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,7 @@ public interface LodgingRepository extends JpaRepository<Lodging, String> {
 
     @Query("SELECT l FROM Lodging l WHERE l.o.id = :id")
     public List<Lodging> searchByOwner(@Param("id") String id);
+
+    @Query("SELECT l FROM Lodging l WHERE l.t = :type AND l.capacity <= :capacity")
+    public List<Lodging> searchQuery(@Param("type") Type type, @Param("capacity") Integer capacity);
 }

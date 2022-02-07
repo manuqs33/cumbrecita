@@ -37,24 +37,24 @@
 <!--BUSCADOR-->
 <div class="row tm-banner-row" id="tm-section-search">
 
-    <form action="/search" method="post" class="tm-search-form tm-section-pad-2">
+    <form action="/lodging-search" method="post" class="tm-search-form tm-section-pad-2">
         <div class="form-row tm-search-form-row">
             <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                 <label for="type">Seleccione tipo de alojamiento:</label>
                 <select name="type" class="form-control tm-select" id="inputRoom">
-                    <option value="1" selected>Habitación</option>
-                    <option value="2">Casa</option>
+                    <option value="0" selected>Habitación</option>
+                    <option value="1">Casa</option>
                 </select>
             </div>
             <div class="form-group tm-form-group tm-form-group-1">
                 <div class="form-group tm-form-group tm-form-group-pad tm-form-group-2">
-                    <label for="inputRoom">Cantidad</label>
-                    <select name="room" class="form-control tm-select" id="inputRoom">
-                        <option value="1" selected>1 habitación</option>
-                        <option value="2">2 habitaciones</option>
-                        <option value="3">3 habitaciones</option>
-                        <option value="4">4 habitaciones</option>
-                        <option value="5">5 habitaciones</option>
+                    <label for="capacity">Capacidad</label>
+                    <select name="capacity" class="form-control tm-select" id="inputRoom">
+                        <option value="1" >1 persona</option>
+                        <option value="2">2 personas</option>
+                        <option value="3">3 personas</option>
+                        <option value="4">4 personas</option>
+                        <option value="5">5 personas</option>
                     </select>
                 </div>
                 <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
@@ -65,15 +65,15 @@
         </div>
         <div class="form-row tm-search-form-row">
             <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
-                <label for="inputCheckIn">Ingreso</label>
-                <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+                <label for="checkin">Ingreso</label>
+                <input name="checkin" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
             </div>
             <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
-                <label for="inputCheckOut">Salida</label>
-                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                <label for="checkout">Salida</label>
+                <input name="checkout" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
             </div>
             <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
-                <label for="btnSubmit">&nbsp;</label>
+                <label for="submit">&nbsp;</label>
                 <button type="submit" class="btn btn-primary tm-btn tm-btn-search text-uppercase" id="btnSubmit">Ver
                     Disponibilidad</button>
             </div>

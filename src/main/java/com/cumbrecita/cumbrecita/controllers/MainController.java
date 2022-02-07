@@ -7,7 +7,9 @@ package com.cumbrecita.cumbrecita.controllers;
 
 import com.cumbrecita.cumbrecita.entities.Client;
 import com.cumbrecita.cumbrecita.entities.Owner;
+import com.cumbrecita.cumbrecita.enumc.Type;
 import com.cumbrecita.cumbrecita.repositories.ClientRepository;
+import com.cumbrecita.cumbrecita.repositories.LodgingRepository;
 import com.cumbrecita.cumbrecita.services.ClientService;
 import com.cumbrecita.cumbrecita.services.EmailService;
 import com.cumbrecita.cumbrecita.services.ErrorService;
@@ -37,27 +39,25 @@ public class MainController {
     private OwnerService ownerService;
     @Autowired
     private EmailService emailService;
-     @Autowired
+    @Autowired
     private LodgingService lodgingService;
+    @Autowired
+    private LodgingRepository lR;
 
     @GetMapping("/")
     public String index(HttpSession session, ModelMap model) {
         Client client = (Client) session.getAttribute("sessionClient");
         Owner owner = (Owner) session.getAttribute("sessionOwner");
-        
-        
+
         if (owner != null) {
             String mail = owner.getMail();
             model.put("namelog", mail);
         }
-        
+
         if (client != null) {
             String mail = client.getMail();
             model.put("namelog", mail);
         }
-
-        
-        
 
         return "index.html";
     }
@@ -66,7 +66,7 @@ public class MainController {
     public String login(@RequestParam(required = false) String error, Model model) {
         if (error != null) {
             model.addAttribute("error", "Correo electrónico o clave incorrectos");
-            
+
         }
         return "login.html";
     }
@@ -85,9 +85,9 @@ public class MainController {
     public String contact() {
         return "contact.html";
     }
-    
+
     @GetMapping("/lodging")
-    public String lodgingForm(HttpSession session,Model model){
+    public String lodgingForm(HttpSession session, Model model) {
         Client client = (Client) session.getAttribute("sessionClient");
         Owner owner = (Owner) session.getAttribute("sessionOwner");
 
@@ -102,10 +102,11 @@ public class MainController {
         }
         return "lodging-form.html";
     }
-    
-    @GetMapping("/lodging-list")
-    public String listLodgings(HttpSession session, Model model, @RequestParam(required = false) String q) {
 
+    @GetMapping("/lodging-list")
+    public String listLodgings(HttpSession session, Model model, @RequestParam(required = false) String q, @RequestParam(required = false) Integer type, @RequestParam(required = false) Integer capacity, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkin, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkout) {
+
+        
         if (q != null) {
             model.addAttribute("lodgings", lodgingService.listLodgingByQ(q));
 
@@ -115,7 +116,8 @@ public class MainController {
 
         Client client = (Client) session.getAttribute("sessionClient");
         Owner owner = (Owner) session.getAttribute("sessionOwner");
-
+        
+        
         if (owner != null) {
             String mail = owner.getMail();
             model.addAttribute("namelog", mail);
@@ -128,14 +130,31 @@ public class MainController {
         return "lodging-list.html";
     }
 
-     @GetMapping("/faq")
+    @PostMapping("lodging-search")
+    public String searchLodgings(HttpSession session, Model model, @RequestParam(required = false) String q, @RequestParam(required = false) Integer type, @RequestParam(required = false) Integer capacity, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkin, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkout){
+        
+        Type t;
+        if (type == 0) {
+            t = Type.casa;
+            model.addAttribute("lodgings", lR.searchQuery(t, capacity));
+        }else if (type == 1) {
+            t = Type.habitacion;
+            model.addAttribute("lodgings", lR.searchQuery(t, capacity));
+        }
+        
+        
+        
+        return "lodging-list.html";
+    }
+    
+    @GetMapping("/faq")
     public String faq() {
         return "faq.html";
     }
-    
-     @GetMapping("/about")
-    public String about(HttpSession session,Model model) {
-         Client client = (Client) session.getAttribute("sessionClient");
+
+    @GetMapping("/about")
+    public String about(HttpSession session, Model model) {
+        Client client = (Client) session.getAttribute("sessionClient");
         Owner owner = (Owner) session.getAttribute("sessionOwner");
 
         if (owner != null) {
@@ -149,9 +168,6 @@ public class MainController {
         }
         return "about.html";
     }
-    
-    
-    
 
     /*PostMapping*/
     @PostMapping("/contact/sendmessage")
