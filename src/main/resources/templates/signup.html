@@ -9,7 +9,9 @@
 <div th:replace="components.html :: navbar"></div>
 
 <!--Fin del NAVBAR-->
-  
+<div th:if="${error}" class="alert alert-warning mt-3" role="alert">
+    <span th:text="${error}"></span>
+</div>
 <!--FORM-->
 <div class="row">
     <div class="col-lg-2"></div>
