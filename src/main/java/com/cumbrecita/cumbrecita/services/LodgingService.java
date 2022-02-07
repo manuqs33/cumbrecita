@@ -31,9 +31,9 @@ public class LodgingService {
         lodging.setAddress(address);
 
         if (t == 0 || t < 1) {
-            lodging.setT(Type.house);
+            lodging.setT(Type.Casa);
         } else if (t == 1 || t > 0) {
-            lodging.setT(Type.room);
+            lodging.setT(Type.Habitacion);
         }
 
         lodging.setCapacity(capacity);
@@ -61,9 +61,9 @@ public class LodgingService {
             lodging.setName(name);
             lodging.setAddress(address);
             if (t == 0 || t < 1) {
-                lodging.setT(Type.house);
+                lodging.setT(Type.Casa);
             } else if (t == 1 || t > 0) {
-                lodging.setT(Type.room);
+                lodging.setT(Type.Habitacion);
             }
             lodging.setCapacity(capacity);
             lodging.setPricepernight(pricepernight);
