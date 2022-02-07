@@ -135,10 +135,10 @@ public class MainController {
         
         Type t;
         if (type == 0) {
-            t = Type.casa;
+            t = Type.Casa;
             model.addAttribute("lodgings", lR.searchQuery(t, capacity));
         }else if (type == 1) {
-            t = Type.habitacion;
+            t = Type.Habitacion;
             model.addAttribute("lodgings", lR.searchQuery(t, capacity));
         }
         

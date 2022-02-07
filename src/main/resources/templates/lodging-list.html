@@ -10,20 +10,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <br/>
     
     <form th:action="@{/lodging-list}" >
-            <div class="col">
-              
-              <input
-                type="text"
-                style="width: 60%;"
-                name="q"
-                placeholder="Busque un alojamiento por nombre o capacidad"
-                
-              />
-              <button type="submit" class="btn btn-dark mb-3" style="margin-left: 3%; margin-top: 0.5%"
-                >Buscar</button
-              >
+        <div class="row">
+        <div class="col-lg-2"></div>
+            <div class="col-lg-6"> 
+              <input type="text"class="form-control ml-3" name="q" placeholder="Busque un alojamiento por nombre o capacidad">
             </div>
-            
+            <div class="col-lg-2">
+              <button type="submit" class="btn btn-dark mb-3 ml-5">Buscar</button>
+            </div>
+    </div>        
              
 
     
