@@ -124,7 +124,7 @@ public class LodgingService {
     }
 
     public List<Lodging> listLodgingByQ(String q) {
-        return lR.findByQ("'%" + q + "%'");
+        return lR.findByQ("%" + q + "%");
     }
     public List<Lodging> listAllLodging() {
         return lR.findAll();

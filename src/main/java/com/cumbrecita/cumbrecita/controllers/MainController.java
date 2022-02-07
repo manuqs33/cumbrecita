@@ -105,6 +105,7 @@ public class MainController {
     
     @GetMapping("/lodging-list")
     public String listLodgings(HttpSession session,Model model, @RequestParam(required = false) String q) {
+        
         Client client = (Client) session.getAttribute("sessionClient");
         Owner owner = (Owner) session.getAttribute("sessionOwner");
 

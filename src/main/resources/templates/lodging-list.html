@@ -7,14 +7,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <head th:replace="components.html :: head"></head>
     
     <div th:replace="components.html :: navbar"></div>
+    <br/>
+    
+    <form th:action="@{/lodging-list}" >
+            <div class="col">
+              
+              <input
+                type="text"
+                style="width: 60%;"
+                name="q"
+                placeholder="Busque un alojamiento por nombre, capacidad o precio por noche"
+                
+              />
+              <button type="submit" class="btn btn-dark mb-3" style="margin-left: 3%; margin-top: 0.5%"
+                >Buscar</button
+              >
+            </div>
+            
+             
 
     
     <div class="row">
+        
 
         <div class="col-lg-1"></div>
         <div class="col-lg-10">
             <div class="tab-pane fade show active bg-light" id="4a">
                 <div class="tm-recommended-place-wrap">
+                    
                     <div class="tm-recommended-place" th:each="lodg : ${lodgings}">
                         <img th:src="${'/photo/lodging/' + lodg.id}" alt="Image" class="img-fluid tm-recommended-img">
                         </img>
