@@ -135,35 +135,35 @@ public class ClientController {
 //    }
 //
 ////    @PreAuthorize("hasAnyRole('CLIENT')")
-//    @PostMapping("/client/book")
-//    public String book(ModelMap model, @RequestParam String lodgingid, @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam String observations, HttpSession session, RedirectAttributes redirectAttributes) throws ErrorService {
-//        Client client = (Client) session.getAttribute("sessionClient");
-//        if (client == null) {
-//            return "redirect:/";
-//        }
-//        
-//        if (client != null) {
-//            String mail = client.getMail();
-//            model.put("namelog", mail);
-//        }
-//        Optional<Lodging> ans = lR.findById(lodgingid);
-//        if (ans.isPresent()) {
-//            Lodging lodging = ans.get();
-//            lodging.setT(Type.house);
-//            try {
-//                reservationservice.saveReservation(client, startDate, endDate, lodging, observations);
-//                redirectAttributes.addFlashAttribute("success", "Su reserva ha sido exitosa");
-//                model.put("msg", "Reservaste con exito");
-//            } catch (ErrorService ex) {
-//                redirectAttributes.addFlashAttribute("error", "No se pudo guardar la reserva");
-//                model.put("msg", "Hubo un error en la reserva");
-//            }
-//        } else {
-//            throw new ErrorService("No se encontró el alojamiento solicitado");
-//        }
-//
-//        return "success_reservation.html";
-//    }
+    @PostMapping("/client/book")
+    public String book(ModelMap model, @RequestParam String lodgingid, @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam String observations, HttpSession session, RedirectAttributes redirectAttributes) throws ErrorService {
+        Client client = (Client) session.getAttribute("sessionClient");
+        if (client == null) {
+            return "redirect:/";
+        }
+        
+        if (client != null) {
+            String mail = client.getMail();
+            model.put("namelog", mail);
+        }
+        Optional<Lodging> ans = lR.findById(lodgingid);
+        if (ans.isPresent()) {
+            Lodging lodging = ans.get();
+            lodging.setT(Type.house);
+            try {
+                reservationservice.saveReservation(client, startDate, endDate, lodging, observations);
+                redirectAttributes.addFlashAttribute("success", "Su reserva ha sido exitosa");
+                model.put("msg", "Reservaste con exito");
+            } catch (ErrorService ex) {
+                redirectAttributes.addFlashAttribute("error", "No se pudo guardar la reserva");
+                model.put("msg", "Hubo un error en la reserva");
+            }
+        } else {
+            throw new ErrorService("No se encontró el alojamiento solicitado");
+        }
+
+        return "success_reservation.html";
+    }
 //
 //    @GetMapping("/client/new-ticket")
 //    public String newTicket(ModelMap model, HttpSession session) {
