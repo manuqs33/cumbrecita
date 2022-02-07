@@ -24,6 +24,6 @@ public interface LodgingRepository extends JpaRepository<Lodging, String> {
     @Query("SELECT l FROM Lodging l WHERE l.o.id = :id")
     public List<Lodging> searchByOwner(@Param("id") String id);
 
-    @Query("SELECT l FROM Lodging l WHERE l.t = :type AND l.capacity <= :capacity")
+    @Query("SELECT l FROM Lodging l WHERE l.t = :type AND l.capacity >= :capacity")
     public List<Lodging> searchQuery(@Param("type") Type type, @Param("capacity") Integer capacity);
 }

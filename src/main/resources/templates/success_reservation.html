@@ -14,14 +14,14 @@
 
                         <h3 class="text-uppercase mb-4" th:if="${msg != null}" th:text="${msg}"><strong></strong></h3>
 
-                        <h3 class="text-uppercase mb-4" th:if="${error != null}" th:text="${error}"> <strong></strong> </h3>
+                        <h3 class="text-uppercase mb-4" th:if="${error != null}" th:text="${error}"><strong ></strong></h3>
 
 
 
-                        <div>
+                        
                             <a onclick ="location.href = '/reservation/list'" class="text-uppercase btn-success tm-btn" th:if="${error == null}">Ver en Reservas</a>      
                             <a href="/" class="text-uppercase btn-danger tm-btn">Volver al inicio</a>               
-                        </div>           
+                                 
                     </div>
                 </div>
             </div>            
