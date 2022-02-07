@@ -8,6 +8,6 @@ package com.cumbrecita.cumbrecita.enumc;
  */
 public enum Type {
 
-    house, room;
+    Casa, Habitacion;
 }
 
