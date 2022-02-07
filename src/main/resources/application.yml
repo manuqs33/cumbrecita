@@ -14,7 +14,7 @@ spring:
                     required: true
                     enable: true
     username: noreply.cumbrecita@gmail.com
-    password: oliteamo1928a
+    password: cumbrecita2021
     servlet:
       multipart:
         max-file-size: 10MB
