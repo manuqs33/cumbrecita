@@ -45,7 +45,7 @@ public class ReservationController {
     public String showReserv(ModelMap model, HttpSession session) {
         Client client = (Client) session.getAttribute("sessionClient");
         if (client == null) {
-            return "redirect:/";
+            return "redirect:/login";
         }
         
         if (client != null) {

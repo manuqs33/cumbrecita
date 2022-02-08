@@ -47,7 +47,7 @@ public class LodgingController {
     public String createLodging(ModelMap model, @RequestParam(required = false) String id, HttpSession session) {
         Owner o = (Owner) session.getAttribute("sessionOwner");
         if (o == null) {
-            return "redirect:/";
+            return "redirect:/login";
         }
         if (id != null) {
             Optional<Lodging> optional = lodgingService.listById(id);

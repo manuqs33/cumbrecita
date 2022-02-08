@@ -83,7 +83,9 @@ public class ClientController {
     public String reserve(HttpSession session,ModelMap model,@RequestParam String id){
         Client client = (Client) session.getAttribute("sessionClient");
         Owner owner = (Owner) session.getAttribute("sessionOwner");
-        
+        if (client == null) {
+            return "redirect:/login";
+        }
         
         if (owner != null) {
             String mail = owner.getMail();
