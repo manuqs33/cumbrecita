@@ -15,6 +15,10 @@ spring:
                     enable: true
     username: noreply.cumbrecita@gmail.com
     password: cumbrecita2021
+    servlet:
+      multipart:
+        max-file-size: 10MB
+        max-request-size: 10MB
  #Configuraci�n MySQL
   datasource: 
     url: jdbc:mysql://localhost:3306/cumbrecita?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8

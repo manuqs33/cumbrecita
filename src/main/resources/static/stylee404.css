@@ -1,0 +1,25 @@
+body {
+    height: 500px;
+    background-image: url("/imagenes/E404.png");
+    background-repeat:no-repeat;
+    background-position-x:center;
+    background-position-y:center;
+    background-size: 100rem;
+  }
+
+  button {
+    background-color: rgb(240, 99, 48); 
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display:flex;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    float:inline-start;
+  }
+  
+ 

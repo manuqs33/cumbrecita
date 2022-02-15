@@ -26,13 +26,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-public class OwnerService implements UserDetailsService {
+public class OwnerService {
 
     @Autowired
     private OwnerRepository oR;
 
     @Transactional
-    public void registerOwner(String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
+    public void registerOwner(String firstname, String lastname, String email, Long dni, Date bdate, Long phoneNumber, String password, String password2) throws ErrorService {
         validate(firstname, lastname, email, password, password2, dni);
 
         Owner owner = new Owner();
@@ -42,6 +42,7 @@ public class OwnerService implements UserDetailsService {
         owner.setMail(email);
         owner.setDni(dni);
         owner.setBirthdate(bdate);
+        owner.setPhoneNumber(phoneNumber);
 
         String encriptada = new BCryptPasswordEncoder().encode(password);
         owner.setPass(encriptada);
@@ -52,7 +53,7 @@ public class OwnerService implements UserDetailsService {
     }
 
     @Transactional
-    public void modificar(String id, String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
+    public void modify(String id, String firstname, String lastname, String email, Long dni, Date bdate, String password, String password2) throws ErrorService {
 
         validate(firstname, lastname, email, password, password2, dni);
 
@@ -81,30 +82,28 @@ public class OwnerService implements UserDetailsService {
         Optional<Owner> ans = oR.findById(id);
         if (ans.isPresent()) {
             Owner owner = ans.get();
-            if (owner.getIsactive()) {
-                throw new ErrorService("El usuario ya esta activo");
-            }
             owner.setIsactive(true);
             oR.save(owner);
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
     }
-    
+
     @Transactional
     public void deactivate(String id) throws ErrorService {
 
         Optional<Owner> ans = oR.findById(id);
         if (ans.isPresent()) {
             Owner owner = ans.get();
-            if (!owner.getIsactive()) {
-                throw new ErrorService("El usuario ya esta dado de baja");
-            }
             owner.setIsactive(false);
             oR.save(owner);
         } else {
             throw new ErrorService("No se encontro el usuario solicitado");
         }
+    }
+
+    public List<Owner> listOwners() {
+        return oR.findAll();
     }
 
     public void validate(String fistname, String lastname, String email, String password, String password2, Long dni) throws ErrorService {
@@ -128,26 +127,26 @@ public class OwnerService implements UserDetailsService {
         }
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Owner owner = oR.searchByEmail(email);
-
-        if (owner != null) {
-
-            List<GrantedAuthority> permisos = new ArrayList();
-
-            GrantedAuthority p1 = new SimpleGrantedAuthority("OWNER");
-            permisos.add(p1);
-
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            HttpSession session = attr.getRequest().getSession();
-            session.setAttribute("sessionClient", owner);
-
-            User user = new User(owner.getMail(), owner.getPass(), permisos);
-            return user;
-        } else {
-            return null;
-        }
-
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        Owner owner = oR.searchByEmail(email);
+//
+//        if (owner != null) {
+//
+//            List<GrantedAuthority> permisos = new ArrayList();
+//
+//            GrantedAuthority p1 = new SimpleGrantedAuthority("OWNER");
+//            permisos.add(p1);
+//
+//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//            HttpSession session = attr.getRequest().getSession();
+//            session.setAttribute("sessionOwner", owner);
+//
+//            User user = new User(owner.getMail(), owner.getPass(), permisos);
+//            return user;
+//        } else {
+//            return null;
+//        }
+//
+//    }
 }

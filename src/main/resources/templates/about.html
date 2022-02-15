@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--head with sylesheets and bootstrap-->
+
+<head th:replace="components.html :: head">
+</head>
+
+<body>
+
+
+<!--El navbar-->
+
+<div th:replace="components.html :: navbar"></div>
+
+ 
+<!-- trabajar acá contenido -->
+
+            <div class="row">
+
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8 text-justify bg-light">
+                    <br>
+                    <h2>QUIENES SOMOS</h2>
+                    <hr>
+                    <h6>Cumbrecita Reservas es una página para buscar alojamiento y registrar propiedades en La Cumbrecita</h6>
+
+                    <br>
+
+                    <p>Si eres un viajero en búsqueda de alojamiento, en Cumbrecita Reservas podrás encontrar una amplia gama 
+                        de alojamientos en el lugar, desde casas, cabañas, hostels, hasta habitaciones en hoteles.</p>
+
+                    <p>Todos los hospedajes que puedes encontrar en Cumbrecita Reservas son subidos a nuestra página por los mismos 
+                        propietarios que alquilan su alojamiento. Además, para la seguridad del viajero, 
+                        Cumbrecita Reservas verifica cada uno de los propietarios y los hospedajes que ofrecen para evitar 
+                        cualquier tipo de estafa o falsificación.</p>
+
+                    <p>Si quieres realizar una reserva a través de nuestra web, para poder hacerlo deberás estar registrado.</p>
+
+                    <br>
+
+                    <p>Si eres propietario de un lugar en La Cumbrecita, podrás registrarte como propietario en nuestra página 
+                        y subir tu propiedad para que viajeros puedan verla. En caso de que un viajero quiera alquilar su propiedad 
+                        podrá hacerlo directamente desde la página y se le será notificado.</p>
+
+                    <p>En el momento del registro de su propiedad podrás diferenciar entre habitación o casa, 
+                        subir fotos del lugar y una descripción.</p>
+                </div>
+            </div>
+ <div class="col-lg-2"></div>
+ <!-- footer -->
+
+    <div th:replace="components.html :: footer"></div>
+             
+    <!-- load JS files -->
+    <script src="js/jquery-1.11.3.min.js"></script>             
+    <script src="js/popper.min.js"></script>                      
+    <script src="js/bootstrap.min.js"></script>                 
+    <script src="js/datepicker.min.js"></script>                
+    <script src="js/jquery.singlePageNav.min.js"></script>      
+    <script src="slick/slick.min.js"></script>                  
+    <script src="js/jquery.scrollTo.min.js"></script>           
+    <script> 
+        
+ 
+        /* DOM is ready
+        ------------------------------------------------*/
+        $(function(){
+ 
+            // Change top navbar on scroll
+            $(window).on("scroll", function() {
+                if($(window).scrollTop() > 100) {
+                    $(".tm-top-bar").addClass("active");
+                } else {                    
+                 $(".tm-top-bar").removeClass("active");
+                }
+            });
+ 
+            // Smooth scroll to search form
+            $('.tm-down-arrow-link').click(function(){
+                $.scrollTo('#tm-section-search', 300, {easing:'linear'});
+            });
+ 
+            // Date Picker in Search form
+            var pickerCheckIn = datepicker('#inputCheckIn');
+            var pickerCheckOut = datepicker('#inputCheckOut');
+ 
+            // Update nav links on scroll
+            $('#tm-top-bar').singlePageNav({
+                currentClass:'active',
+                offset: 60
+            });
+ 
+            // Close navbar after clicked
+            $('.nav-link').click(function(){
+                $('#mainNav').removeClass('show');
+            });
+ 
+            // Slick Carousel
+            $('.tm-slideshow').slick({
+                infinite: true,
+                arrows: true,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            });
+        });
+    </script>  
+ 
+ </body>
+ 
+ </html>

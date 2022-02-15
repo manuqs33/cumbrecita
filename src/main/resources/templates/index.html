@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--head with sylesheets and bootstrap-->
+
+<head th:replace="components.html :: head">
+</head>
+
+<body>
+
+<!--El navbar-->
+
+<div th:replace="components.html :: navbar"></div>
+
+<!--Fin del NAVBAR-->
+
+<!--comienzo de header imagen-->
+<div class="tm-page-wrap mx-auto">
+    <section class="tm-banner">
+        <div class="tm-container-outer tm-banner-bg">
+            <div class="container">
+                <div class="row tm-banner-row tm-banner-row-header">
+                    <div class="col-xs-12">
+                        <div class="tm-banner-header">
+                            <h1 class="text-uppercase tm-banner-title">Viví La Cumbrecita</h1>
+                            <img src="img/puntos_3.png" alt="3 puntos">
+                            <h2 class="tm-banner-subtitle">Encontrá el alojamiento ideal para tu visita</h2>
+                            <a href="javascript:void(0)" class="tm-down-arrow-link"><i class="fa fa-2x fa-angle-down tm-down-arrow"></i></a>       
+                        </div>    
+                    </div>                  
+                </div> 
+                <div class="row tm-banner-row" id="tm-section-search">
+</body>
+
+<!--fin del header  - comienzo del buscador-->
+
+<!--BUSCADOR-->
+<div class="row tm-banner-row" id="tm-section-search">
+
+    <form action="/lodging-search" method="post" class="tm-search-form tm-section-pad-2">
+        <div class="form-row tm-search-form-row">
+            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+                <label for="type">Seleccione tipo de alojamiento:</label>
+                <select name="type" class="form-control tm-select" id="inputRoom">
+                    <option value="1" selected>Habitación</option>
+                    <option value="0">Casa</option>
+                </select>
+            </div>
+            <div class="form-group tm-form-group tm-form-group-1">
+                <div class="form-group tm-form-group tm-form-group-pad tm-form-group-2">
+                    <label for="capacity">Capacidad</label>
+                    <select name="capacity" class="form-control tm-select" id="inputRoom">
+                        <option value="1" >1 persona</option>
+                        <option value="2">2 personas</option>
+                        <option value="3">3 personas</option>
+                        <option value="4">4 personas</option>
+                        <option value="5">5 personas</option>
+                    </select>
+                </div>
+                <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+                </div>
+                <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+                </div>
+            </div>
+        </div>
+        <div class="form-row tm-search-form-row">
+            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+                <label for="checkin">Ingreso</label>
+                <input name="checkin" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+            </div>
+            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+                <label for="checkout">Salida</label>
+                <input name="checkout" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+            </div>
+            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+                <label for="submit">&nbsp;</label>
+                <button type="submit" class="btn btn-primary tm-btn tm-btn-search text-uppercase" id="btnSubmit">Ver
+                    Disponibilidad</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="tm-banner-overlay"></div>
+</div>
+</div>
+</section>
+<!--banner intermedio. 3 para que salgan cosas distintas según estado de login (no loggeado, dueño, cliente)-->
+
+<section class="p-5 tm-container-outer tm-bg-gray">            
+    <div class="container" >
+        <div class="row">
+            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center" >   
+                
+            
+                <div th:if="${session.sessionOwner != null}">                 
+                    <h2 class="text-uppercase mb-4"><strong>Iniciaste sesión como propietario</strong></h2>
+                    <p class="mb-4"> Agregá tu propiedad para llegar a más personas</p>
+                    <a href="/lodging" class="text-uppercase btn-primary tm-btn">Agregá tu propiedad</a> 
+                </div>  
+                <div th:if="${session.sessionClient != null}">                  
+                    <h2 class="text-uppercase mb-4"><strong>Iniciaste sesión</strong></h2>
+                    <p class="mb-4"> Hacé tu reserva!</p>
+                    <a href="/lodging-list" class="text-uppercase btn-primary tm-btn">Reservar</a>
+                </div>  
+            
+                <div sec:authorize="!isAuthenticated()">                  
+                    <h2 class="text-uppercase mb-4">Tu <strong>viaje</strong> es nuestra prioridad</h2>
+                    <p class="mb-4">Te acercamos las mejores opciones para tu confort y seguridad. Reservá con nosotros y viví esperiencias únicas en un entorno natural maravilloso.</p>
+                    <a href="/signup" class="text-uppercase btn-primary tm-btn">Registrate</a>  
+                </div>
+            </div>
+        </div>
+    </div>            
+</section>
+
+
+
+<!--banner intermedio. 3 para que salgan cosas distintas según estado de login (no loggeado, dueño, cliente)
+
+<section class="p-5 tm-container-outer tm-bg-gray" sec:authorize="!isAuthenticated()">            
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">                        
+                <h2 class="text-uppercase mb-4">Tu <strong>viaje</strong> es nuestra prioridad</h2>
+                <p class="mb-4">Te acercamos las mejores opciones para tu confort y seguridad. Reservá con nosotros y viví esperiencias únicas en un entorno natural maravilloso.</p>
+                <a href="/signup" class="text-uppercase btn-primary tm-btn">Registrate</a>                              
+            </div>
+        </div>
+    </div>            
+</section>
+
+ banner intermedio 2
+<section class="p-5 tm-container-outer tm-bg-gray" th:if="${session.sessionOwner != null}>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">
+                <h2 class="text-uppercase mb-4"><strong>Iniciaste sesión como propietario</strong></h2>
+                <p class="mb-4"> Agregá tu propiedad para llegar a más personas</p>
+                <a href="/lodging" class="text-uppercase btn-primary tm-btn">Agregá tu propiedad</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+banner intermedio 2
+<section class="p-5 tm-container-outer tm-bg-gray" th:if="${session.sessionClient != null}>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">
+                <h2 class="text-uppercase mb-4"><strong>Iniciaste sesión</strong></h2>
+                <p class="mb-4"> Hacé tu reserva!</p>
+                <a href="/reserve" class="text-uppercase btn-primary tm-btn">Reservar</a>
+            </div>
+        </div>
+    </div>
+</section>
+-->
+<div class="tm-container-outer" id="tm-section-2">
+                <section class="tm-slideshow-section">
+                    <div class="tm-slideshow">
+                        <img src="img/quehacer1.jpg" alt="Image">
+                        <img src="img/quehacer2.jpg" alt="Image">
+                        <img src="img/quehacer3.jpg" alt="Image">    
+                    </div>
+                    <div class="tm-slideshow-description tm-bg-primary">
+                        <h2 class="">Qué hacer en La Cumbrecita </h2>
+                        <p>En este pintoresco pueblo no hay que perderse: las caminatas por el centro histórico y las paradas gastronómicas en alguno de sus restaurantes. Para descubrir una nueva mirada son recomendables el arborismo y la tirolesa, entre otras actividades de aventura. Se suma el trekking por sus cerros y senderos y la visita a sus cascadas.</p>
+                        <a href="http://lacumbrecita.gov.ar/" target="__blank" class="text-uppercase tm-btn tm-btn-white tm-btn-white-primary">Más información</a>
+                    </div>        
+                </section>
+                <section class="clearfix tm-slideshow-section tm-slideshow-section-reverse">
+
+                    <div class="tm-right tm-slideshow tm-slideshow-highlight">
+                        <img src="img/quevisitar1.jpg" alt="Image">
+                        <img src="img/quevisitar2.jpg" alt="Image">
+                        <img src="img/quevisitar3.jpg" alt="Image">
+                    </div> 
+
+                    <div class="tm-slideshow-description tm-slideshow-description-left tm-bg-highlight">
+                        <h2 class="">Qué visitar en La Cumbrecita</h2>
+                        <p>Una de las mejores formas de conocer la rica historia que tiene La Cumbrecita es caminando por su centro histórico. En relación a esto, cabe recordar que este pueblo de montaña es peatonal y todo aquel que llegue en su auto particular deberá estacionarlo en la playa municipal sobre la ruta. Al descender del auto, habrá que ajustarse las zapatillas y prepararse para disfrutar del camino.</p>
+                        <a href="http://lacumbrecita.gov.ar/" target="__blank"  class="text-uppercase tm-btn tm-btn-white tm-btn-white-highlight">Más información</a>
+                    </div>                   
+
+                </section>
+                <!--<section class="tm-slideshow-section">
+                    <div class="tm-slideshow">
+                        <img src="img/gastronomia1.jpg" alt="Image">
+                        <img src="img/gastronomia2.jpg" alt="Image">
+                        <img src="img/gastronomia4.jpg" alt="Image">
+                    </div>
+                    <div class="tm-slideshow-description tm-bg-primary">
+                        <h2 class=""></h2>
+                        <p>las alternativas gastronómicas son diversas y amplias. para almuerzos y cenas se puede visitar Helmut, una de las casas más antiguas del pueblo, donde se pueden probar platos típicos y minutas. Para meriendas, se recomienda la casa de té Edelweiss Delikatessen, donde se pueden encontrar miles de variedades de infusiones y tortas caseras. Restaurante Engel es una buena opción para celíacos.</p>
+                        <a href="https://www.lacumbrecita.gob.ar/rincones.html" class="text-uppercase tm-btn tm-btn-white tm-btn-white-primary">Más información</a>
+                    </div>
+                </section>-->
+            </div>        
+            <br>
+            <br>
+
+  <!--Banner de registro como propietario-->          
+            <section class="p-5 tm-container-outer tm-bg-gray">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 mx-auto tm-about-text-wrap text-center" sec:authorize="!isAuthenticated()">
+                            <h2 class="text-uppercase mb-4"><strong>Conectamos</strong> viajeros con los mejores hospedajes</h2>
+                            <p class="mb-4"> Registrate como dueño y agrega tu propiedad para llegar a más personas</p>
+                            <a href="/owner" class="text-uppercase btn-primary tm-btn">Registrate como dueño y agregá tu propiedad</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+<!--OFERTAS DE ALOJAMIENTO-->
+<div class="tab-content clearfix">                  
+    <!-- Tab 4 -->
+    <div class="tab-pane fade show active" id="4a">
+        <div class="tm-recommended-place-wrap">
+            <div class="tm-recommended-place">
+                <img src="img/Ruca Alihuen1.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                <div class="tm-recommended-description-box">
+                    <h3 class="tm-recommended-title">Cabañas Ruca Alihuen</h3>
+                    <p class="tm-text-highlight">Junto a La Capilla, La Cumbrecita</p>
+                    <p class="tm-text-gray">Cabañas Ruca Alihuen los invita a disfrutar de acogedoras cabañas en quebracho, sobre un amplio parque arbolado, en el corazon del pueblo.</p>   
+                </div>
+                <a href="/lodging-list" class="tm-recommended-price-box">
+                    <p class="tm-recommended-price">$8500</p>
+                    <p class="tm-recommended-price-link">Más información</p>
+                </a>                        
+            </div>
+
+            <div class="tm-recommended-place">
+                <img src="img/losabedules1.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                <div class="tm-recommended-description-box">
+                    <h3 class="tm-recommended-title">Cabañas Los Abedules</h3>
+                    <p class="tm-text-highlight">Calle Carpintero 1, La Cumbrecita</p>
+                    <p class="tm-text-gray">Cabañas Los Abedules, los invita a conocer un lugar inolvidable al que querrán volver.</p>   
+                </div>
+                <div id="preload-hover-img"></div>
+                <a href="/lodging-list" class="tm-recommended-price-box">
+                    <p class="tm-recommended-price">$9000</p>
+                    <p class="tm-recommended-price-link">Más información</p>
+                </a>
+            </div>
+
+            <div class="tm-recommended-place">
+                <img src="img/aguas_claras1.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                <div class="tm-recommended-description-box">
+                    <h3 class="tm-recommended-title">Aguas Claras Chalets de Montaña</h3>
+                    <p class="tm-text-highlight">Orillas de Río del Medio Frente a los Cerros Cristal, La Cumbrecita</p>
+                    <p class="tm-text-gray">Aguas Claras Chalets de Montaña, los invita a conocer un paisaje paradisíaco, en el que se pueden realizar variadas actividades recreativas.</p>   
+                </div>
+                <a href="/lodging-list" class="tm-recommended-price-box">
+                    <p class="tm-recommended-price">$12000</p>
+                    <p class="tm-recommended-price-link">Más información</p>
+                </a>
+            </div>
+
+            <div class="tm-recommended-place">
+                <img src="img/laquebrada1.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                <div class="tm-recommended-description-box">
+                    <h3 class="tm-recommended-title">Loft La Quebrada</h3>
+                    <p class="tm-text-highlight">Calle Pública S / N - A 150 Metros del Puente de Ingreso, La Cumbrecita</p>
+                    <p class="tm-text-gray">Loft La Quebrada, una excelente opción, a sólo 150 Metros del Río y del Centro del Pueblo.</p>   
+                </div>
+                <a href="/lodging-list" class="tm-recommended-price-box">
+                    <p class="tm-recommended-price">$5000</p>
+                    <p class="tm-recommended-price-link">Más información</p>
+                </a>
+            </div> 
+            
+            <div class="tm-recommended-place">
+                <img src="img/anam1.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                <div class="tm-recommended-description-box">
+                    <h3 class="tm-recommended-title">Cabañas Anam</h3>
+                    <p class="tm-text-highlight">Calle Pública S / N, La Cumbrecita</p>
+                    <p class="tm-text-gray">Cabañas Anam, tendrá la oportunidad de aprovechar al máximo la naturaleza y la tranquilidad de estar en un lugar alejado de zonas urbanas.</p>   
+                </div>
+                <a href="/lodging-list" class="tm-recommended-price-box">
+                    <p class="tm-recommended-price">$6000</p>
+                    <p class="tm-recommended-price-link">Más información</p>
+                </a>
+            </div>    
+
+            <div class="tm-recommended-place">
+                <img src="img/Hcumbrecita1.jpg" alt="Image" class="img-fluid tm-recommended-img">
+                <div class="tm-recommended-description-box">
+                    <h3 class="tm-recommended-title">Hotel La Cumbrecita</h3>
+                    <p class="tm-text-highlight">Calle Pública s/n, 5194 La Cumbrecita,</p>
+                    <p class="tm-text-gray">El Hotel La Cumbrecita se encuentra a 200 metros del centro de La Cumbrecita. Ofrece habitaciones y bungalows con conexión Wi-Fi gratuita y balcón privado, y dispone de un jardín con piscina y zona de barbacoa, un restaurante y una pista de tenis.</p>   
+                </div>
+                <a href="/lodging-list" class="tm-recommended-price-box">
+                    <p class="tm-recommended-price">$12000</p>
+                    <p class="tm-recommended-price-link">Más información</p>
+                </a>
+            </div>    
+        </div>   
+        <!--                     
+        <a href="#" class="text-uppercase btn-primary tm-btn mx-auto tm-d-table mb-5">Encontrá más Alojamientos</a>
+        -->
+    </div>  
+</div>
+
+            
+<br>
+<br>
+<br>
+<br>
+
+<!--MAPA Y CONTACTO-->
+            <div class="tm-container-outer tm-position-relative" id="tm-section-6">
+                <div id="google-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9043.127071640203!2d-64.78039889821041!3d-31.897214886897114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d2cb22ee24bc3f%3A0x9455570e961749c!2sLa%20Cumbrecita%2C%20C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1643039996357!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div> 
+            
+ 
+<!--Formulario de contacto, hay que codearlo para que funcione-->             
+                <form action="/contact/sendmessage" method="post" class="tm-contact-form">
+                    <h2 id="contact"> Contactanos</h2>
+                    <div class="form-group tm-name-container">
+                        <input type="text" id="contact_name" name="name" class="form-control" placeholder="Nombre"  required/>
+                    </div>
+                    <div class="form-group tm-email-container">
+                        <input type="email" id="email_contacto" name="email" class="form-control" placeholder="Email"  required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="asunto" name="subject" class="form-control" placeholder="Asunto"  required/>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="mensaje" name="message" class="form-control" rows="9" placeholder="Mensaje" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary tm-btn-primary tm-btn-send text-uppercase">Enviar mensaje</button>
+                </form>
+            </div>
+            
+            <!-- CIERRE CONTACTO-->
+           
+         
+         
+        
+        
+
+
+     <!-- footer -->
+     <div th:replace="components.html :: footer"></div>
+
+    <!-- load JS files -->
+    <script src="js/jquery-1.11.3.min.js"></script>             
+    <script src="js/popper.min.js"></script>                      
+    <script src="js/bootstrap.min.js"></script>                 
+    <script src="js/datepicker.min.js"></script>                
+    <script src="js/jquery.singlePageNav.min.js"></script>      
+    <script src="slick/slick.min.js"></script>                  
+    <script src="js/jquery.scrollTo.min.js"></script>           
+    <script> 
+       
+        
+
+        /* DOM is ready
+        ------------------------------------------------*/
+        $(function(){
+
+            // Change top navbar on scroll
+            $(window).on("scroll", function() {
+                if($(window).scrollTop() > 100) {
+                    $(".tm-top-bar").addClass("active");
+                } else {                    
+                 $(".tm-top-bar").removeClass("active");
+                }
+            });
+
+            // Smooth scroll to search form
+            $('.tm-down-arrow-link').click(function(){
+                $.scrollTo('#tm-section-search', 300, {easing:'linear'});
+            });
+
+            // Date Picker in Search form
+            var pickerCheckIn = datepicker('#inputCheckIn');
+            var pickerCheckOut = datepicker('#inputCheckOut');
+
+            // Update nav links on scroll
+            $('#tm-top-bar').singlePageNav({
+                currentClass:'active',
+                offset: 60
+            });
+
+            // Close navbar after clicked
+            $('.nav-link').click(function(){
+                $('#mainNav').removeClass('show');
+            });
+
+            // Slick Carousel
+            $('.tm-slideshow').slick({
+                infinite: true,
+                arrows: true,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            });
+        });
+    </script>             
+
+</body>
+</html>

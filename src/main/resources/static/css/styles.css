@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital@1&display=swap');
+
+* {
+   box-sizing: border-box; 
+}
+
+.main-header{
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+     url("../../static/imagenes/la-olla.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    font-family:sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-nav{
+   
+    display: flex;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+    position: absolute;
+    width: 100%;
+    z-index: 5;
+}
+
+.logo {
+    background: url("../../static/imagenes/025d98ab-8405-4b83-9d51-cd1bb41434f7.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0px;
+    padding: 50px 50px;
+}
+
+ul{
+    
+    display: flex;
+    margin-left: auto;
+    margin-right: 100px;
+
+}
+
+ul li a {
+    display: inline-block;
+    padding: 50px 50px;
+    color: #fff;
+    
+}
+
+ul li a:hover {
+background:none;
+
+}
+
+
+.content-header{
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+}
+
+.content-header h1 {
+    font-size: 7rem;
+}
+
+.content-header p {
+    font-size: 1.5rem;
+    margin: 15px 30px;
+}
+
+
+.content-header a {
+    font-size: 1.3rem;
+    display: inline-block;
+    padding: 15px 20px;
+    background: rgb(3, 3, 46);
+    color: #fff;
+
+}
+
+.content-header a:hover {
+    background: rgb(8, 8, 122);
+    border: 2px solid #fff;
+    padding: 13px 18px;
+}
+
+

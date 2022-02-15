@@ -1,0 +1,161 @@
+<!DOCTYPE html >
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="components.html :: head"></head>
+    
+    <div th:replace="components.html :: navbar"></div>
+
+    
+    <div th:if="${msg}" class="alert alert-warning mt-3" role="alert">
+            <span th:text="${msg}"></span>
+        </div>   
+    <div class="row">
+
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class="tab-pane fade show active bg-light" id="4a">
+                        <div class="tm-recommended-place-wrap">
+                            <div class="tm-recommended-place" th:each="lodg : ${lodgings}">
+                                <img th:src="${'/photo/lodging/' + lodg.id}" alt="Image" class="img-fluid tm-recommended-img">
+                                </img>
+                                <div class="tm-recommended-description-box">
+                                    <h3 class="tm-recommended-title" th:text="${lodg.name}"></h3>
+                                    <p class="tm-text-highlight" th:text="${lodg.address}"></p>
+                                    <p class="tm-text-highlight">Capacidad: <span th:text="${lodg.capacity}"></span></p>
+                                    <p class="tm-text-highlight">Tipo de Alojamiento: <span th:text="${lodg.t}"></span></p>
+                                    <p class="tm-text-gray" th:text="${lodg.description}"></p>   
+                                </div>
+                           
+                                <div class="tm-recommended-price-box pl-5">
+                                    <p class="tm-recommended-price" > Precio: $<span th:text="${lodg.pricepernight}"></span> p/noche</p>
+                                </div> 
+                                                      
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+    </div> 
+
+            <div class="row">
+                <div class="col-lg-2"></div>
+                
+                    <div class="col-lg-10">
+                            
+                                
+                                    <br>
+                                    <h3>Completá tu reserva</h3>
+                                
+                                <br>
+                    </div>
+            </div>
+            
+               <div class="row">
+                <div class="col-lg-2"></div>
+                
+                    <div class="col-lg-10">
+                    <form  action="/client/book" method="POST">
+                        <div class="row">
+                            <input type="hidden" th:value="${lodgings.id}" name="lodgingid">
+
+                            
+                            <div class="form-group">
+                                <div class="col-lg-2">
+                                    <label for="startDate" class="col-lg-3 control-label p-2"><b>Ingreso</b></label>
+                                    <input type="date" name="startDate" id="startDate" class="p-2" required>  
+                                </div>
+                            </div>
+
+                                
+                            <div class="form-group">    
+                                <div class="col-lg-2">
+                                    <label for="endDate" class="col-lg-3 control-label p-2"><b>Salida</b></label>
+                                    <input type="date" name="endDate" id="endDate" class="p-2" required>
+                                </div>
+                            </div>   
+                                
+                                <div class="form-group">
+                                    <div class="col-lg-2">
+                                        <label for="observations" class="col-lg-3 control-label p-2"><b>Observaciones</b></label>
+                                        <textarea id="observations" name="observations" rows="2" cols="30" class="p-2" required></textarea>
+                                    </div>
+                                </div>
+                               
+                                <div class="form-group">
+                                <div class="col-lg-2">
+                                    <button type="submit" class="signupbtn btn btn-success p-2">Reservar</button>
+                                </div>
+                            </div> 
+                        </div>    
+
+                    </form>   
+                </div> 
+
+            </div>           
+        
+        
+                                
+                    
+                   <!-- <td th:text="${lodg.t}"></td> -->
+                    
+                    
+                <div th:replace="components.html :: footer"></div>
+                
+            <script src="js/jquery-1.11.3.min.js"></script>             
+            <script src="js/popper.min.js"></script>                      
+            <script src="js/bootstrap.min.js"></script>                 
+            <script src="js/datepicker.min.js"></script>                
+            <script src="js/jquery.singlePageNav.min.js"></script>      
+            <script src="slick/slick.min.js"></script>                  
+            <script src="js/jquery.scrollTo.min.js"></script>           
+            <script> 
+
+            $(function(){
+
+            // Change top navbar on scroll
+            $(window).on("scroll", function() {
+                if($(window).scrollTop() > 100) {
+                    $(".tm-top-bar").addClass("active");
+                } else {                    
+                $(".tm-top-bar").removeClass("active");
+                }
+            });
+
+            // Smooth scroll to search form
+            $('.tm-down-arrow-link').click(function(){
+                $.scrollTo('#tm-section-search', 300, {easing:'linear'});
+            });
+
+            // Date Picker in Search form
+            var pickerCheckIn = datepicker('#inputCheckIn');
+            var pickerCheckOut = datepicker('#inputCheckOut');
+
+            // Update nav links on scroll
+            $('#tm-top-bar').singlePageNav({
+                currentClass:'active',
+                offset: 60
+            });
+
+            // Close navbar after clicked
+            $('.nav-link').click(function(){
+                $('#mainNav').removeClass('show');
+            });
+
+            // Slick Carousel
+            $('.tm-slideshow').slick({
+                infinite: true,
+                arrows: true,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            });
+            });
+            </script>  
+</body>
+        
+
+
+   
+</html>
